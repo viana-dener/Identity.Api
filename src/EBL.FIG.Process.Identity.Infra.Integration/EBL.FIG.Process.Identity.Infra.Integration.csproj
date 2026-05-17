@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup> <Folder Include="Interfaces\" /> <Folder Include="Services\" /> <Folder Include="Tools\" /> </ItemGroup> 
+
+  <ItemGroup>
+    <ProjectReference Include="..\EBL.FIG.Process.Identity.Domain\EBL.FIG.Process.Identity.Domain.csproj" />
+  </ItemGroup></Project>

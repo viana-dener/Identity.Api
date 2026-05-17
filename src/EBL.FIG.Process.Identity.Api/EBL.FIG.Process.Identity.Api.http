@@ -1,0 +1,6 @@
+@EBL.FIG.Process.Identity.Api_HostAddress = http://localhost:5033
+
+GET {{EBL.FIG.Process.Identity.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

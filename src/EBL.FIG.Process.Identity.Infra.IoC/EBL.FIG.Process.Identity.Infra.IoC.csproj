@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="16.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="10.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="10.0.1" />
+  </ItemGroup>
+
+	<ItemGroup>
+    <ProjectReference Include="..\EBL.FIG.Process.Identity.Application\EBL.FIG.Process.Identity.Application.csproj" />
+    <ProjectReference Include="..\EBL.FIG.Process.Identity.Infra.Data\EBL.FIG.Process.Identity.Infra.Data.csproj" />
+    <ProjectReference Include="..\EBL.FIG.Process.Identity.Infra.Integration\EBL.FIG.Process.Identity.Infra.Integration.csproj" />
+    <ProjectReference Include="..\EBL.FIG.Process.Identity.Domain\EBL.FIG.Process.Identity.Domain.csproj" />
+    <ProjectReference Include="..\EBL.FIG.Process.Identity.Infra.Job\EBL.FIG.Process.Identity.Infra.Job.csproj" />
+  </ItemGroup>
+</Project>
