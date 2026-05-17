@@ -10,12 +10,12 @@ public class TenantEntity : Entity, IAggregateRoot
 {
     private readonly List<UserEntity> _users = [];
 
-    public string Name { get; private set; }
-    public string Description { get; private set; }
-    public string Alias { get; private set; }
-    public string UrlImage { get; private set; }
-    public string Settings { get; private set; }
-    public string Remarks { get; private set; }
+    public string? Name { get; private set; }
+    public string? Description { get; private set; }
+    public string? Alias { get; private set; }
+    public string? UrlImage { get; private set; }
+    public string? Settings { get; private set; }
+    public string? Remarks { get; private set; }
     public bool IsActive { get; private set; }
     public bool IsDeleted { get; private set; }
 
@@ -28,7 +28,7 @@ public class TenantEntity : Entity, IAggregateRoot
     /// <summary>
     /// Construtor para criação de um novo Tenant
     /// </summary>
-    public TenantEntity(string name, string description, string alias, string urlImage, string settings, string remarks, int createdBy)
+    public TenantEntity(string name, string description, string alias, string? urlImage, string? settings, string? remarks, int createdBy)
     {
         Name = name;
         Description = description;
@@ -42,7 +42,7 @@ public class TenantEntity : Entity, IAggregateRoot
         AddedOn = DateTime.UtcNow;
     }
 
-    public void Update(string name, string description, string alias, string urlImage, string settings, string remarks, int modifiedBy)
+    public void Update(string name, string description, string alias, string? urlImage, string? settings, string? remarks, int modifiedBy)
     {
         Name = name;
         Description = description;

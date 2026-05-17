@@ -12,10 +12,10 @@ public class UserRoleEntity
     public int RoleId { get; private set; }
 
     // Navigation Properties
-    public TenantEntity Tenant { get; private set; }
-    public AppEntity App { get; private set; }
-    public UserEntity User { get; private set; }
-    public RoleEntity Role { get; private set; }
+    public TenantEntity? Tenant { get; private set; }
+    public AppEntity? App { get; private set; }
+    public UserEntity? User { get; private set; }
+    public RoleEntity? Role { get; private set; }
 
     // Construtor protegido para o EF Core
     protected UserRoleEntity() { }

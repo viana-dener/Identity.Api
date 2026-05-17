@@ -10,17 +10,17 @@ public class RefreshTokenEntity : Entity
     public int TenantId { get; private set; }
     public int AppId { get; private set; }
     public int UserId { get; private set; }
-    public byte[] TokenHash { get; private set; }
-    public DateTime ExpiresAt { get; private set; }
+    public byte[]? TokenHash { get; private set; }
+    public DateTime? ExpiresAt { get; private set; }
     public DateTime? RevokedAt { get; private set; }
     public int? RevokedBy { get; private set; }
 
     // Navigation Properties
-    public UserEntity User { get; private set; }
+    public UserEntity? User { get; private set; }
 
     protected RefreshTokenEntity() { }
 
-    public RefreshTokenEntity(int tenantId, int appId, int userId, byte[] tokenHash, DateTime expiresAt, int createdBy)
+    public RefreshTokenEntity(int tenantId, int appId, int userId, byte[] tokenHash, DateTime? expiresAt, int createdBy)
     {
         if (tenantId <= 0) throw new ArgumentException("TenantId inválido", nameof(tenantId));
         if (appId <= 0) throw new ArgumentException("AppId inválido", nameof(appId));

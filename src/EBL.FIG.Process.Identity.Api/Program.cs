@@ -64,13 +64,13 @@ var app = builder.Build();
 
 var autoMigrate = builder.Configuration.GetValue<bool>("Database:AutoMigrate", true);
 
-app.InitializeDatabaseAsync(autoMigrate).GetAwaiter().GetResult();
+await app.InitializeDatabaseAsync(autoMigrate);
 
 // Servir arquivos estáticos (necessário para custom.js e custom.css do Swagger)
 app.UseStaticFiles();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
+if (app.Environment.IsDevelopment())
 {
     app.UseSwaggerConfiguration();
 }

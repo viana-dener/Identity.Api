@@ -9,14 +9,14 @@ public class RoleEntity : Entity
 {
     public int TenantId { get; private set; }
     public int AppId { get; private set; }
-    public string Name { get; private set; }
-    public string Description { get; private set; }
+    public string? Name { get; private set; }
+    public string? Description { get; private set; }
     public bool IsActive { get; private set; }
     public bool IsDeleted { get; private set; }
 
     // Navigation Properties
-    public TenantEntity Tenant { get; private set; }
-    public AppEntity App { get; private set; }
+    public TenantEntity? Tenant { get; private set; }
+    public AppEntity? App { get; private set; }
 
     private readonly List<RolePermissionEntity> _permissions = new();
     public IReadOnlyCollection<RolePermissionEntity> Permissions => _permissions.AsReadOnly();

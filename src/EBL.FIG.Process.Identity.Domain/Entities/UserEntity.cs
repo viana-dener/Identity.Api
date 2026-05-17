@@ -8,17 +8,17 @@ namespace EBL.FIG.Process.Identity.Domain.Entities;
 public class UserEntity : Entity
 {
     public int TenantId { get; private set; }
-    public string Name { get; private set; }
-    public string LoginIdentifier { get; private set; }
-    public string NormalizedLoginIdentifier { get; private set; }
-    public string PasswordHash { get; private set; }
-    public string UrlImage { get; private set; }
+    public string? Name { get; private set; }
+    public string? LoginIdentifier { get; private set; }
+    public string? NormalizedLoginIdentifier { get; private set; }
+    public string? PasswordHash { get; private set; }
+    public string? UrlImage { get; private set; }
     public DateTime? LastAccessAt { get; private set; }
     public bool IsActive { get; private set; }
     public bool IsDeleted { get; private set; }
 
     // Navigation Properties
-    public TenantEntity Tenant { get; private set; }
+    public TenantEntity? Tenant { get; private set; }
 
     private readonly List<UserRoleEntity> _userRoles = new();
     public IReadOnlyCollection<UserRoleEntity> UserRoles => _userRoles.AsReadOnly();
@@ -29,7 +29,7 @@ public class UserEntity : Entity
     /// <summary>
     /// Construtor para criação de um novo usuário
     /// </summary>
-    public UserEntity(int tenantId, string name, string loginIdentifier, string passwordHash, string urlImage, int createdBy)
+    public UserEntity(int tenantId, string name, string loginIdentifier, string passwordHash, string? urlImage, int createdBy)
     {
         TenantId = tenantId;
         Name = name;
@@ -42,7 +42,7 @@ public class UserEntity : Entity
         AddedBy = createdBy;
     }
 
-    public void Update(string name, string urlImage, int modifiedBy)
+    public void Update(string name, string? urlImage, int modifiedBy)
     {
         Name = name;
         UrlImage = urlImage;
