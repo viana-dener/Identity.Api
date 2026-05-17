@@ -25,6 +25,9 @@ public static class ConfigurationValidator
         // Valida CORS (se habilitado)
         ValidateCors(configuration, environment, errors);
 
+        // Valida segurança de Swagger e Hangfire em produção
+        ValidateProductionExposure(configuration, environment, errors);
+
         // Se houver erros, lança exceção com chaves de mensagem para permitir tradução posterior
         if (errors.Any())
         {
@@ -113,5 +116,27 @@ public static class ConfigurationValidator
                 errors.Add("Config.Cors.PolicyNameMissing");
             }
         }
+    }
+
+    private static void ValidateProductionExposure(IConfiguration configuration, IWebHostEnvironment environment, List<string> errors)
+    {
+        if (!environment.IsProduction())
+            return;
+
+        // Swagger nunca deve estar habilitado em Production
+        var swaggerEnabled = configuration.GetValue<bool?>("Swagger:Enabled");
+        if (swaggerEnabled == true)
+            errors.Add("Config.Security.SwaggerEnabledInProduction");
+
+        // Hangfire dashboard nunca deve estar habilitado em Production
+        var hangfireEnabled = configuration.GetValue<bool?>("HangfireDashboard:Enabled");
+        if (hangfireEnabled == true)
+            errors.Add("Config.Security.HangfireEnabledInProduction");
+
+        // Em produção, Basic Auth com senha padrão é inaceitável
+        var requireBasicAuth = configuration.GetValue<bool>("HangfireDashboard:RequireBasicAuth", true);
+        var hangfirePassword = configuration.GetValue<string>("HangfireDashboard:Password");
+        if (requireBasicAuth && (string.IsNullOrWhiteSpace(hangfirePassword) || hangfirePassword == "changeme" || hangfirePassword == "dev-only"))
+            errors.Add("Config.Security.HangfireWeakPassword");
     }
 }

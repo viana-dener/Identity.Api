@@ -52,5 +52,16 @@ public static class AuthEndpoint
         .Produces(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status400BadRequest)
         .Produces(StatusCodes.Status401Unauthorized);
+
+        groupV1.MapPost("/logout", async ([FromBody] RevokeRequest request, [FromServices] IAuthAppService authService, [FromServices] INotify notify, CancellationToken ct) =>
+        {
+            await authService.LogoutAsync(request, ct);
+            return notify.CustomResponse<object>(null);
+        })
+        .WithName("Auth.Logout")
+        .RequireAuthorization()
+        .WithSummary("Swagger.Endpoint.Auth.Logout.Summary")
+        .Produces(StatusCodes.Status200OK)
+        .Produces(StatusCodes.Status401Unauthorized);
     }
 }

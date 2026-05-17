@@ -55,6 +55,7 @@ builder.Services.AddAuthorization(options =>
 builder.Services.AddRateLimitingConfiguration(builder.Configuration);
 builder.Services.AddCorsConfiguration(builder.Configuration);
 builder.Services.AddHangfireConfiguration(builder.Configuration);
+builder.Services.AddHealthCheckConfiguration(builder.Configuration);
 builder.Services.AddDependencyInjection(builder.Configuration);
 
 builder.Services.AddScoped<ICurrentUserService, CurrentUserApiService>();
@@ -70,9 +71,10 @@ await app.InitializeDatabaseAsync(autoMigrate);
 app.UseStaticFiles();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+var swaggerEnabled = builder.Configuration.GetValue<bool>("Swagger:Enabled", !app.Environment.IsProduction());
+if (swaggerEnabled && !app.Environment.IsProduction())
 {
-    app.UseSwaggerConfiguration();
+    app.UseSwaggerConfiguration(app.Environment);
 }
 
 // Middlewares customizados
@@ -85,10 +87,14 @@ app.UseMiddleware<NotificationMiddleware>();
 
 app.UseHttpsRedirection();
 
-app.UseHangfireDashboard("/hangfire", new DashboardOptions
+var hangfireEnabled = builder.Configuration.GetValue<bool>("HangfireDashboard:Enabled", false);
+if (hangfireEnabled && !app.Environment.IsProduction())
 {
-    Authorization = new[] { app.Services.GetRequiredService<HangfireDashboardAuthorizationFilter>() }
-});
+    app.UseHangfireDashboard("/hangfire", new DashboardOptions
+    {
+        Authorization = new[] { app.Services.GetRequiredService<HangfireDashboardAuthorizationFilter>() }
+    });
+}
 
 app.UseHangfireServerWithDynamicQueues();
 
@@ -108,6 +114,8 @@ if (corsEnabled)
 // Middlewares de autenticação e autorização
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseHealthCheckEndpoint();
 
 app.MapEndpointsFromAssembly();
 

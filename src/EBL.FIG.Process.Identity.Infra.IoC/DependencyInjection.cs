@@ -76,6 +76,8 @@ public static class DependencyInjection
         services.AddScoped<IActionAppService, ActionAppService>();
         services.AddScoped<IAppAppService, AppAppService>();
         services.AddScoped<IAuthAppService, AuthAppService>();
+        services.AddScoped<IJwtTokenService, JwtTokenService>();
+        services.AddScoped<IRefreshTokenService, RefreshTokenService>();
         services.AddScoped<IJwtKeyAppService, JwtKeyAppService>();
         services.AddScoped<IJobAppService, JobAppService>();
         services.AddScoped<IResourceAppService, ResourceAppService>();

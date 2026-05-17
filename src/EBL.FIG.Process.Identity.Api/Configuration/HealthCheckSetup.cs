@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+﻿using EBL.FIG.Process.Identity.Infra.Data.Context;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using System.Text.Json;
 
 namespace EBL.FIG.Process.Identity.Api.Configuration;
@@ -11,14 +13,30 @@ namespace EBL.FIG.Process.Identity.Api.Configuration;
 /// configuration.</remarks>
 public static class HealthCheckSetup
 {
-    /// <summary>
-    /// Adds a JSON-formatted health check endpoint at the path "/healthz" to the application's request pipeline.
-    /// </summary>
-    /// <remarks>The endpoint responds with a JSON payload containing the overall health status and details
-    /// for each registered health check. The response is suitable for use with monitoring systems and load
-    /// balancers.</remarks>
-    /// <param name="app">The application builder to configure with the health check endpoint. Must implement IEndpointRouteBuilder.</param>
-    /// <returns>The same IApplicationBuilder instance so that additional configuration can be chained.</returns>
+    public static IServiceCollection AddHealthCheckConfiguration(this IServiceCollection services, IConfiguration configuration)
+    {
+        var hcBuilder = services.AddHealthChecks();
+
+        var connectionString = configuration.GetConnectionString("DefaultConnection");
+        if (!string.IsNullOrWhiteSpace(connectionString))
+        {
+            hcBuilder.AddSqlServer(
+                connectionString: connectionString,
+                healthQuery: "SELECT 1",
+                configure: null,
+                name: "sqlserver",
+                failureStatus: HealthStatus.Unhealthy,
+                tags: ["db", "sql", "sqlserver"]);
+
+            hcBuilder.AddDbContextCheck<IdentityDbContext>(
+                name: "dbcontext",
+                failureStatus: HealthStatus.Degraded,
+                tags: ["db", "efcore"]);
+        }
+
+        return services;
+    }
+
     public static IApplicationBuilder UseHealthCheckEndpoint(this IApplicationBuilder app)
     {
         var routeBuilder = (IEndpointRouteBuilder)app;

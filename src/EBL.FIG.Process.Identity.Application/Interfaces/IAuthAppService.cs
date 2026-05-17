@@ -8,4 +8,5 @@ public interface IAuthAppService
     Task<AuthDetailResponse> RegisterAsync(RegisterRequest request, CancellationToken ct);
     Task<AuthDetailResponse> LoginAsync(LoginRequest request, CancellationToken ct);
     Task<AuthDetailResponse> RefreshAsync(RefreshRequest request, CancellationToken ct);
+    Task LogoutAsync(RevokeRequest request, CancellationToken ct);
 }

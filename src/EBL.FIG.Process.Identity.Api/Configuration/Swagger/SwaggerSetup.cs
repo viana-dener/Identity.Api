@@ -107,10 +107,13 @@ public static class SwaggerSetup
     }
 
     /// <summary>
-    /// Configura o Swagger UI com suporte a multi-idiomas
+    /// Configura o Swagger UI com suporte a multi-idiomas.
+    /// Não deve ser chamado em ambiente Production.
     /// </summary>
-    public static void UseSwaggerConfiguration(this WebApplication app)
+    public static void UseSwaggerConfiguration(this WebApplication app, IWebHostEnvironment environment)
     {
+        if (environment.IsProduction())
+            throw new InvalidOperationException("Swagger não pode ser habilitado em ambiente Production.");
         // ✅ Adiciona o middleware de localização do Swagger ANTES do UseSwagger
         app.UseMiddleware<Middleware.SwaggerLocalizationMiddleware>(
             new List<string> { "pt-PT", "en-US", "es-ES" }
