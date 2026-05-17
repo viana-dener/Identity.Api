@@ -128,7 +128,6 @@ public static class ActionEndpoint
             return notify.CustomResponse(success);
         })
         .CustomAuthorize("Admin,BackOffice,Manager", "Plans", "BulkUpload")
-        .AllowAnonymous()
         .WithName("BulkUploadAction")
         .WithSummary("Swagger.Endpoint.Action.BulkUpload.Summary")
         .DisableAntiforgery()

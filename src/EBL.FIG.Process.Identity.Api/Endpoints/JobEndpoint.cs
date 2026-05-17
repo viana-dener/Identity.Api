@@ -21,7 +21,6 @@ public static class JobEndpoint
             return notify.CustomResponse(response);
         })
         .CustomAuthorize("Admin,BackOffice", "JobDefinitions", "Read")
-        .AllowAnonymous()
         .WithName("GetAllJob")
         .WithSummary("Swagger.Endpoint.Job.GetAll.Summary")
         .Produces(StatusCodes.Status200OK)
@@ -34,7 +33,6 @@ public static class JobEndpoint
             return notify.CustomResponse(response);
         })
         .CustomAuthorize("Admin,BackOffice", "JobDefinitions", "Read")
-        .AllowAnonymous()
         .WithName("GetJobById")
         .WithSummary("Swagger.Endpoint.Job.GetById.Summary")
         .Produces(StatusCodes.Status200OK)
@@ -47,7 +45,6 @@ public static class JobEndpoint
             return notify.CustomResponse(response);
         })
         .CustomAuthorize("Admin,BackOffice", "JobDefinitions", "Read")
-        .AllowAnonymous()
         .WithName("GetPagedJobs")
         .WithSummary("Swagger.Endpoint.Job.GetPaged.Summary")
         .Produces(StatusCodes.Status200OK)
@@ -59,7 +56,6 @@ public static class JobEndpoint
             return notify.CustomResponse(response, 201);
         })
         .CustomAuthorize("Admin,BackOffice", "JobDefinitions", "Create")
-        .AllowAnonymous()
         .WithName("CreateJob")
         .WithSummary("Swagger.Endpoint.Job.Create.Summary")
         .Produces(StatusCodes.Status201Created)
@@ -73,7 +69,6 @@ public static class JobEndpoint
             return notify.CustomResponse(response);
         })
         .CustomAuthorize("Admin,BackOffice", "JobDefinitions", "Execute")
-        .AllowAnonymous()
         .WithName("ExecuteJob")
         .WithSummary("Swagger.Endpoint.Job.Execute.Summary")
         .Produces(StatusCodes.Status200OK)
@@ -87,7 +82,6 @@ public static class JobEndpoint
             return notify.CustomResponse(updated, 200);
         })
         .CustomAuthorize("Admin,BackOffice", "JobDefinitions", "Update")
-        .AllowAnonymous()
         .WithName("UpdateJob")
         .WithSummary("Swagger.Endpoint.Job.Update.Summary")
         .Produces(StatusCodes.Status204NoContent)
@@ -101,7 +95,6 @@ public static class JobEndpoint
             return notify.CustomResponse(ok);
         })
         .CustomAuthorize("Admin,BackOffice", "JobDefinitions", "Activate")
-        .AllowAnonymous()
         .WithName("ActivateJob")
         .WithSummary("Swagger.Endpoint.Job.Activate.Summary")
         .Produces(StatusCodes.Status204NoContent)
@@ -114,7 +107,6 @@ public static class JobEndpoint
             return notify.CustomResponse(ok);
         })
         .CustomAuthorize("Admin,BackOffice", "JobDefinitions", "Deactivate")
-        .AllowAnonymous()
         .WithName("DeactivateJob")
         .WithSummary("Swagger.Endpoint.Job.Deactivate.Summary")
         .Produces(StatusCodes.Status204NoContent)
@@ -127,7 +119,6 @@ public static class JobEndpoint
             return notify.CustomResponse();
         })
         .CustomAuthorize("Admin,BackOffice", "JobDefinitions", "Delete")
-        .AllowAnonymous()
         .WithName("DeleteJob")
         .WithSummary("Swagger.Endpoint.Job.Delete.Summary")
         .Produces(StatusCodes.Status204NoContent)

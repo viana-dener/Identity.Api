@@ -44,7 +44,6 @@ public static class RolePermissionEndpoint
             return notify.CustomResponse(created, 201);
         })
         .CustomAuthorize("Admin,BackOffice,Manager", "RolePermissions", "Create")
-        .AllowAnonymous()
         .WithName("CreateRolePermission")
         .WithSummary("Swagger.Endpoint.RolePermission.Create.Summary")
         .Produces(StatusCodes.Status201Created)
@@ -77,7 +76,6 @@ public static class RolePermissionEndpoint
             return notify.CustomResponse(success);
         })
         .CustomAuthorize("Admin,BackOffice,Manager", "RolePermissions", "BulkUpload")
-        .AllowAnonymous()
         .WithName("BulkUploadRolePermission")
         .WithSummary("Swagger.Endpoint.RolePermission.BulkUpload.Summary")
         .DisableAntiforgery()

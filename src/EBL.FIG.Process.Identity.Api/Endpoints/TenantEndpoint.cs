@@ -134,8 +134,7 @@ public static class TenantEndpoint
             var success = await appService.BulkUploadAsync(file, ct);
             return notify.CustomResponse(success);
         })
-        //.CustomAuthorize("Admin,BackOffice", "Tenants", "BulkUpload")
-        .AllowAnonymous()
+        .CustomAuthorize("Admin,BackOffice", "Tenants", "BulkUpload")
         .WithName("BulkUploadTenants")
         .WithSummary("Swagger.Endpoint.Tenant.BulkUpload.Summary")
         .DisableAntiforgery()

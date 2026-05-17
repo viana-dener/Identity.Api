@@ -120,3 +120,5 @@ app.UseHealthCheckEndpoint();
 app.MapEndpointsFromAssembly();
 
 app.Run();
+
+public partial class Program { }

@@ -18,14 +18,16 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.0" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="10.0.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="10.0.0" />
+    <PackageReference Include="NBuilder" Version="6.1.0" />
     <PackageReference Include="Moq" Version="4.20.72" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <Using Include="Xunit" />
   </ItemGroup>
 
-  <ItemGroup> <Folder Include="Api\" /> <Folder Include="Infra\" /> <Folder Include="Infra\\Caching\" /> <Folder Include="Infra\\Data\" /> <Folder Include="Infra\\Integration\" /> <Folder Include="Infra\\Messaging\" /> </ItemGroup> 
+  <ItemGroup> <Folder Include="Infra\" /> <Folder Include="Infra\\Caching\" /> <Folder Include="Infra\\Data\" /> <Folder Include="Infra\\Integration\" /> <Folder Include="Infra\\Messaging\" /> </ItemGroup> 
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\EBL.FIG.Process.Identity.Api\EBL.FIG.Process.Identity.Api.csproj" />
