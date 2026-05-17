@@ -23,4 +23,13 @@ public class NoOpEmailSender : IEmailSender
 
         return Task.CompletedTask;
     }
+
+    public Task SendPasswordResetConfirmationAsync(string toEmail, string toName, CancellationToken ct)
+    {
+        _logger.LogInformation(
+            "NoOpEmailSender: email de confirmação de senha alterada para {ToEmail}",
+            toEmail);
+
+        return Task.CompletedTask;
+    }
 }

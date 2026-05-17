@@ -55,6 +55,7 @@ public static class RouteValidatorSetup
         services.AddScoped<IValidator<RefreshRequest>, RefreshRouteValidator>();
         services.AddScoped<IValidator<ForgotPasswordRequest>, ForgotPasswordRouteValidator>();
         services.AddScoped<IValidator<ValidateResetTokenRequest>, ValidateResetTokenRouteValidator>();
+        services.AddScoped<IValidator<ResetPasswordRequest>, ResetPasswordRouteValidator>();
 
 
         return services;

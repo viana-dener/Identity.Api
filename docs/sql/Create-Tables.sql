@@ -49,6 +49,7 @@ CREATE TABLE dbo.Users (                                                        
     LoginIdentifier             NVARCHAR(500)       NOT NULL,                       -- Identificador de login do usuário (pode ser email ou username)
     NormalizedLoginIdentifier   NVARCHAR(500)       NOT NULL,                       -- Versão normalizada do identificador de login para garantir unicidade sem considerar maiúsculas/minúsculas
     PasswordHash                NVARCHAR(500)       NOT NULL,       	            -- Hash da senha do usuário
+    Email                       NVARCHAR(500)       NULL,                           -- Email do usuário, opcional
     UrlImage                    NVARCHAR(500)           NULL,                       -- URL da imagem do usuário, opcional
     LastAccessAt                DATETIME2(7)            NULL,                       -- Data e hora do último acesso do usuário, opcional
     AccessFailedCount           INT                 NOT NULL DEFAULT 0,             -- Contador de falhas de acesso, padrão é 0

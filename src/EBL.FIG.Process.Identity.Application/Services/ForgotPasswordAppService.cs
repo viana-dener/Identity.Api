@@ -3,6 +3,7 @@ using EBL.FIG.Process.Identity.Application.Dto.Request.Auth;
 using EBL.FIG.Process.Identity.Application.Dto.Response.Auth;
 using EBL.FIG.Process.Identity.Application.Interfaces;
 using EBL.FIG.Process.Identity.Domain.Entities;
+using EBL.FIG.Process.Identity.Domain.Helpers;
 using EBL.FIG.Process.Identity.Domain.Interfaces;
 using EBL.FIG.Process.Identity.Domain.Interfaces.Base;
 using Microsoft.Extensions.Configuration;
@@ -21,6 +22,7 @@ public class ForgotPasswordAppService : IForgotPasswordAppService
     private readonly IUserDataRepository _userRepo;
     private readonly ITenantDataRepository _tenantRepo;
     private readonly IPasswordResetTokenDataRepository _resetTokenRepo;
+    private readonly IRefreshTokenDataRepository _refreshTokenRepo;
     private readonly IEmailSender _emailSender;
     private readonly ILocalizationService _localization;
     private readonly IRequestTenantContext _requestTenantContext;
@@ -32,6 +34,7 @@ public class ForgotPasswordAppService : IForgotPasswordAppService
         IUserDataRepository userRepo,
         ITenantDataRepository tenantRepo,
         IPasswordResetTokenDataRepository resetTokenRepo,
+        IRefreshTokenDataRepository refreshTokenRepo,
         IEmailSender emailSender,
         ILocalizationService localization,
         IRequestTenantContext requestTenantContext,
@@ -42,6 +45,7 @@ public class ForgotPasswordAppService : IForgotPasswordAppService
         _userRepo = userRepo;
         _tenantRepo = tenantRepo;
         _resetTokenRepo = resetTokenRepo;
+        _refreshTokenRepo = refreshTokenRepo;
         _emailSender = emailSender;
         _localization = localization;
         _requestTenantContext = requestTenantContext;
@@ -134,5 +138,73 @@ public class ForgotPasswordAppService : IForgotPasswordAppService
         }
 
         return new ValidateResetTokenResponse { IsValid = true };
+    }
+
+    public async Task<ResetPasswordResponse> ResetPasswordAsync(ResetPasswordRequest request, string ipAddress, string userAgent, CancellationToken ct)
+    {
+        var tokenHash = SHA256.HashData(System.Text.Encoding.UTF8.GetBytes(request.Token.Trim()));
+
+        var tokenEntity = await _resetTokenRepo.GetByTokenHashAsync(tokenHash, ct);
+
+        if (tokenEntity == null)
+        {
+            _notify.Add(_localization.GetMessage("Application.Service.Auth.ResetPassword.InvalidToken"), 409);
+            return new ResetPasswordResponse();
+        }
+
+        if (tokenEntity.Used)
+        {
+            _notify.Add(_localization.GetMessage("Application.Service.Auth.ResetPassword.TokenAlreadyUsed"), 410);
+            return new ResetPasswordResponse();
+        }
+
+        if (DateTime.UtcNow >= tokenEntity.ExpiresAt)
+        {
+            _notify.Add(_localization.GetMessage("Application.Service.Auth.ResetPassword.TokenExpired"), 410);
+            return new ResetPasswordResponse();
+        }
+
+        _requestTenantContext.SetTenantId(tokenEntity.TenantId);
+
+        var user = await _userRepo.GetByIdAsync(tokenEntity.TenantId, tokenEntity.UserId, ct);
+        if (user == null || !user.IsActive)
+        {
+            _notify.Add(_localization.GetMessage("Application.Service.Auth.ResetPassword.InvalidToken"), 409);
+            return new ResetPasswordResponse();
+        }
+
+        var newPasswordHash = DomainExtensions.HashClientSecret(request.NewPassword);
+        user.UpdatePassword(newPasswordHash, user.Id);
+
+        var userUpdated = await _userRepo.UpdateAsync(user, ct);
+        if (!userUpdated)
+        {
+            _logger.LogError("ResetPassword: falha ao atualizar senha do userId={UserId}", user.Id);
+            _notify.Add(_localization.GetMessage("Application.Service.Auth.ResetPassword.UpdateFailed"), 500);
+            return new ResetPasswordResponse();
+        }
+
+        tokenEntity.MarkAsUsed(user.Id);
+        await _resetTokenRepo.UpdateAsync(tokenEntity, ct);
+
+        await _refreshTokenRepo.RevokeAllByUserAsync(user.Id, tokenEntity.TenantId, user.Id, ct);
+
+        _logger.LogInformation(
+            "ResetPassword: senha alterada com sucesso — userId={UserId}, tenantId={TenantId}, ip={IpAddress}, userAgent={UserAgent}",
+            user.Id, tokenEntity.TenantId, ipAddress, userAgent);
+
+        try
+        {
+            await _emailSender.SendPasswordResetConfirmationAsync(user.LoginIdentifier!, user.Name!, ct);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "ResetPassword: falha ao enviar email de confirmação para userId={UserId}", user.Id);
+        }
+
+        return new ResetPasswordResponse
+        {
+            Message = _localization.GetMessage("Application.Service.Auth.ResetPassword.Success")
+        };
     }
 }

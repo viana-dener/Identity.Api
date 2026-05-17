@@ -86,5 +86,21 @@ public static class AuthEndpoint
         .WithSummary("Swagger.Endpoint.Auth.ValidateResetToken.Summary")
         .Produces(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status400BadRequest);
+
+        groupV1.MapPost("/reset-password", async ([FromBody] ResetPasswordRequest request, [FromServices] IForgotPasswordAppService forgotPasswordService, [FromServices] INotify notify, HttpContext httpContext, CancellationToken ct) =>
+        {
+            var ipAddress = httpContext.Connection.RemoteIpAddress?.ToString() ?? "Unknown";
+            var userAgent = httpContext.Request.Headers.UserAgent.ToString();
+            var result = await forgotPasswordService.ResetPasswordAsync(request, ipAddress, userAgent, ct);
+            return notify.CustomResponse(result);
+        })
+        .WithName("Auth.ResetPassword")
+        .RequireRateLimiting("authentication")
+        .WithValidation<ResetPasswordRequest>()
+        .WithSummary("Swagger.Endpoint.Auth.ResetPassword.Summary")
+        .Produces(StatusCodes.Status200OK)
+        .Produces(StatusCodes.Status400BadRequest)
+        .Produces(StatusCodes.Status409Conflict)
+        .Produces(StatusCodes.Status410Gone);
     }
 }

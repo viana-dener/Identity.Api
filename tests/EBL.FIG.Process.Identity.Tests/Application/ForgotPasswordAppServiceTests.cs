@@ -16,6 +16,7 @@ public class ForgotPasswordAppServiceTests
     private readonly Mock<IUserDataRepository> _userRepoMock = new();
     private readonly Mock<ITenantDataRepository> _tenantRepoMock = new();
     private readonly Mock<IPasswordResetTokenDataRepository> _resetTokenRepoMock = new();
+    private readonly Mock<IRefreshTokenDataRepository> _refreshTokenRepoMock = new();
     private readonly Mock<IEmailSender> _emailSenderMock = new();
     private readonly Mock<ILocalizationService> _localizationMock = new();
     private readonly Mock<IRequestTenantContext> _tenantContextMock = new();
@@ -31,6 +32,7 @@ public class ForgotPasswordAppServiceTests
             _userRepoMock.Object,
             _tenantRepoMock.Object,
             _resetTokenRepoMock.Object,
+            _refreshTokenRepoMock.Object,
             _emailSenderMock.Object,
             _localizationMock.Object,
             _tenantContextMock.Object,
