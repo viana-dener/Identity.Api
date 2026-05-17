@@ -180,7 +180,24 @@ CREATE TABLE dbo.RefreshTokens (                                                
     CONSTRAINT FK_RefreshTokens_Apps FOREIGN KEY (TenantId, AppId) REFERENCES dbo.Apps(TenantId, Id)            -- Chave estrangeira para garantir integridade referencial com a tabela de Apps
 );
 GO
--- A tabela JwtKeys é responsável por armazenar as chaves JWT para cada tenant, utilizadas para assinatura de tokens JWT. Cada chave possui informações sobre o algoritmo, tamanho, tipo, data de ativação, expiração, uso e rotação. A tabela JwtKeys possui uma relação de muitos para um com a tabela Tenants, garantindo que cada chave esteja associada a um tenant específico.
+-- A tabela PasswordResetTokens armazena os tokens de recuperação de senha (one-time use, TTL de 15 minutos). O token bruto é gerado como UUID, hash SHA-256 é persistido para evitar comprometimento em caso de vazamento do banco. Cada token está vinculado a um tenant e usuário específicos. Após uso ou expiração, o token é marcado como utilizado (Used = 1) e não pode mais ser reutilizado.
+CREATE TABLE dbo.PasswordResetTokens (                                              -- Tabela de Tokens de Recuperação de Senha — one-time use, TTL de 15 minutos
+    Id          INT IDENTITY(1,1)   NOT NULL,                                       -- Chave primária auto-incrementada
+    TenantId    INT                 NOT NULL,                                       -- Chave estrangeira para o tenant ao qual o token pertence
+    UserId      INT                 NOT NULL,                                       -- Chave estrangeira para o usuário ao qual o token pertence
+    TokenHash   VARBINARY(64)       NOT NULL,                                       -- Hash SHA-256 do token bruto (UUID), nunca armazenar o token em texto claro
+    ExpiresAt   DATETIME2(7)        NOT NULL,                                       -- Data e hora de expiração do token (TTL de 15 minutos a partir da criação)
+    Used        BIT                 NOT NULL DEFAULT 0,                             -- Indica se o token já foi utilizado; após uso torna-se inválido (one-time use)
+    AddedBy     INT                 NOT NULL,                                       -- ID do usuário que gerou o token (0 = sistema)
+    AddedOn     DATETIME2(7)        NOT NULL DEFAULT SYSDATETIME(),                 -- Data e hora de criação do token
+    ModifiedBy  INT                     NULL,                                       -- ID do usuário que marcou o token como usado, opcional
+    ModifiedAt  DATETIME2(7)            NULL,                                       -- Data e hora em que o token foi marcado como usado, opcional
+    CONSTRAINT PK_PasswordResetTokens PRIMARY KEY CLUSTERED (Id),                   -- Chave primária na coluna Id
+    CONSTRAINT UQ_PasswordResetTokens_TenantId_TokenHash UNIQUE (TenantId, TokenHash),                              -- Garante que o hash do token seja único dentro do tenant
+    CONSTRAINT FK_PasswordResetTokens_Tenant FOREIGN KEY (TenantId) REFERENCES dbo.Tenants(Id),                     -- Integridade referencial com Tenants
+    CONSTRAINT FK_PasswordResetTokens_User  FOREIGN KEY (UserId, TenantId) REFERENCES dbo.Users(Id, TenantId)       -- Integridade referencial com Users dentro do mesmo tenant
+);
+GO
 CREATE TABLE dbo.JwtKeys (                                                          -- Tabela de Chaves JWT para cada tenant, utilizada para assinatura de tokens JWT
     Id 						INT IDENTITY(1,1)	NOT NULL,                           -- Chave primária auto-incrementada
     TenantId 				INT					NOT NULL,                           -- Chave estrangeira para o tenant ao qual a chave pertence
@@ -258,6 +275,8 @@ CREATE UNIQUE INDEX UX_JwtKeys_Active                                           
 
 CREATE NONCLUSTERED INDEX IX_RefreshTokens_User_Active                              ON dbo.RefreshTokens (TenantId, UserId) WHERE RevokedAt IS NULL;
 CREATE NONCLUSTERED INDEX IX_RefreshTokens_ExpiresAt                                ON dbo.RefreshTokens (TenantId, ExpiresAt) WHERE RevokedAt IS NULL;
+CREATE NONCLUSTERED INDEX IX_PasswordResetTokens_TenantId_TokenHash                 ON dbo.PasswordResetTokens (TenantId, TokenHash);
+CREATE NONCLUSTERED INDEX IX_PasswordResetTokens_RateLimit                          ON dbo.PasswordResetTokens (TenantId, UserId, AddedOn);
 CREATE NONCLUSTERED INDEX IX_RolePermissions_Lookup                                 ON dbo.RolePermissions (TenantId, AppId, RoleId, ResourceId, ActionId) INCLUDE (Id);
 CREATE NONCLUSTERED INDEX IX_Services_Category_Active                               ON dbo.JobDefinitions(Category, IsActive, IsDeleted);
 CREATE NONCLUSTERED INDEX IX_Services_Active_System                                 ON dbo.JobDefinitions(IsActive, IsSystemJob) WHERE IsDeleted = 0;
@@ -301,6 +320,7 @@ ADD FILTER PREDICATE dbo.fn_TenantAccessPredicate(TenantId) ON dbo.Actions,					
 ADD FILTER PREDICATE dbo.fn_TenantAccessPredicate(TenantId) ON dbo.RolePermissions,			                    -- Aplica RLS em RolePermissions
 ADD FILTER PREDICATE dbo.fn_TenantAccessPredicate(TenantId) ON dbo.UserRoles,				                    -- Aplica RLS em UserRoles
 ADD FILTER PREDICATE dbo.fn_TenantAccessPredicate(TenantId) ON dbo.RefreshTokens,					            -- Aplica RLS em RefreshTokens
+ADD FILTER PREDICATE dbo.fn_TenantAccessPredicate(TenantId) ON dbo.PasswordResetTokens,                            -- Aplica RLS em PasswordResetTokens
 ADD FILTER PREDICATE dbo.fn_TenantAccessPredicate(TenantId) ON dbo.JwtKeys,					                    -- Aplica RLS em JwtKeys
 
 ADD BLOCK PREDICATE dbo.fn_TenantAccessPredicate(TenantId) ON dbo.Apps AFTER INSERT,	                        -- Bloqueia INSERT fora do Tenant
@@ -327,6 +347,9 @@ ADD BLOCK PREDICATE dbo.fn_TenantAccessPredicate(TenantId) ON dbo.UserRoles BEFO
 ADD BLOCK PREDICATE dbo.fn_TenantAccessPredicate(TenantId) ON dbo.RefreshTokens AFTER INSERT,                   -- Bloqueia INSERT fora do Tenant
 ADD BLOCK PREDICATE dbo.fn_TenantAccessPredicate(TenantId) ON dbo.RefreshTokens AFTER UPDATE,                   -- Bloqueia UPDATE fora do Tenant
 ADD BLOCK PREDICATE dbo.fn_TenantAccessPredicate(TenantId) ON dbo.RefreshTokens BEFORE DELETE,                  -- Bloqueia DELETE fora do Tenant
+ADD BLOCK PREDICATE dbo.fn_TenantAccessPredicate(TenantId) ON dbo.PasswordResetTokens AFTER INSERT,             -- Bloqueia INSERT fora do Tenant
+ADD BLOCK PREDICATE dbo.fn_TenantAccessPredicate(TenantId) ON dbo.PasswordResetTokens AFTER UPDATE,             -- Bloqueia UPDATE fora do Tenant
+ADD BLOCK PREDICATE dbo.fn_TenantAccessPredicate(TenantId) ON dbo.PasswordResetTokens BEFORE DELETE,            -- Bloqueia DELETE fora do Tenant
 ADD BLOCK PREDICATE dbo.fn_TenantAccessPredicate(TenantId) ON dbo.JwtKeys AFTER INSERT,                         -- Bloqueia INSERT fora do Tenant
 ADD BLOCK PREDICATE dbo.fn_TenantAccessPredicate(TenantId) ON dbo.JwtKeys AFTER UPDATE,                         -- Bloqueia UPDATE fora do Tenant
 ADD BLOCK PREDICATE dbo.fn_TenantAccessPredicate(TenantId) ON dbo.JwtKeys BEFORE DELETE                         -- Bloqueia DELETE fora do Tenant

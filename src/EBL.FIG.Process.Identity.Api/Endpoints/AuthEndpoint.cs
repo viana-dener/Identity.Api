@@ -63,5 +63,28 @@ public static class AuthEndpoint
         .WithSummary("Swagger.Endpoint.Auth.Logout.Summary")
         .Produces(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status401Unauthorized);
+
+        groupV1.MapPost("/forgot-password", async ([FromBody] ForgotPasswordRequest request, [FromServices] IForgotPasswordAppService forgotPasswordService, [FromServices] INotify notify, CancellationToken ct) =>
+        {
+            var result = await forgotPasswordService.ForgotPasswordAsync(request, ct);
+            return notify.CustomResponse(result);
+        })
+        .WithName("Auth.ForgotPassword")
+        .RequireRateLimiting("authentication")
+        .WithValidation<ForgotPasswordRequest>()
+        .WithSummary("Swagger.Endpoint.Auth.ForgotPassword.Summary")
+        .Produces(StatusCodes.Status200OK)
+        .Produces(StatusCodes.Status400BadRequest);
+
+        groupV1.MapGet("/reset-password/validate", async ([AsParameters] ValidateResetTokenRequest request, [FromServices] IForgotPasswordAppService forgotPasswordService, [FromServices] INotify notify, CancellationToken ct) =>
+        {
+            var result = await forgotPasswordService.ValidateResetTokenAsync(request, ct);
+            return notify.CustomResponse(result);
+        })
+        .WithName("Auth.ValidateResetToken")
+        .WithValidation<ValidateResetTokenRequest>()
+        .WithSummary("Swagger.Endpoint.Auth.ValidateResetToken.Summary")
+        .Produces(StatusCodes.Status200OK)
+        .Produces(StatusCodes.Status400BadRequest);
     }
 }

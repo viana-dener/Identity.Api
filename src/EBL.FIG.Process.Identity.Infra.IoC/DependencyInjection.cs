@@ -6,6 +6,7 @@ using EBL.FIG.Process.Identity.Domain.Entities;
 using EBL.FIG.Process.Identity.Domain.Interfaces;
 using EBL.FIG.Process.Identity.Domain.Interfaces.Base;
 using EBL.FIG.Process.Identity.Domain.Services;
+using EBL.FIG.Process.Identity.Infra.Integration.Email;
 using EBL.FIG.Process.Identity.Domain.Validators.Action;
 using EBL.FIG.Process.Identity.Domain.Validators.App;
 using EBL.FIG.Process.Identity.Domain.Validators.Job;
@@ -76,6 +77,7 @@ public static class DependencyInjection
         services.AddScoped<IActionAppService, ActionAppService>();
         services.AddScoped<IAppAppService, AppAppService>();
         services.AddScoped<IAuthAppService, AuthAppService>();
+        services.AddScoped<IForgotPasswordAppService, ForgotPasswordAppService>();
         services.AddScoped<IJwtTokenService, JwtTokenService>();
         services.AddScoped<IRefreshTokenService, RefreshTokenService>();
         services.AddScoped<IJwtKeyAppService, JwtKeyAppService>();
@@ -110,9 +112,11 @@ public static class DependencyInjection
         services.AddScoped<IUserRoleDataRepository, UserRoleDataRepository>();
         services.AddScoped<IRolePermissionDataRepository, RolePermissionDataRepository>();
         services.AddScoped<IRefreshTokenDataRepository, RefreshTokenDataRepository>();
+        services.AddScoped<IPasswordResetTokenDataRepository, PasswordResetTokenDataRepository>();
         services.AddScoped<IJobDefinitionDataRepository, JobDefinitionDataRepository>();
 
         // Infra.Messaging (Email sender no-op por enquanto)
+        services.AddScoped<IEmailSender, NoOpEmailSender>();
 
         // Hangfire Job service
         services.AddScoped<IJobSchedulerService, HangfireJobService>();

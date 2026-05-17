@@ -21,6 +21,7 @@ public class IdentityDbContext : DbContext
     public DbSet<UserRoleEntity> UserRoles { get; set; }
     public DbSet<JwtKeyEntity> JwtKeys { get; set; }
     public DbSet<RefreshTokenEntity> RefreshTokens { get; set; }
+    public DbSet<PasswordResetTokenEntity> PasswordResetTokens { get; set; }
     public DbSet<JobDefinitionEntity> JobDefinitionEntities { get; set; }
 
     #endregion

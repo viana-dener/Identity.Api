@@ -84,7 +84,7 @@ public class JobDefinitionMapping : IEntityTypeConfiguration<JobDefinitionEntity
             .IsRequired();
 
         builder.Property(x => x.LastRegisteredAt)
-            .HasColumnType("DATETIME(7)");
+            .HasColumnType("DATETIME2(7)");
 
         builder.Property(x => x.IsActive)
             .HasColumnType("BIT")
