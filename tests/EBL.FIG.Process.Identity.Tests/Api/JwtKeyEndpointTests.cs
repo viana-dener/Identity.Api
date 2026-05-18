@@ -40,7 +40,7 @@ public class JwtKeyEndpointTests : IClassFixture<JwtKeyEndpointTests.JwtKeyWebAp
     #region GetByTenant
 
     [Fact(DisplayName = "GET /v1/admin/jwtkeys/{tenantId} - Deve retornar 200 com lista de chaves")]
-    [Trait("Api", "JwtKeys")]
+    [Trait("Api", "")]
     public async Task GetByTenant_Sucesso_DeveRetornar200()
     {
         var keys = Builder<JwtKeyResponse>.CreateListOfSize(3)
@@ -60,7 +60,7 @@ public class JwtKeyEndpointTests : IClassFixture<JwtKeyEndpointTests.JwtKeyWebAp
     }
 
     [Fact(DisplayName = "GET /v1/admin/jwtkeys/{tenantId} - Deve retornar 200 com lista vazia")]
-    [Trait("Api", "JwtKeys")]
+    [Trait("Api", "")]
     public async Task GetByTenant_ListaVazia_DeveRetornar200()
     {
         _factory.JwtKeyAppServiceMock
@@ -73,7 +73,7 @@ public class JwtKeyEndpointTests : IClassFixture<JwtKeyEndpointTests.JwtKeyWebAp
     }
 
     [Fact(DisplayName = "GET /v1/admin/jwtkeys/{tenantId} - Deve retornar 500 quando serviço lança exceção")]
-    [Trait("Api", "JwtKeys")]
+    [Trait("Api", "")]
     public async Task GetByTenant_Erro_DeveRetornar500()
     {
         _factory.JwtKeyAppServiceMock
@@ -90,7 +90,7 @@ public class JwtKeyEndpointTests : IClassFixture<JwtKeyEndpointTests.JwtKeyWebAp
     #region GetActiveKey
 
     [Fact(DisplayName = "GET /v1/admin/jwtkeys/{tenantId}/active - Deve retornar 200 quando chave ativa existe")]
-    [Trait("Api", "JwtKeys")]
+    [Trait("Api", "")]
     public async Task GetActiveKey_Sucesso_DeveRetornar200()
     {
         var key = Builder<JwtKeyResponse>.CreateNew()
@@ -108,7 +108,7 @@ public class JwtKeyEndpointTests : IClassFixture<JwtKeyEndpointTests.JwtKeyWebAp
     }
 
     [Fact(DisplayName = "GET /v1/admin/jwtkeys/{tenantId}/active - Deve retornar 204 quando nenhuma chave ativa existe")]
-    [Trait("Api", "JwtKeys")]
+    [Trait("Api", "")]
     public async Task GetActiveKey_SemChaveAtiva_DeveRetornar204()
     {
         _factory.JwtKeyAppServiceMock
@@ -126,7 +126,7 @@ public class JwtKeyEndpointTests : IClassFixture<JwtKeyEndpointTests.JwtKeyWebAp
     }
 
     [Fact(DisplayName = "GET /v1/admin/jwtkeys/{tenantId}/active - Deve retornar 500 quando serviço lança exceção")]
-    [Trait("Api", "JwtKeys")]
+    [Trait("Api", "")]
     public async Task GetActiveKey_Erro_DeveRetornar500()
     {
         _factory.JwtKeyAppServiceMock
@@ -143,7 +143,7 @@ public class JwtKeyEndpointTests : IClassFixture<JwtKeyEndpointTests.JwtKeyWebAp
     #region CreateInitial
 
     [Fact(DisplayName = "POST /v1/admin/jwtkeys/{tenantId}/create-initial - Deve retornar 201 quando chave criada com sucesso")]
-    [Trait("Api", "JwtKeys")]
+    [Trait("Api", "")]
     public async Task CreateInitial_Sucesso_DeveRetornar201()
     {
         _factory.JwtKeyAppServiceMock
@@ -162,7 +162,7 @@ public class JwtKeyEndpointTests : IClassFixture<JwtKeyEndpointTests.JwtKeyWebAp
     }
 
     [Fact(DisplayName = "POST /v1/admin/jwtkeys/{tenantId}/create-initial - Deve retornar 200 quando chave já existe")]
-    [Trait("Api", "JwtKeys")]
+    [Trait("Api", "")]
     public async Task CreateInitial_JaExiste_DeveRetornar200()
     {
         _factory.JwtKeyAppServiceMock
@@ -178,7 +178,7 @@ public class JwtKeyEndpointTests : IClassFixture<JwtKeyEndpointTests.JwtKeyWebAp
     }
 
     [Fact(DisplayName = "POST /v1/admin/jwtkeys/{tenantId}/create-initial - Deve retornar 500 quando serviço lança exceção")]
-    [Trait("Api", "JwtKeys")]
+    [Trait("Api", "")]
     public async Task CreateInitial_Erro_DeveRetornar500()
     {
         _factory.JwtKeyAppServiceMock
@@ -198,7 +198,7 @@ public class JwtKeyEndpointTests : IClassFixture<JwtKeyEndpointTests.JwtKeyWebAp
     #region Revoke
 
     [Fact(DisplayName = "PATCH /v1/admin/jwtkeys/{id}/revoke - Deve retornar 200 quando chave revogada com sucesso")]
-    [Trait("Api", "JwtKeys")]
+    [Trait("Api", "")]
     public async Task Revoke_Sucesso_DeveRetornar200()
     {
         var request = Builder<RevokeRequest>.CreateNew()
@@ -215,7 +215,7 @@ public class JwtKeyEndpointTests : IClassFixture<JwtKeyEndpointTests.JwtKeyWebAp
     }
 
     [Fact(DisplayName = "PATCH /v1/admin/jwtkeys/{id}/revoke - Deve retornar 200 (sem notificação) quando serviço retorna falso")]
-    [Trait("Api", "JwtKeys")]
+    [Trait("Api", "")]
     public async Task Revoke_NaoEncontrado_DeveRetornar200()
     {
         var request = Builder<RevokeRequest>.CreateNew()
@@ -238,7 +238,7 @@ public class JwtKeyEndpointTests : IClassFixture<JwtKeyEndpointTests.JwtKeyWebAp
     }
 
     [Fact(DisplayName = "PATCH /v1/admin/jwtkeys/{id}/revoke - Deve retornar 500 quando serviço lança exceção")]
-    [Trait("Api", "JwtKeys")]
+    [Trait("Api", "")]
     public async Task Revoke_Erro_DeveRetornar500()
     {
         var request = Builder<RevokeRequest>.CreateNew()

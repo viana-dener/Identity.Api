@@ -62,7 +62,7 @@ public class ResourceAppServiceTests
     #region GetAllAsync
 
     [Fact(DisplayName = "GetAllAsync - Deve retornar lista de resources mapeados")]
-    [Trait("Application", "ResourceAppService")]
+    [Trait("Application", "")]
     public async Task GetAllAsync_Sucesso_DeveRetornarLista()
     {
         var entities = new List<ResourceEntity> { BuildResource(1), BuildResource(2) };
@@ -78,7 +78,7 @@ public class ResourceAppServiceTests
     }
 
     [Fact(DisplayName = "GetAllAsync - Deve retornar lista vazia quando não há resources")]
-    [Trait("Application", "ResourceAppService")]
+    [Trait("Application", "")]
     public async Task GetAllAsync_ListaVazia_DeveRetornarVazio()
     {
         _repoMock.Setup(x => x.GetAllAsync(TenantId, AppId, default)).ReturnsAsync([]);
@@ -96,7 +96,7 @@ public class ResourceAppServiceTests
     #region GetByIdAsync
 
     [Fact(DisplayName = "GetByIdAsync - Deve retornar resource quando encontrado")]
-    [Trait("Application", "ResourceAppService")]
+    [Trait("Application", "")]
     public async Task GetByIdAsync_Sucesso_DeveRetornarResource()
     {
         var entity = BuildResource(1);
@@ -112,7 +112,7 @@ public class ResourceAppServiceTests
     }
 
     [Fact(DisplayName = "GetByIdAsync - Deve retornar null e notificar quando resource não encontrado")]
-    [Trait("Application", "ResourceAppService")]
+    [Trait("Application", "")]
     public async Task GetByIdAsync_NaoEncontrado_DeveRetornarNullENotificar()
     {
         _repoMock.Setup(x => x.GetByIdAsync(TenantId, AppId, 99, default)).ReturnsAsync((ResourceEntity)null);
@@ -129,7 +129,7 @@ public class ResourceAppServiceTests
     #region GetPagedAsync
 
     [Fact(DisplayName = "GetPagedAsync - Deve retornar página de resources")]
-    [Trait("Application", "ResourceAppService")]
+    [Trait("Application", "")]
     public async Task GetPagedAsync_Sucesso_DeveRetornarPaginado()
     {
         var entities = new List<ResourceEntity> { BuildResource(1) };
@@ -148,7 +148,7 @@ public class ResourceAppServiceTests
     }
 
     [Fact(DisplayName = "GetPagedAsync - Deve retornar página vazia quando não há registros")]
-    [Trait("Application", "ResourceAppService")]
+    [Trait("Application", "")]
     public async Task GetPagedAsync_ListaVazia_DeveRetornarPaginadoVazio()
     {
         var listPage = new ListPage<ResourceEntity> { Items = [], TotalItems = 0, TotalPages = 0, PageNumber = 1, PageSize = 10 };
@@ -170,7 +170,7 @@ public class ResourceAppServiceTests
     #region CreateAsync
 
     [Fact(DisplayName = "CreateAsync - Deve criar resource com sucesso")]
-    [Trait("Application", "ResourceAppService")]
+    [Trait("Application", "")]
     public async Task CreateAsync_Sucesso_DeveRetornarTrue()
     {
         var request = new CreateResourceRequest { AppId = AppId, Name = "Novo Resource", Description = "Descrição" };
@@ -185,7 +185,7 @@ public class ResourceAppServiceTests
     }
 
     [Fact(DisplayName = "CreateAsync - Deve retornar false e notificar quando nome já existe")]
-    [Trait("Application", "ResourceAppService")]
+    [Trait("Application", "")]
     public async Task CreateAsync_NomeJaExiste_DeveRetornarFalseENotificar()
     {
         var request = new CreateResourceRequest { AppId = AppId, Name = "Resource Existente", Description = "Descrição" };
@@ -200,7 +200,7 @@ public class ResourceAppServiceTests
     }
 
     [Fact(DisplayName = "CreateAsync - Deve retornar false quando domínio falha")]
-    [Trait("Application", "ResourceAppService")]
+    [Trait("Application", "")]
     public async Task CreateAsync_DominioFalha_DeveRetornarFalse()
     {
         var request = new CreateResourceRequest { AppId = AppId, Name = "Novo Resource", Description = "Descrição" };
@@ -218,7 +218,7 @@ public class ResourceAppServiceTests
     #region UpdateAsync
 
     [Fact(DisplayName = "UpdateAsync - Deve atualizar resource com sucesso")]
-    [Trait("Application", "ResourceAppService")]
+    [Trait("Application", "")]
     public async Task UpdateAsync_Sucesso_DeveRetornarTrue()
     {
         var entity = BuildResource(1);
@@ -234,7 +234,7 @@ public class ResourceAppServiceTests
     }
 
     [Fact(DisplayName = "UpdateAsync - Deve retornar false e notificar quando resource não encontrado")]
-    [Trait("Application", "ResourceAppService")]
+    [Trait("Application", "")]
     public async Task UpdateAsync_NaoEncontrado_DeveRetornarFalseENotificar()
     {
         _repoMock.Setup(x => x.GetByIdAsync(TenantId, AppId, 99, default)).ReturnsAsync((ResourceEntity)null);
@@ -253,7 +253,7 @@ public class ResourceAppServiceTests
     #region ActivateAsync
 
     [Fact(DisplayName = "ActivateAsync - Deve ativar resource com sucesso")]
-    [Trait("Application", "ResourceAppService")]
+    [Trait("Application", "")]
     public async Task ActivateAsync_Sucesso_DeveRetornarTrue()
     {
         var entity = BuildResource(1, active: false);
@@ -268,7 +268,7 @@ public class ResourceAppServiceTests
     }
 
     [Fact(DisplayName = "ActivateAsync - Deve retornar false e notificar quando resource não encontrado")]
-    [Trait("Application", "ResourceAppService")]
+    [Trait("Application", "")]
     public async Task ActivateAsync_NaoEncontrado_DeveRetornarFalseENotificar()
     {
         _repoMock.Setup(x => x.GetByIdAsync(TenantId, AppId, 99, default)).ReturnsAsync((ResourceEntity)null);
@@ -286,7 +286,7 @@ public class ResourceAppServiceTests
     #region DeactivateAsync
 
     [Fact(DisplayName = "DeactivateAsync - Deve desativar resource com sucesso")]
-    [Trait("Application", "ResourceAppService")]
+    [Trait("Application", "")]
     public async Task DeactivateAsync_Sucesso_DeveRetornarTrue()
     {
         var entity = BuildResource(1);
@@ -301,7 +301,7 @@ public class ResourceAppServiceTests
     }
 
     [Fact(DisplayName = "DeactivateAsync - Deve retornar false e notificar quando resource não encontrado")]
-    [Trait("Application", "ResourceAppService")]
+    [Trait("Application", "")]
     public async Task DeactivateAsync_NaoEncontrado_DeveRetornarFalseENotificar()
     {
         _repoMock.Setup(x => x.GetByIdAsync(TenantId, AppId, 99, default)).ReturnsAsync((ResourceEntity)null);
@@ -319,7 +319,7 @@ public class ResourceAppServiceTests
     #region DeleteAsync
 
     [Fact(DisplayName = "DeleteAsync - Deve excluir resource com sucesso")]
-    [Trait("Application", "ResourceAppService")]
+    [Trait("Application", "")]
     public async Task DeleteAsync_Sucesso_DeveRetornarTrue()
     {
         var entity = BuildResource(1);
@@ -334,7 +334,7 @@ public class ResourceAppServiceTests
     }
 
     [Fact(DisplayName = "DeleteAsync - Deve retornar false e notificar quando resource não encontrado")]
-    [Trait("Application", "ResourceAppService")]
+    [Trait("Application", "")]
     public async Task DeleteAsync_NaoEncontrado_DeveRetornarFalseENotificar()
     {
         _repoMock.Setup(x => x.GetByIdAsync(TenantId, AppId, 99, default)).ReturnsAsync((ResourceEntity)null);
@@ -352,7 +352,7 @@ public class ResourceAppServiceTests
     #region BulkUploadAsync
 
     [Fact(DisplayName = "BulkUploadAsync - Deve retornar false quando arquivo é inválido")]
-    [Trait("Application", "ResourceAppService")]
+    [Trait("Application", "")]
     public async Task BulkUploadAsync_ArquivoInvalido_DeveRetornarFalse()
     {
         var fileMock = new Mock<IFormFile>();
@@ -366,7 +366,7 @@ public class ResourceAppServiceTests
     }
 
     [Fact(DisplayName = "BulkUploadAsync - Deve retornar false e notificar quando CSV está vazio")]
-    [Trait("Application", "ResourceAppService")]
+    [Trait("Application", "")]
     public async Task BulkUploadAsync_CsvVazio_DeveRetornarFalseENotificar()
     {
         var csvContent = "AppId;Name;Description\r\n";
@@ -384,7 +384,7 @@ public class ResourceAppServiceTests
     }
 
     [Fact(DisplayName = "BulkUploadAsync - Deve retornar false quando item do CSV não tem nome")]
-    [Trait("Application", "ResourceAppService")]
+    [Trait("Application", "")]
     public async Task BulkUploadAsync_ItemSemNome_DeveRetornarFalse()
     {
         var csvContent = "AppId;Name;Description\r\n2;;Descrição sem nome\r\n";
@@ -402,7 +402,7 @@ public class ResourceAppServiceTests
     }
 
     [Fact(DisplayName = "BulkUploadAsync - Deve retornar false quando item do CSV não tem descrição")]
-    [Trait("Application", "ResourceAppService")]
+    [Trait("Application", "")]
     public async Task BulkUploadAsync_ItemSemDescricao_DeveRetornarFalse()
     {
         var csvContent = "AppId;Name;Description\r\n2;Resource Test;\r\n";
@@ -420,7 +420,7 @@ public class ResourceAppServiceTests
     }
 
     [Fact(DisplayName = "BulkUploadAsync - Deve retornar false e notificar quando resource já existe")]
-    [Trait("Application", "ResourceAppService")]
+    [Trait("Application", "")]
     public async Task BulkUploadAsync_ResourceJaExiste_DeveRetornarFalseENotificar()
     {
         var csvContent = "AppId;Name;Description\r\n2;Resource Existente;Descrição\r\n";
@@ -439,7 +439,7 @@ public class ResourceAppServiceTests
     }
 
     [Fact(DisplayName = "BulkUploadAsync - Deve processar CSV com sucesso")]
-    [Trait("Application", "ResourceAppService")]
+    [Trait("Application", "")]
     public async Task BulkUploadAsync_Sucesso_DeveRetornarTrue()
     {
         var csvContent = "AppId;Name;Description\r\n2;Novo Resource;Descrição válida\r\n";
@@ -458,7 +458,7 @@ public class ResourceAppServiceTests
     }
 
     [Fact(DisplayName = "BulkUploadAsync - Deve retornar false quando domínio falha ao criar item")]
-    [Trait("Application", "ResourceAppService")]
+    [Trait("Application", "")]
     public async Task BulkUploadAsync_DominioFalha_DeveRetornarFalse()
     {
         var csvContent = "AppId;Name;Description\r\n2;Novo Resource;Descrição válida\r\n";

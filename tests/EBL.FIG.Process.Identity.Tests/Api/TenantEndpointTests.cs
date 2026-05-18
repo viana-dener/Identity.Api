@@ -41,7 +41,7 @@ public class TenantEndpointTests : IClassFixture<TenantEndpointTests.TenantWebAp
     #region GetAll
 
     [Fact(DisplayName = "GET /v1/tenants - Deve retornar 200 com lista de tenants")]
-    [Trait("Api", "Tenants")]
+    [Trait("Api", "")]
     public async Task GetAll_Sucesso_DeveRetornar200()
     {
         var tenants = Builder<TenantResponse>.CreateListOfSize(3)
@@ -60,7 +60,7 @@ public class TenantEndpointTests : IClassFixture<TenantEndpointTests.TenantWebAp
     }
 
     [Fact(DisplayName = "GET /v1/tenants - Deve retornar 200 com lista vazia")]
-    [Trait("Api", "Tenants")]
+    [Trait("Api", "")]
     public async Task GetAll_ListaVazia_DeveRetornar200()
     {
         _factory.TenantAppServiceMock
@@ -73,7 +73,7 @@ public class TenantEndpointTests : IClassFixture<TenantEndpointTests.TenantWebAp
     }
 
     [Fact(DisplayName = "GET /v1/tenants - Deve retornar 500 quando serviço lança exceção")]
-    [Trait("Api", "Tenants")]
+    [Trait("Api", "")]
     public async Task GetAll_Erro_DeveRetornar500()
     {
         _factory.TenantAppServiceMock
@@ -90,7 +90,7 @@ public class TenantEndpointTests : IClassFixture<TenantEndpointTests.TenantWebAp
     #region GetById
 
     [Fact(DisplayName = "GET /v1/tenants/{id} - Deve retornar 200 quando tenant existe")]
-    [Trait("Api", "Tenants")]
+    [Trait("Api", "")]
     public async Task GetById_Sucesso_DeveRetornar200()
     {
         var tenant = Builder<TenantDetailResponse>.CreateNew()
@@ -108,7 +108,7 @@ public class TenantEndpointTests : IClassFixture<TenantEndpointTests.TenantWebAp
     }
 
     [Fact(DisplayName = "GET /v1/tenants/{id} - Deve retornar 410 quando tenant não existe")]
-    [Trait("Api", "Tenants")]
+    [Trait("Api", "")]
     public async Task GetById_NaoEncontrado_DeveRetornar410()
     {
         _factory.TenantAppServiceMock
@@ -127,7 +127,7 @@ public class TenantEndpointTests : IClassFixture<TenantEndpointTests.TenantWebAp
     }
 
     [Fact(DisplayName = "GET /v1/tenants/{id} - Deve retornar 500 quando serviço lança exceção")]
-    [Trait("Api", "Tenants")]
+    [Trait("Api", "")]
     public async Task GetById_Erro_DeveRetornar500()
     {
         _factory.TenantAppServiceMock
@@ -144,7 +144,7 @@ public class TenantEndpointTests : IClassFixture<TenantEndpointTests.TenantWebAp
     #region GetPaged
 
     [Fact(DisplayName = "GET /v1/tenants/paged - Deve retornar 200 com lista paginada")]
-    [Trait("Api", "Tenants")]
+    [Trait("Api", "")]
     public async Task GetPaged_Sucesso_DeveRetornar200()
     {
         var items = Builder<TenantResponse>.CreateListOfSize(2)
@@ -165,7 +165,7 @@ public class TenantEndpointTests : IClassFixture<TenantEndpointTests.TenantWebAp
     }
 
     [Fact(DisplayName = "GET /v1/tenants/paged - Deve retornar 200 com lista vazia")]
-    [Trait("Api", "Tenants")]
+    [Trait("Api", "")]
     public async Task GetPaged_ListaVazia_DeveRetornar200()
     {
         var paged = new ListPageResponse<TenantResponse>([], 1, 10, 0, 0);
@@ -180,7 +180,7 @@ public class TenantEndpointTests : IClassFixture<TenantEndpointTests.TenantWebAp
     }
 
     [Fact(DisplayName = "GET /v1/tenants/paged - Deve retornar 500 quando serviço lança exceção")]
-    [Trait("Api", "Tenants")]
+    [Trait("Api", "")]
     public async Task GetPaged_Erro_DeveRetornar500()
     {
         _factory.TenantAppServiceMock
@@ -197,7 +197,7 @@ public class TenantEndpointTests : IClassFixture<TenantEndpointTests.TenantWebAp
     #region Create
 
     [Fact(DisplayName = "POST /v1/tenants - Deve retornar 201 quando tenant criado com sucesso")]
-    [Trait("Api", "Tenants")]
+    [Trait("Api", "")]
     public async Task Create_Sucesso_DeveRetornar201()
     {
         var request = Builder<CreateTenantRequest>.CreateNew()
@@ -216,7 +216,7 @@ public class TenantEndpointTests : IClassFixture<TenantEndpointTests.TenantWebAp
     }
 
     [Fact(DisplayName = "POST /v1/tenants - Deve retornar 400 quando serviço retorna falso com notificação")]
-    [Trait("Api", "Tenants")]
+    [Trait("Api", "")]
     public async Task Create_DadosInvalidos_DeveRetornar400()
     {
         var request = Builder<CreateTenantRequest>.CreateNew()
@@ -241,7 +241,7 @@ public class TenantEndpointTests : IClassFixture<TenantEndpointTests.TenantWebAp
     }
 
     [Fact(DisplayName = "POST /v1/tenants - Deve retornar 500 quando serviço lança exceção")]
-    [Trait("Api", "Tenants")]
+    [Trait("Api", "")]
     public async Task Create_Erro_DeveRetornar500()
     {
         var request = Builder<CreateTenantRequest>.CreateNew()
@@ -264,7 +264,7 @@ public class TenantEndpointTests : IClassFixture<TenantEndpointTests.TenantWebAp
     #region Update
 
     [Fact(DisplayName = "PUT /v1/tenants/{id} - Deve retornar 200 quando atualizado com sucesso")]
-    [Trait("Api", "Tenants")]
+    [Trait("Api", "")]
     public async Task Update_Sucesso_DeveRetornar200()
     {
         var request = Builder<UpdateTenantRequest>.CreateNew()
@@ -283,7 +283,7 @@ public class TenantEndpointTests : IClassFixture<TenantEndpointTests.TenantWebAp
     }
 
     [Fact(DisplayName = "PUT /v1/tenants/{id} - Deve retornar 410 quando tenant não existe")]
-    [Trait("Api", "Tenants")]
+    [Trait("Api", "")]
     public async Task Update_NaoEncontrado_DeveRetornar410()
     {
         var request = Builder<UpdateTenantRequest>.CreateNew()
@@ -308,7 +308,7 @@ public class TenantEndpointTests : IClassFixture<TenantEndpointTests.TenantWebAp
     }
 
     [Fact(DisplayName = "PUT /v1/tenants/{id} - Deve retornar 409 quando nome já está em uso")]
-    [Trait("Api", "Tenants")]
+    [Trait("Api", "")]
     public async Task Update_Duplicado_DeveRetornar409()
     {
         var request = Builder<UpdateTenantRequest>.CreateNew()
@@ -333,7 +333,7 @@ public class TenantEndpointTests : IClassFixture<TenantEndpointTests.TenantWebAp
     }
 
     [Fact(DisplayName = "PUT /v1/tenants/{id} - Deve retornar 500 quando serviço lança exceção")]
-    [Trait("Api", "Tenants")]
+    [Trait("Api", "")]
     public async Task Update_Erro_DeveRetornar500()
     {
         var request = Builder<UpdateTenantRequest>.CreateNew()
@@ -356,7 +356,7 @@ public class TenantEndpointTests : IClassFixture<TenantEndpointTests.TenantWebAp
     #region Activate
 
     [Fact(DisplayName = "PATCH /v1/tenants/{id}/activate - Deve retornar 200 quando ativado com sucesso")]
-    [Trait("Api", "Tenants")]
+    [Trait("Api", "")]
     public async Task Activate_Sucesso_DeveRetornar200()
     {
         _factory.TenantAppServiceMock
@@ -369,7 +369,7 @@ public class TenantEndpointTests : IClassFixture<TenantEndpointTests.TenantWebAp
     }
 
     [Fact(DisplayName = "PATCH /v1/tenants/{id}/activate - Deve retornar 410 quando tenant não existe")]
-    [Trait("Api", "Tenants")]
+    [Trait("Api", "")]
     public async Task Activate_NaoEncontrado_DeveRetornar410()
     {
         _factory.TenantAppServiceMock
@@ -388,7 +388,7 @@ public class TenantEndpointTests : IClassFixture<TenantEndpointTests.TenantWebAp
     }
 
     [Fact(DisplayName = "PATCH /v1/tenants/{id}/activate - Deve retornar 500 quando serviço lança exceção")]
-    [Trait("Api", "Tenants")]
+    [Trait("Api", "")]
     public async Task Activate_Erro_DeveRetornar500()
     {
         _factory.TenantAppServiceMock
@@ -405,7 +405,7 @@ public class TenantEndpointTests : IClassFixture<TenantEndpointTests.TenantWebAp
     #region Deactivate
 
     [Fact(DisplayName = "PATCH /v1/tenants/{id}/deactivate - Deve retornar 200 quando desativado com sucesso")]
-    [Trait("Api", "Tenants")]
+    [Trait("Api", "")]
     public async Task Deactivate_Sucesso_DeveRetornar200()
     {
         _factory.TenantAppServiceMock
@@ -418,7 +418,7 @@ public class TenantEndpointTests : IClassFixture<TenantEndpointTests.TenantWebAp
     }
 
     [Fact(DisplayName = "PATCH /v1/tenants/{id}/deactivate - Deve retornar 410 quando tenant não existe")]
-    [Trait("Api", "Tenants")]
+    [Trait("Api", "")]
     public async Task Deactivate_NaoEncontrado_DeveRetornar410()
     {
         _factory.TenantAppServiceMock
@@ -437,7 +437,7 @@ public class TenantEndpointTests : IClassFixture<TenantEndpointTests.TenantWebAp
     }
 
     [Fact(DisplayName = "PATCH /v1/tenants/{id}/deactivate - Deve retornar 500 quando serviço lança exceção")]
-    [Trait("Api", "Tenants")]
+    [Trait("Api", "")]
     public async Task Deactivate_Erro_DeveRetornar500()
     {
         _factory.TenantAppServiceMock
@@ -454,7 +454,7 @@ public class TenantEndpointTests : IClassFixture<TenantEndpointTests.TenantWebAp
     #region Delete
 
     [Fact(DisplayName = "DELETE /v1/tenants/{id} - Deve retornar 200 quando excluído com sucesso")]
-    [Trait("Api", "Tenants")]
+    [Trait("Api", "")]
     public async Task Delete_Sucesso_DeveRetornar200()
     {
         _factory.TenantAppServiceMock
@@ -467,7 +467,7 @@ public class TenantEndpointTests : IClassFixture<TenantEndpointTests.TenantWebAp
     }
 
     [Fact(DisplayName = "DELETE /v1/tenants/{id} - Deve retornar 410 quando tenant não existe")]
-    [Trait("Api", "Tenants")]
+    [Trait("Api", "")]
     public async Task Delete_NaoEncontrado_DeveRetornar410()
     {
         _factory.TenantAppServiceMock
@@ -486,7 +486,7 @@ public class TenantEndpointTests : IClassFixture<TenantEndpointTests.TenantWebAp
     }
 
     [Fact(DisplayName = "DELETE /v1/tenants/{id} - Deve retornar 500 quando serviço lança exceção")]
-    [Trait("Api", "Tenants")]
+    [Trait("Api", "")]
     public async Task Delete_Erro_DeveRetornar500()
     {
         _factory.TenantAppServiceMock
@@ -503,7 +503,7 @@ public class TenantEndpointTests : IClassFixture<TenantEndpointTests.TenantWebAp
     #region BulkUpload
 
     [Fact(DisplayName = "POST /v1/tenants/bulk-upload - Deve retornar 200 quando upload realizado com sucesso")]
-    [Trait("Api", "Tenants")]
+    [Trait("Api", "")]
     public async Task BulkUpload_Sucesso_DeveRetornar200()
     {
         _factory.TenantAppServiceMock
@@ -521,7 +521,7 @@ public class TenantEndpointTests : IClassFixture<TenantEndpointTests.TenantWebAp
     }
 
     [Fact(DisplayName = "POST /v1/tenants/bulk-upload - Deve retornar 400 quando nenhum arquivo enviado")]
-    [Trait("Api", "Tenants")]
+    [Trait("Api", "")]
     public async Task BulkUpload_SemArquivo_DeveRetornar400()
     {
         _factory.NotifyMock
@@ -539,7 +539,7 @@ public class TenantEndpointTests : IClassFixture<TenantEndpointTests.TenantWebAp
     }
 
     [Fact(DisplayName = "POST /v1/tenants/bulk-upload - Deve retornar 500 quando serviço lança exceção")]
-    [Trait("Api", "Tenants")]
+    [Trait("Api", "")]
     public async Task BulkUpload_Erro_DeveRetornar500()
     {
         _factory.TenantAppServiceMock

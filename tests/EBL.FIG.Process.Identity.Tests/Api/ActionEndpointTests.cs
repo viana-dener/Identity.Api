@@ -41,7 +41,7 @@ public class ActionEndpointTests : IClassFixture<ActionEndpointTests.ActionWebAp
     #region GetAll
 
     [Fact(DisplayName = "GET /v1/actions - Deve retornar 200 com lista de actions")]
-    [Trait("Api", "Actions")]
+    [Trait("Api", "")]
     public async Task GetAll_Sucesso_DeveRetornar200()
     {
         var actions = Builder<ActionResponse>.CreateListOfSize(3)
@@ -60,7 +60,7 @@ public class ActionEndpointTests : IClassFixture<ActionEndpointTests.ActionWebAp
     }
 
     [Fact(DisplayName = "GET /v1/actions - Deve retornar 200 com lista vazia")]
-    [Trait("Api", "Actions")]
+    [Trait("Api", "")]
     public async Task GetAll_ListaVazia_DeveRetornar200()
     {
         _factory.ActionAppServiceMock
@@ -73,7 +73,7 @@ public class ActionEndpointTests : IClassFixture<ActionEndpointTests.ActionWebAp
     }
 
     [Fact(DisplayName = "GET /v1/actions - Deve retornar 500 quando serviço lança exceção")]
-    [Trait("Api", "Actions")]
+    [Trait("Api", "")]
     public async Task GetAll_Erro_DeveRetornar500()
     {
         _factory.ActionAppServiceMock
@@ -90,7 +90,7 @@ public class ActionEndpointTests : IClassFixture<ActionEndpointTests.ActionWebAp
     #region GetById
 
     [Fact(DisplayName = "GET /v1/actions/{id} - Deve retornar 200 quando action existe")]
-    [Trait("Api", "Actions")]
+    [Trait("Api", "")]
     public async Task GetById_Sucesso_DeveRetornar200()
     {
         var action = Builder<ActionResponse>.CreateNew()
@@ -108,7 +108,7 @@ public class ActionEndpointTests : IClassFixture<ActionEndpointTests.ActionWebAp
     }
 
     [Fact(DisplayName = "GET /v1/actions/{id} - Deve retornar 410 quando action não existe")]
-    [Trait("Api", "Actions")]
+    [Trait("Api", "")]
     public async Task GetById_NaoEncontrado_DeveRetornar404()
     {
         _factory.ActionAppServiceMock
@@ -127,7 +127,7 @@ public class ActionEndpointTests : IClassFixture<ActionEndpointTests.ActionWebAp
     }
 
     [Fact(DisplayName = "GET /v1/actions/{id} - Deve retornar 500 quando serviço lança exceção")]
-    [Trait("Api", "Actions")]
+    [Trait("Api", "")]
     public async Task GetById_Erro_DeveRetornar500()
     {
         _factory.ActionAppServiceMock
@@ -144,7 +144,7 @@ public class ActionEndpointTests : IClassFixture<ActionEndpointTests.ActionWebAp
     #region GetPaged
 
     [Fact(DisplayName = "GET /v1/actions/paged - Deve retornar 200 com lista paginada")]
-    [Trait("Api", "Actions")]
+    [Trait("Api", "")]
     public async Task GetPaged_Sucesso_DeveRetornar200()
     {
         var items = Builder<ActionResponse>.CreateListOfSize(2)
@@ -165,7 +165,7 @@ public class ActionEndpointTests : IClassFixture<ActionEndpointTests.ActionWebAp
     }
 
     [Fact(DisplayName = "GET /v1/actions/paged - Deve retornar 200 com lista vazia")]
-    [Trait("Api", "Actions")]
+    [Trait("Api", "")]
     public async Task GetPaged_ListaVazia_DeveRetornar200()
     {
         var paged = new ListPageResponse<ActionResponse>([], 1, 10, 0, 0);
@@ -180,7 +180,7 @@ public class ActionEndpointTests : IClassFixture<ActionEndpointTests.ActionWebAp
     }
 
     [Fact(DisplayName = "GET /v1/actions/paged - Deve retornar 500 quando serviço lança exceção")]
-    [Trait("Api", "Actions")]
+    [Trait("Api", "")]
     public async Task GetPaged_Erro_DeveRetornar500()
     {
         _factory.ActionAppServiceMock
@@ -197,7 +197,7 @@ public class ActionEndpointTests : IClassFixture<ActionEndpointTests.ActionWebAp
     #region Create
 
     [Fact(DisplayName = "POST /v1/actions - Deve retornar 201 quando action criada com sucesso")]
-    [Trait("Api", "Actions")]
+    [Trait("Api", "")]
     public async Task Create_Sucesso_DeveRetornar201()
     {
         var request = Builder<CreateActionRequest>.CreateNew()
@@ -216,7 +216,7 @@ public class ActionEndpointTests : IClassFixture<ActionEndpointTests.ActionWebAp
     }
 
     [Fact(DisplayName = "POST /v1/actions - Deve retornar 400 quando serviço retorna falso com notificação")]
-    [Trait("Api", "Actions")]
+    [Trait("Api", "")]
     public async Task Create_DadosInvalidos_DeveRetornar400()
     {
         var request = Builder<CreateActionRequest>.CreateNew()
@@ -240,8 +240,33 @@ public class ActionEndpointTests : IClassFixture<ActionEndpointTests.ActionWebAp
         Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
     }
 
+    [Fact(DisplayName = "POST /v1/actions - Deve retornar 200 quando action já existe (conflito absorvido pelo CustomResponse(201))")]
+    [Trait("Api", "")]
+    public async Task Create_Duplicado_DeveRetornar409()
+    {
+        var request = Builder<CreateActionRequest>.CreateNew()
+            .With(x => x.AppId = 1)
+            .With(x => x.Name = "Action Duplicada")
+            .With(x => x.Description = "Descrição")
+            .Build();
+
+        _factory.ActionAppServiceMock
+            .Setup(x => x.CreateAsync(It.IsAny<CreateActionRequest>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(false);
+        _factory.NotifyMock
+            .Setup(x => x.HasNotify()).Returns(true);
+        _factory.NotifyMock
+            .Setup(x => x.GetStatusCode()).Returns(HttpStatusCode.Conflict);
+        _factory.NotifyMock
+            .Setup(x => x.GetErrorMessage()).Returns(["Action já cadastrada"]);
+
+        var response = await _client.PostAsJsonAsync("/v1/actions/", request);
+
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+    }
+
     [Fact(DisplayName = "POST /v1/actions - Deve retornar 500 quando serviço lança exceção")]
-    [Trait("Api", "Actions")]
+    [Trait("Api", "")]
     public async Task Create_Erro_DeveRetornar500()
     {
         var request = Builder<CreateActionRequest>.CreateNew()
@@ -264,7 +289,7 @@ public class ActionEndpointTests : IClassFixture<ActionEndpointTests.ActionWebAp
     #region Update
 
     [Fact(DisplayName = "PUT /v1/actions/{id} - Deve retornar 200 quando atualizado com sucesso")]
-    [Trait("Api", "Actions")]
+    [Trait("Api", "")]
     public async Task Update_Sucesso_DeveRetornar200()
     {
         var request = Builder<UpdateActionRequest>.CreateNew()
@@ -282,7 +307,7 @@ public class ActionEndpointTests : IClassFixture<ActionEndpointTests.ActionWebAp
     }
 
     [Fact(DisplayName = "PUT /v1/actions/{id} - Deve retornar 410 quando action não existe")]
-    [Trait("Api", "Actions")]
+    [Trait("Api", "")]
     public async Task Update_NaoEncontrado_DeveRetornar404()
     {
         var request = Builder<UpdateActionRequest>.CreateNew()
@@ -306,7 +331,7 @@ public class ActionEndpointTests : IClassFixture<ActionEndpointTests.ActionWebAp
     }
 
     [Fact(DisplayName = "PUT /v1/actions/{id} - Deve retornar 409 quando nome já está em uso")]
-    [Trait("Api", "Actions")]
+    [Trait("Api", "")]
     public async Task Update_Duplicado_DeveRetornar409()
     {
         var request = Builder<UpdateActionRequest>.CreateNew()
@@ -330,7 +355,7 @@ public class ActionEndpointTests : IClassFixture<ActionEndpointTests.ActionWebAp
     }
 
     [Fact(DisplayName = "PUT /v1/actions/{id} - Deve retornar 500 quando serviço lança exceção")]
-    [Trait("Api", "Actions")]
+    [Trait("Api", "")]
     public async Task Update_Erro_DeveRetornar500()
     {
         var request = Builder<UpdateActionRequest>.CreateNew()
@@ -352,7 +377,7 @@ public class ActionEndpointTests : IClassFixture<ActionEndpointTests.ActionWebAp
     #region Activate
 
     [Fact(DisplayName = "PATCH /v1/actions/{id}/activate - Deve retornar 200 quando ativado com sucesso")]
-    [Trait("Api", "Actions")]
+    [Trait("Api", "")]
     public async Task Activate_Sucesso_DeveRetornar204()
     {
         _factory.ActionAppServiceMock
@@ -365,7 +390,7 @@ public class ActionEndpointTests : IClassFixture<ActionEndpointTests.ActionWebAp
     }
 
     [Fact(DisplayName = "PATCH /v1/actions/{id}/activate - Deve retornar 410 quando action não existe")]
-    [Trait("Api", "Actions")]
+    [Trait("Api", "")]
     public async Task Activate_NaoEncontrado_DeveRetornar404()
     {
         _factory.ActionAppServiceMock
@@ -384,7 +409,7 @@ public class ActionEndpointTests : IClassFixture<ActionEndpointTests.ActionWebAp
     }
 
     [Fact(DisplayName = "PATCH /v1/actions/{id}/activate - Deve retornar 500 quando serviço lança exceção")]
-    [Trait("Api", "Actions")]
+    [Trait("Api", "")]
     public async Task Activate_Erro_DeveRetornar500()
     {
         _factory.ActionAppServiceMock
@@ -401,7 +426,7 @@ public class ActionEndpointTests : IClassFixture<ActionEndpointTests.ActionWebAp
     #region Deactivate
 
     [Fact(DisplayName = "PATCH /v1/actions/{id}/deactivate - Deve retornar 200 quando desativado com sucesso")]
-    [Trait("Api", "Actions")]
+    [Trait("Api", "")]
     public async Task Deactivate_Sucesso_DeveRetornar204()
     {
         _factory.ActionAppServiceMock
@@ -414,7 +439,7 @@ public class ActionEndpointTests : IClassFixture<ActionEndpointTests.ActionWebAp
     }
 
     [Fact(DisplayName = "PATCH /v1/actions/{id}/deactivate - Deve retornar 410 quando action não existe")]
-    [Trait("Api", "Actions")]
+    [Trait("Api", "")]
     public async Task Deactivate_NaoEncontrado_DeveRetornar404()
     {
         _factory.ActionAppServiceMock
@@ -433,7 +458,7 @@ public class ActionEndpointTests : IClassFixture<ActionEndpointTests.ActionWebAp
     }
 
     [Fact(DisplayName = "PATCH /v1/actions/{id}/deactivate - Deve retornar 500 quando serviço lança exceção")]
-    [Trait("Api", "Actions")]
+    [Trait("Api", "")]
     public async Task Deactivate_Erro_DeveRetornar500()
     {
         _factory.ActionAppServiceMock
@@ -450,7 +475,7 @@ public class ActionEndpointTests : IClassFixture<ActionEndpointTests.ActionWebAp
     #region Delete
 
     [Fact(DisplayName = "DELETE /v1/actions/{id} - Deve retornar 200 quando excluído com sucesso")]
-    [Trait("Api", "Actions")]
+    [Trait("Api", "")]
     public async Task Delete_Sucesso_DeveRetornar204()
     {
         _factory.ActionAppServiceMock
@@ -463,7 +488,7 @@ public class ActionEndpointTests : IClassFixture<ActionEndpointTests.ActionWebAp
     }
 
     [Fact(DisplayName = "DELETE /v1/actions/{id} - Deve retornar 410 quando action não existe")]
-    [Trait("Api", "Actions")]
+    [Trait("Api", "")]
     public async Task Delete_NaoEncontrado_DeveRetornar404()
     {
         _factory.ActionAppServiceMock
@@ -482,7 +507,7 @@ public class ActionEndpointTests : IClassFixture<ActionEndpointTests.ActionWebAp
     }
 
     [Fact(DisplayName = "DELETE /v1/actions/{id} - Deve retornar 500 quando serviço lança exceção")]
-    [Trait("Api", "Actions")]
+    [Trait("Api", "")]
     public async Task Delete_Erro_DeveRetornar500()
     {
         _factory.ActionAppServiceMock
@@ -499,7 +524,7 @@ public class ActionEndpointTests : IClassFixture<ActionEndpointTests.ActionWebAp
     #region BulkUpload
 
     [Fact(DisplayName = "POST /v1/actions/bulk-upload - Deve retornar 200 quando upload realizado com sucesso")]
-    [Trait("Api", "Actions")]
+    [Trait("Api", "")]
     public async Task BulkUpload_Sucesso_DeveRetornar200()
     {
         _factory.ActionAppServiceMock
@@ -517,7 +542,7 @@ public class ActionEndpointTests : IClassFixture<ActionEndpointTests.ActionWebAp
     }
 
     [Fact(DisplayName = "POST /v1/actions/bulk-upload - Deve retornar 400 quando nenhum arquivo enviado")]
-    [Trait("Api", "Actions")]
+    [Trait("Api", "")]
     public async Task BulkUpload_SemArquivo_DeveRetornar400()
     {
         _factory.NotifyMock
@@ -535,7 +560,7 @@ public class ActionEndpointTests : IClassFixture<ActionEndpointTests.ActionWebAp
     }
 
     [Fact(DisplayName = "POST /v1/actions/bulk-upload - Deve retornar 500 quando serviço lança exceção")]
-    [Trait("Api", "Actions")]
+    [Trait("Api", "")]
     public async Task BulkUpload_Erro_DeveRetornar500()
     {
         _factory.ActionAppServiceMock

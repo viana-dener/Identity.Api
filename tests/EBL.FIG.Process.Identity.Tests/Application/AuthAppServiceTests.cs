@@ -137,7 +137,7 @@ public class AuthAppServiceTests
     #region RegisterAsync
 
     [Fact(DisplayName = "RegisterAsync - Deve retornar null e notificar quando TenantId inválido")]
-    [Trait("Application", "AuthAppService")]
+    [Trait("Application", "")]
     public async Task RegisterAsync_TenantIdInvalido_DeveNotificar400ERetornarNull()
     {
         var request = new RegisterRequest { TenantId = 0, Name = "user", Secret = "Senha@123" };
@@ -150,7 +150,7 @@ public class AuthAppServiceTests
     }
 
     [Fact(DisplayName = "RegisterAsync - Deve retornar null e notificar quando nome já existe")]
-    [Trait("Application", "AuthAppService")]
+    [Trait("Application", "")]
     public async Task RegisterAsync_NomeJaExiste_DeveNotificar409ERetornarNull()
     {
         var request = new RegisterRequest { TenantId = TenantId, Name = "user existente", Secret = "Senha@123" };
@@ -164,7 +164,7 @@ public class AuthAppServiceTests
     }
 
     [Fact(DisplayName = "RegisterAsync - Deve retornar null quando falha ao criar usuário")]
-    [Trait("Application", "AuthAppService")]
+    [Trait("Application", "")]
     public async Task RegisterAsync_FalhaNaCriacao_DeveNotificar500ERetornarNull()
     {
         var request = new RegisterRequest { TenantId = TenantId, Name = "novo user", Secret = "Senha@123" };
@@ -179,7 +179,7 @@ public class AuthAppServiceTests
     }
 
     [Fact(DisplayName = "RegisterAsync - Deve registrar usuário com sucesso")]
-    [Trait("Application", "AuthAppService")]
+    [Trait("Application", "")]
     public async Task RegisterAsync_Sucesso_DeveRetornarAuthDetailResponse()
     {
         var request = new RegisterRequest { TenantId = TenantId, Name = "novo user", Secret = "Senha@123" };
@@ -198,7 +198,7 @@ public class AuthAppServiceTests
     #region LoginAsync
 
     [Fact(DisplayName = "LoginAsync - Deve retornar null e notificar quando tenant não encontrado")]
-    [Trait("Application", "AuthAppService")]
+    [Trait("Application", "")]
     public async Task LoginAsync_TenantNaoEncontrado_DeveNotificar401ERetornarNull()
     {
         _tenantRepoMock.Setup(x => x.GetByLoginIdentifierAsync(It.IsAny<string>(), default))
@@ -212,7 +212,7 @@ public class AuthAppServiceTests
     }
 
     [Fact(DisplayName = "LoginAsync - Deve retornar null e notificar quando usuário não encontrado")]
-    [Trait("Application", "AuthAppService")]
+    [Trait("Application", "")]
     public async Task LoginAsync_UsuarioNaoEncontrado_DeveNotificar401ERetornarNull()
     {
         _tenantRepoMock.Setup(x => x.GetByLoginIdentifierAsync(It.IsAny<string>(), default))
@@ -228,7 +228,7 @@ public class AuthAppServiceTests
     }
 
     [Fact(DisplayName = "LoginAsync - Deve retornar null e notificar quando senha incorreta")]
-    [Trait("Application", "AuthAppService")]
+    [Trait("Application", "")]
     public async Task LoginAsync_SenhaIncorreta_DeveNotificar401ERetornarNull()
     {
         var user = BuildUser();
@@ -245,7 +245,7 @@ public class AuthAppServiceTests
     }
 
     [Fact(DisplayName = "LoginAsync - Deve retornar null e notificar quando usuário não tem role")]
-    [Trait("Application", "AuthAppService")]
+    [Trait("Application", "")]
     public async Task LoginAsync_SemRole_DeveNotificar403ERetornarNull()
     {
         var user = BuildUser();
@@ -262,7 +262,7 @@ public class AuthAppServiceTests
     }
 
     [Fact(DisplayName = "LoginAsync - Deve retornar null quando geração do access token falha")]
-    [Trait("Application", "AuthAppService")]
+    [Trait("Application", "")]
     public async Task LoginAsync_AccessTokenFalha_DeveRetornarNull()
     {
         var user = BuildUserWithRole();
@@ -281,7 +281,7 @@ public class AuthAppServiceTests
     }
 
     [Fact(DisplayName = "LoginAsync - Deve retornar AuthDetailResponse com sucesso")]
-    [Trait("Application", "AuthAppService")]
+    [Trait("Application", "")]
     public async Task LoginAsync_Sucesso_DeveRetornarAuthDetailResponse()
     {
         var user = BuildUserWithRole();
@@ -317,7 +317,7 @@ public class AuthAppServiceTests
     #region RefreshAsync
 
     [Fact(DisplayName = "RefreshAsync - Deve retornar null e notificar quando TenantId inválido")]
-    [Trait("Application", "AuthAppService")]
+    [Trait("Application", "")]
     public async Task RefreshAsync_TenantIdInvalido_DeveNotificar400ERetornarNull()
     {
         var sut = CreateSut();
@@ -328,7 +328,7 @@ public class AuthAppServiceTests
     }
 
     [Fact(DisplayName = "RefreshAsync - Deve retornar null quando rotação do token falha")]
-    [Trait("Application", "AuthAppService")]
+    [Trait("Application", "")]
     public async Task RefreshAsync_RotacaoFalha_DeveRetornarNull()
     {
         _refreshTokenServiceMock.Setup(x => x.RotateAsync(It.IsAny<string>(), TenantId, default))
@@ -341,7 +341,7 @@ public class AuthAppServiceTests
     }
 
     [Fact(DisplayName = "RefreshAsync - Deve retornar null e notificar quando usuário não encontrado")]
-    [Trait("Application", "AuthAppService")]
+    [Trait("Application", "")]
     public async Task RefreshAsync_UsuarioNaoEncontrado_DeveNotificar410ERetornarNull()
     {
         var oldEntity = BuildRefreshTokenEntity();
@@ -361,7 +361,7 @@ public class AuthAppServiceTests
     }
 
     [Fact(DisplayName = "RefreshAsync - Deve retornar AuthDetailResponse com sucesso")]
-    [Trait("Application", "AuthAppService")]
+    [Trait("Application", "")]
     public async Task RefreshAsync_Sucesso_DeveRetornarAuthDetailResponse()
     {
         var user = BuildUserWithRole();
@@ -389,7 +389,7 @@ public class AuthAppServiceTests
     #region LogoutAsync
 
     [Fact(DisplayName = "LogoutAsync - Deve notificar quando contexto inválido")]
-    [Trait("Application", "AuthAppService")]
+    [Trait("Application", "")]
     public async Task LogoutAsync_ContextoInvalido_DeveNotificar401()
     {
         _currentUserMock.Setup(x => x.GetUserId()).Returns(0);
@@ -402,7 +402,7 @@ public class AuthAppServiceTests
     }
 
     [Fact(DisplayName = "LogoutAsync - Deve revogar todos os tokens com sucesso")]
-    [Trait("Application", "AuthAppService")]
+    [Trait("Application", "")]
     public async Task LogoutAsync_Sucesso_DeveRevogarTodosOsTokens()
     {
         _refreshTokenServiceMock.Setup(x => x.RevokeAllAsync(UserId, TenantId, UserId, default))

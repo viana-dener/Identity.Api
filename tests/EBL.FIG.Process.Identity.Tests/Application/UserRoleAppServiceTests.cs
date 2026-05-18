@@ -59,7 +59,7 @@ public class UserRoleAppServiceTests
     #region GetAllAsync
 
     [Fact(DisplayName = "GetAllAsync - Deve retornar lista de user roles mapeadas")]
-    [Trait("Application", "UserRoleAppService")]
+    [Trait("Application", "")]
     public async Task GetAllAsync_Sucesso_DeveRetornarLista()
     {
         var entities = new List<UserRoleEntity> { BuildEntity(1), BuildEntity(2) };
@@ -75,7 +75,7 @@ public class UserRoleAppServiceTests
     }
 
     [Fact(DisplayName = "GetAllAsync - Deve retornar lista vazia quando não há user roles")]
-    [Trait("Application", "UserRoleAppService")]
+    [Trait("Application", "")]
     public async Task GetAllAsync_ListaVazia_DeveRetornarVazio()
     {
         _repoMock.Setup(x => x.GetAllAsync(TenantId, AppId, default)).ReturnsAsync([]);
@@ -93,7 +93,7 @@ public class UserRoleAppServiceTests
     #region GetByIdAsync
 
     [Fact(DisplayName = "GetByIdAsync - Deve retornar user role quando encontrada")]
-    [Trait("Application", "UserRoleAppService")]
+    [Trait("Application", "")]
     public async Task GetByIdAsync_Sucesso_DeveRetornarUserRole()
     {
         var entity = BuildEntity(1);
@@ -109,7 +109,7 @@ public class UserRoleAppServiceTests
     }
 
     [Fact(DisplayName = "GetByIdAsync - Deve retornar null e notificar quando user role não encontrada")]
-    [Trait("Application", "UserRoleAppService")]
+    [Trait("Application", "")]
     public async Task GetByIdAsync_NaoEncontrada_DeveRetornarNullENotificar()
     {
         _repoMock.Setup(x => x.GetByIdAsync(99, default)).ReturnsAsync((UserRoleEntity)null);
@@ -126,7 +126,7 @@ public class UserRoleAppServiceTests
     #region GetPagedAsync
 
     [Fact(DisplayName = "GetPagedAsync - Deve retornar página de user roles")]
-    [Trait("Application", "UserRoleAppService")]
+    [Trait("Application", "")]
     public async Task GetPagedAsync_Sucesso_DeveRetornarPaginado()
     {
         var entities = new List<UserRoleEntity> { BuildEntity(1) };
@@ -142,7 +142,7 @@ public class UserRoleAppServiceTests
     }
 
     [Fact(DisplayName = "GetPagedAsync - Deve retornar página vazia quando não há registros")]
-    [Trait("Application", "UserRoleAppService")]
+    [Trait("Application", "")]
     public async Task GetPagedAsync_ListaVazia_DeveRetornarPaginadoVazio()
     {
         var listPage = new ListPage<UserRoleEntity> { Items = [], TotalItems = 0, TotalPages = 0, PageNumber = 1, PageSize = 10 };
@@ -161,7 +161,7 @@ public class UserRoleAppServiceTests
     #region CreateAsync
 
     [Fact(DisplayName = "CreateAsync - Deve criar user role com sucesso")]
-    [Trait("Application", "UserRoleAppService")]
+    [Trait("Application", "")]
     public async Task CreateAsync_Sucesso_DeveRetornarResponse()
     {
         var request = new CreateUserRoleRequest { AppId = AppId, UserId = UserId, RoleId = 1 };
@@ -179,7 +179,7 @@ public class UserRoleAppServiceTests
     }
 
     [Fact(DisplayName = "CreateAsync - Deve retornar null e notificar quando user role já existe")]
-    [Trait("Application", "UserRoleAppService")]
+    [Trait("Application", "")]
     public async Task CreateAsync_UserRoleJaExiste_DeveRetornarNullENotificar()
     {
         var request = new CreateUserRoleRequest { AppId = AppId, UserId = UserId, RoleId = 1 };
@@ -198,7 +198,7 @@ public class UserRoleAppServiceTests
     #region DeleteAsync
 
     [Fact(DisplayName = "DeleteAsync - Deve excluir user role com sucesso")]
-    [Trait("Application", "UserRoleAppService")]
+    [Trait("Application", "")]
     public async Task DeleteAsync_Sucesso_DeveExcluir()
     {
         var entity = BuildEntity(1);
@@ -212,7 +212,7 @@ public class UserRoleAppServiceTests
     }
 
     [Fact(DisplayName = "DeleteAsync - Deve notificar quando user role não encontrada")]
-    [Trait("Application", "UserRoleAppService")]
+    [Trait("Application", "")]
     public async Task DeleteAsync_NaoEncontrada_DeveNotificar()
     {
         _repoMock.Setup(x => x.GetByIdAsync(99, default)).ReturnsAsync((UserRoleEntity)null);
@@ -229,7 +229,7 @@ public class UserRoleAppServiceTests
     #region BulkUploadAsync
 
     [Fact(DisplayName = "BulkUploadAsync - Deve retornar false quando arquivo é inválido")]
-    [Trait("Application", "UserRoleAppService")]
+    [Trait("Application", "")]
     public async Task BulkUploadAsync_ArquivoInvalido_DeveRetornarFalse()
     {
         var fileMock = new Mock<IFormFile>();
@@ -243,7 +243,7 @@ public class UserRoleAppServiceTests
     }
 
     [Fact(DisplayName = "BulkUploadAsync - Deve retornar false e notificar quando CSV está vazio")]
-    [Trait("Application", "UserRoleAppService")]
+    [Trait("Application", "")]
     public async Task BulkUploadAsync_CsvVazio_DeveRetornarFalseENotificar()
     {
         var csvContent = "UserId;RoleId\r\n";
@@ -258,7 +258,7 @@ public class UserRoleAppServiceTests
     }
 
     [Fact(DisplayName = "BulkUploadAsync - Deve retornar false quando item com UserId inválido")]
-    [Trait("Application", "UserRoleAppService")]
+    [Trait("Application", "")]
     public async Task BulkUploadAsync_UserIdInvalido_DeveRetornarFalse()
     {
         var csvContent = "UserId;RoleId\r\n0;1\r\n";
@@ -273,7 +273,7 @@ public class UserRoleAppServiceTests
     }
 
     [Fact(DisplayName = "BulkUploadAsync - Deve retornar false quando user role já existe")]
-    [Trait("Application", "UserRoleAppService")]
+    [Trait("Application", "")]
     public async Task BulkUploadAsync_UserRoleJaExiste_DeveRetornarFalse()
     {
         var csvContent = "UserId;RoleId\r\n10;1\r\n";
@@ -290,7 +290,7 @@ public class UserRoleAppServiceTests
     }
 
     [Fact(DisplayName = "BulkUploadAsync - Deve processar CSV com sucesso")]
-    [Trait("Application", "UserRoleAppService")]
+    [Trait("Application", "")]
     public async Task BulkUploadAsync_Sucesso_DeveRetornarTrue()
     {
         var csvContent = "UserId;RoleId\r\n10;1\r\n";
@@ -307,7 +307,7 @@ public class UserRoleAppServiceTests
     }
 
     [Fact(DisplayName = "BulkUploadAsync - Deve retornar false quando domínio falha ao criar item")]
-    [Trait("Application", "UserRoleAppService")]
+    [Trait("Application", "")]
     public async Task BulkUploadAsync_DominioFalha_DeveRetornarFalse()
     {
         var csvContent = "UserId;RoleId\r\n10;1\r\n";

@@ -40,7 +40,7 @@ public class UserEndpointTests : IClassFixture<UserEndpointTests.UserWebApplicat
     #region GetAll
 
     [Fact(DisplayName = "GET /v1/users - Deve retornar 200 com lista de usuários")]
-    [Trait("Api", "Users")]
+    [Trait("Api", "")]
     public async Task GetAll_Sucesso_DeveRetornar200()
     {
         var users = Builder<UserResponse>.CreateListOfSize(3)
@@ -59,7 +59,7 @@ public class UserEndpointTests : IClassFixture<UserEndpointTests.UserWebApplicat
     }
 
     [Fact(DisplayName = "GET /v1/users - Deve retornar 200 com lista vazia")]
-    [Trait("Api", "Users")]
+    [Trait("Api", "")]
     public async Task GetAll_ListaVazia_DeveRetornar200()
     {
         _factory.UserAppServiceMock
@@ -72,7 +72,7 @@ public class UserEndpointTests : IClassFixture<UserEndpointTests.UserWebApplicat
     }
 
     [Fact(DisplayName = "GET /v1/users - Deve retornar 500 quando serviço lança exceção")]
-    [Trait("Api", "Users")]
+    [Trait("Api", "")]
     public async Task GetAll_Erro_DeveRetornar500()
     {
         _factory.UserAppServiceMock
@@ -89,7 +89,7 @@ public class UserEndpointTests : IClassFixture<UserEndpointTests.UserWebApplicat
     #region GetById
 
     [Fact(DisplayName = "GET /v1/users/{id} - Deve retornar 200 quando usuário existe")]
-    [Trait("Api", "Users")]
+    [Trait("Api", "")]
     public async Task GetById_Sucesso_DeveRetornar200()
     {
         var user = Builder<UserResponse>.CreateNew()
@@ -107,7 +107,7 @@ public class UserEndpointTests : IClassFixture<UserEndpointTests.UserWebApplicat
     }
 
     [Fact(DisplayName = "GET /v1/users/{id} - Deve retornar 410 quando usuário não existe")]
-    [Trait("Api", "Users")]
+    [Trait("Api", "")]
     public async Task GetById_NaoEncontrado_DeveRetornar410()
     {
         _factory.UserAppServiceMock
@@ -126,7 +126,7 @@ public class UserEndpointTests : IClassFixture<UserEndpointTests.UserWebApplicat
     }
 
     [Fact(DisplayName = "GET /v1/users/{id} - Deve retornar 500 quando serviço lança exceção")]
-    [Trait("Api", "Users")]
+    [Trait("Api", "")]
     public async Task GetById_Erro_DeveRetornar500()
     {
         _factory.UserAppServiceMock
@@ -143,7 +143,7 @@ public class UserEndpointTests : IClassFixture<UserEndpointTests.UserWebApplicat
     #region GetPaged
 
     [Fact(DisplayName = "GET /v1/users/paged - Deve retornar 200 com lista paginada")]
-    [Trait("Api", "Users")]
+    [Trait("Api", "")]
     public async Task GetPaged_Sucesso_DeveRetornar200()
     {
         var items = Builder<UserResponse>.CreateListOfSize(2)
@@ -164,7 +164,7 @@ public class UserEndpointTests : IClassFixture<UserEndpointTests.UserWebApplicat
     }
 
     [Fact(DisplayName = "GET /v1/users/paged - Deve retornar 200 com lista vazia")]
-    [Trait("Api", "Users")]
+    [Trait("Api", "")]
     public async Task GetPaged_ListaVazia_DeveRetornar200()
     {
         var paged = new ListPageResponse<UserResponse>([], 1, 10, 0, 0);
@@ -179,7 +179,7 @@ public class UserEndpointTests : IClassFixture<UserEndpointTests.UserWebApplicat
     }
 
     [Fact(DisplayName = "GET /v1/users/paged - Deve retornar 500 quando serviço lança exceção")]
-    [Trait("Api", "Users")]
+    [Trait("Api", "")]
     public async Task GetPaged_Erro_DeveRetornar500()
     {
         _factory.UserAppServiceMock
@@ -196,7 +196,7 @@ public class UserEndpointTests : IClassFixture<UserEndpointTests.UserWebApplicat
     #region Create
 
     [Fact(DisplayName = "POST /v1/users - Deve retornar 201 quando usuário criado com sucesso")]
-    [Trait("Api", "Users")]
+    [Trait("Api", "")]
     public async Task Create_Sucesso_DeveRetornar201()
     {
         var request = Builder<CreateUserRequest>.CreateNew()
@@ -215,7 +215,7 @@ public class UserEndpointTests : IClassFixture<UserEndpointTests.UserWebApplicat
     }
 
     [Fact(DisplayName = "POST /v1/users - Deve retornar 400 quando serviço retorna falso com notificação")]
-    [Trait("Api", "Users")]
+    [Trait("Api", "")]
     public async Task Create_DadosInvalidos_DeveRetornar400()
     {
         var request = Builder<CreateUserRequest>.CreateNew()
@@ -240,7 +240,7 @@ public class UserEndpointTests : IClassFixture<UserEndpointTests.UserWebApplicat
     }
 
     [Fact(DisplayName = "POST /v1/users - Deve retornar 500 quando serviço lança exceção")]
-    [Trait("Api", "Users")]
+    [Trait("Api", "")]
     public async Task Create_Erro_DeveRetornar500()
     {
         var request = Builder<CreateUserRequest>.CreateNew()
@@ -263,7 +263,7 @@ public class UserEndpointTests : IClassFixture<UserEndpointTests.UserWebApplicat
     #region Update
 
     [Fact(DisplayName = "PUT /v1/users/{id} - Deve retornar 200 quando atualizado com sucesso")]
-    [Trait("Api", "Users")]
+    [Trait("Api", "")]
     public async Task Update_Sucesso_DeveRetornar200()
     {
         var request = Builder<UpdateUserRequest>.CreateNew()
@@ -280,7 +280,7 @@ public class UserEndpointTests : IClassFixture<UserEndpointTests.UserWebApplicat
     }
 
     [Fact(DisplayName = "PUT /v1/users/{id} - Deve retornar 410 quando usuário não existe")]
-    [Trait("Api", "Users")]
+    [Trait("Api", "")]
     public async Task Update_NaoEncontrado_DeveRetornar410()
     {
         var request = Builder<UpdateUserRequest>.CreateNew()
@@ -303,7 +303,7 @@ public class UserEndpointTests : IClassFixture<UserEndpointTests.UserWebApplicat
     }
 
     [Fact(DisplayName = "PUT /v1/users/{id} - Deve retornar 409 quando nome já está em uso")]
-    [Trait("Api", "Users")]
+    [Trait("Api", "")]
     public async Task Update_Duplicado_DeveRetornar409()
     {
         var request = Builder<UpdateUserRequest>.CreateNew()
@@ -326,7 +326,7 @@ public class UserEndpointTests : IClassFixture<UserEndpointTests.UserWebApplicat
     }
 
     [Fact(DisplayName = "PUT /v1/users/{id} - Deve retornar 500 quando serviço lança exceção")]
-    [Trait("Api", "Users")]
+    [Trait("Api", "")]
     public async Task Update_Erro_DeveRetornar500()
     {
         var request = Builder<UpdateUserRequest>.CreateNew()
@@ -347,7 +347,7 @@ public class UserEndpointTests : IClassFixture<UserEndpointTests.UserWebApplicat
     #region UpdatePassword
 
     [Fact(DisplayName = "PATCH /v1/users/{id}/password - Deve retornar 200 quando senha atualizada com sucesso")]
-    [Trait("Api", "Users")]
+    [Trait("Api", "")]
     public async Task UpdatePassword_Sucesso_DeveRetornar200()
     {
         var request = Builder<UpdateSecretRequest>.CreateNew()
@@ -365,7 +365,7 @@ public class UserEndpointTests : IClassFixture<UserEndpointTests.UserWebApplicat
     }
 
     [Fact(DisplayName = "PATCH /v1/users/{id}/password - Deve retornar 410 quando usuário não existe")]
-    [Trait("Api", "Users")]
+    [Trait("Api", "")]
     public async Task UpdatePassword_NaoEncontrado_DeveRetornar410()
     {
         var request = Builder<UpdateSecretRequest>.CreateNew()
@@ -389,7 +389,7 @@ public class UserEndpointTests : IClassFixture<UserEndpointTests.UserWebApplicat
     }
 
     [Fact(DisplayName = "PATCH /v1/users/{id}/password - Deve retornar 400 quando senha atual incorreta")]
-    [Trait("Api", "Users")]
+    [Trait("Api", "")]
     public async Task UpdatePassword_SenhaIncorreta_DeveRetornar400()
     {
         var request = Builder<UpdateSecretRequest>.CreateNew()
@@ -413,7 +413,7 @@ public class UserEndpointTests : IClassFixture<UserEndpointTests.UserWebApplicat
     }
 
     [Fact(DisplayName = "PATCH /v1/users/{id}/password - Deve retornar 500 quando serviço lança exceção")]
-    [Trait("Api", "Users")]
+    [Trait("Api", "")]
     public async Task UpdatePassword_Erro_DeveRetornar500()
     {
         var request = Builder<UpdateSecretRequest>.CreateNew()
@@ -435,7 +435,7 @@ public class UserEndpointTests : IClassFixture<UserEndpointTests.UserWebApplicat
     #region Activate
 
     [Fact(DisplayName = "PATCH /v1/users/{id}/activate - Deve retornar 200 quando ativado com sucesso")]
-    [Trait("Api", "Users")]
+    [Trait("Api", "")]
     public async Task Activate_Sucesso_DeveRetornar200()
     {
         _factory.UserAppServiceMock
@@ -448,7 +448,7 @@ public class UserEndpointTests : IClassFixture<UserEndpointTests.UserWebApplicat
     }
 
     [Fact(DisplayName = "PATCH /v1/users/{id}/activate - Deve retornar 410 quando usuário não existe")]
-    [Trait("Api", "Users")]
+    [Trait("Api", "")]
     public async Task Activate_NaoEncontrado_DeveRetornar410()
     {
         _factory.UserAppServiceMock
@@ -467,7 +467,7 @@ public class UserEndpointTests : IClassFixture<UserEndpointTests.UserWebApplicat
     }
 
     [Fact(DisplayName = "PATCH /v1/users/{id}/activate - Deve retornar 500 quando serviço lança exceção")]
-    [Trait("Api", "Users")]
+    [Trait("Api", "")]
     public async Task Activate_Erro_DeveRetornar500()
     {
         _factory.UserAppServiceMock
@@ -484,7 +484,7 @@ public class UserEndpointTests : IClassFixture<UserEndpointTests.UserWebApplicat
     #region Deactivate
 
     [Fact(DisplayName = "PATCH /v1/users/{id}/deactivate - Deve retornar 200 quando desativado com sucesso")]
-    [Trait("Api", "Users")]
+    [Trait("Api", "")]
     public async Task Deactivate_Sucesso_DeveRetornar200()
     {
         _factory.UserAppServiceMock
@@ -497,7 +497,7 @@ public class UserEndpointTests : IClassFixture<UserEndpointTests.UserWebApplicat
     }
 
     [Fact(DisplayName = "PATCH /v1/users/{id}/deactivate - Deve retornar 410 quando usuário não existe")]
-    [Trait("Api", "Users")]
+    [Trait("Api", "")]
     public async Task Deactivate_NaoEncontrado_DeveRetornar410()
     {
         _factory.UserAppServiceMock
@@ -516,7 +516,7 @@ public class UserEndpointTests : IClassFixture<UserEndpointTests.UserWebApplicat
     }
 
     [Fact(DisplayName = "PATCH /v1/users/{id}/deactivate - Deve retornar 500 quando serviço lança exceção")]
-    [Trait("Api", "Users")]
+    [Trait("Api", "")]
     public async Task Deactivate_Erro_DeveRetornar500()
     {
         _factory.UserAppServiceMock
@@ -533,7 +533,7 @@ public class UserEndpointTests : IClassFixture<UserEndpointTests.UserWebApplicat
     #region Delete
 
     [Fact(DisplayName = "DELETE /v1/users/{id} - Deve retornar 200 quando excluído com sucesso")]
-    [Trait("Api", "Users")]
+    [Trait("Api", "")]
     public async Task Delete_Sucesso_DeveRetornar200()
     {
         _factory.UserAppServiceMock
@@ -546,7 +546,7 @@ public class UserEndpointTests : IClassFixture<UserEndpointTests.UserWebApplicat
     }
 
     [Fact(DisplayName = "DELETE /v1/users/{id} - Deve retornar 410 quando usuário não existe")]
-    [Trait("Api", "Users")]
+    [Trait("Api", "")]
     public async Task Delete_NaoEncontrado_DeveRetornar410()
     {
         _factory.UserAppServiceMock
@@ -565,7 +565,7 @@ public class UserEndpointTests : IClassFixture<UserEndpointTests.UserWebApplicat
     }
 
     [Fact(DisplayName = "DELETE /v1/users/{id} - Deve retornar 500 quando serviço lança exceção")]
-    [Trait("Api", "Users")]
+    [Trait("Api", "")]
     public async Task Delete_Erro_DeveRetornar500()
     {
         _factory.UserAppServiceMock
@@ -582,7 +582,7 @@ public class UserEndpointTests : IClassFixture<UserEndpointTests.UserWebApplicat
     #region BulkUpload
 
     [Fact(DisplayName = "POST /v1/users/bulk-upload - Deve retornar 200 quando upload realizado com sucesso")]
-    [Trait("Api", "Users")]
+    [Trait("Api", "")]
     public async Task BulkUpload_Sucesso_DeveRetornar200()
     {
         _factory.UserAppServiceMock
@@ -600,7 +600,7 @@ public class UserEndpointTests : IClassFixture<UserEndpointTests.UserWebApplicat
     }
 
     [Fact(DisplayName = "POST /v1/users/bulk-upload - Deve retornar 400 quando nenhum arquivo enviado")]
-    [Trait("Api", "Users")]
+    [Trait("Api", "")]
     public async Task BulkUpload_SemArquivo_DeveRetornar400()
     {
         _factory.NotifyMock
@@ -618,7 +618,7 @@ public class UserEndpointTests : IClassFixture<UserEndpointTests.UserWebApplicat
     }
 
     [Fact(DisplayName = "POST /v1/users/bulk-upload - Deve retornar 500 quando serviço lança exceção")]
-    [Trait("Api", "Users")]
+    [Trait("Api", "")]
     public async Task BulkUpload_Erro_DeveRetornar500()
     {
         _factory.UserAppServiceMock

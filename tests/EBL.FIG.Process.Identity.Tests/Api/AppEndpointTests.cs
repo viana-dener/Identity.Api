@@ -41,7 +41,7 @@ public class AppEndpointTests : IClassFixture<AppEndpointTests.AppWebApplication
     #region GetAll
 
     [Fact(DisplayName = "GET /v1/apps - Deve retornar 200 com lista de apps")]
-    [Trait("Api", "Apps")]
+    [Trait("Api", "")]
     public async Task GetAll_Sucesso_DeveRetornar200()
     {
         var apps = Builder<AppResponse>.CreateListOfSize(3)
@@ -60,7 +60,7 @@ public class AppEndpointTests : IClassFixture<AppEndpointTests.AppWebApplication
     }
 
     [Fact(DisplayName = "GET /v1/apps - Deve retornar 200 com lista vazia")]
-    [Trait("Api", "Apps")]
+    [Trait("Api", "")]
     public async Task GetAll_ListaVazia_DeveRetornar200()
     {
         _factory.AppAppServiceMock
@@ -73,7 +73,7 @@ public class AppEndpointTests : IClassFixture<AppEndpointTests.AppWebApplication
     }
 
     [Fact(DisplayName = "GET /v1/apps - Deve retornar 500 quando serviço lança exceção")]
-    [Trait("Api", "Apps")]
+    [Trait("Api", "")]
     public async Task GetAll_Erro_DeveRetornar500()
     {
         _factory.AppAppServiceMock
@@ -90,7 +90,7 @@ public class AppEndpointTests : IClassFixture<AppEndpointTests.AppWebApplication
     #region GetById
 
     [Fact(DisplayName = "GET /v1/apps/{id} - Deve retornar 200 quando app existe")]
-    [Trait("Api", "Apps")]
+    [Trait("Api", "")]
     public async Task GetById_Sucesso_DeveRetornar200()
     {
         var app = Builder<AppResponse>.CreateNew()
@@ -108,7 +108,7 @@ public class AppEndpointTests : IClassFixture<AppEndpointTests.AppWebApplication
     }
 
     [Fact(DisplayName = "GET /v1/apps/{id} - Deve retornar 410 quando app não existe")]
-    [Trait("Api", "Apps")]
+    [Trait("Api", "")]
     public async Task GetById_NaoEncontrado_DeveRetornar410()
     {
         _factory.AppAppServiceMock
@@ -127,7 +127,7 @@ public class AppEndpointTests : IClassFixture<AppEndpointTests.AppWebApplication
     }
 
     [Fact(DisplayName = "GET /v1/apps/{id} - Deve retornar 500 quando serviço lança exceção")]
-    [Trait("Api", "Apps")]
+    [Trait("Api", "")]
     public async Task GetById_Erro_DeveRetornar500()
     {
         _factory.AppAppServiceMock
@@ -144,7 +144,7 @@ public class AppEndpointTests : IClassFixture<AppEndpointTests.AppWebApplication
     #region GetPaged
 
     [Fact(DisplayName = "GET /v1/apps/paged - Deve retornar 200 com lista paginada")]
-    [Trait("Api", "Apps")]
+    [Trait("Api", "")]
     public async Task GetPaged_Sucesso_DeveRetornar200()
     {
         var items = Builder<AppResponse>.CreateListOfSize(2)
@@ -165,7 +165,7 @@ public class AppEndpointTests : IClassFixture<AppEndpointTests.AppWebApplication
     }
 
     [Fact(DisplayName = "GET /v1/apps/paged - Deve retornar 200 com lista vazia")]
-    [Trait("Api", "Apps")]
+    [Trait("Api", "")]
     public async Task GetPaged_ListaVazia_DeveRetornar200()
     {
         var paged = new ListPageResponse<AppResponse>([], 1, 10, 0, 0);
@@ -180,7 +180,7 @@ public class AppEndpointTests : IClassFixture<AppEndpointTests.AppWebApplication
     }
 
     [Fact(DisplayName = "GET /v1/apps/paged - Deve retornar 500 quando serviço lança exceção")]
-    [Trait("Api", "Apps")]
+    [Trait("Api", "")]
     public async Task GetPaged_Erro_DeveRetornar500()
     {
         _factory.AppAppServiceMock
@@ -197,7 +197,7 @@ public class AppEndpointTests : IClassFixture<AppEndpointTests.AppWebApplication
     #region Create
 
     [Fact(DisplayName = "POST /v1/apps - Deve retornar 201 quando app criada com sucesso")]
-    [Trait("Api", "Apps")]
+    [Trait("Api", "")]
     public async Task Create_Sucesso_DeveRetornar201()
     {
         var request = Builder<CreateAppRequest>.CreateNew()
@@ -215,7 +215,7 @@ public class AppEndpointTests : IClassFixture<AppEndpointTests.AppWebApplication
     }
 
     [Fact(DisplayName = "POST /v1/apps - Deve retornar 200 quando serviço retorna falso com notificação")]
-    [Trait("Api", "Apps")]
+    [Trait("Api", "")]
     public async Task Create_DadosInvalidos_DeveRetornar200()
     {
         var request = Builder<CreateAppRequest>.CreateNew()
@@ -239,7 +239,7 @@ public class AppEndpointTests : IClassFixture<AppEndpointTests.AppWebApplication
     }
 
     [Fact(DisplayName = "POST /v1/apps - Deve retornar 500 quando serviço lança exceção")]
-    [Trait("Api", "Apps")]
+    [Trait("Api", "")]
     public async Task Create_Erro_DeveRetornar500()
     {
         var request = Builder<CreateAppRequest>.CreateNew()
@@ -261,7 +261,7 @@ public class AppEndpointTests : IClassFixture<AppEndpointTests.AppWebApplication
     #region Update
 
     [Fact(DisplayName = "PUT /v1/apps/{id} - Deve retornar 200 quando atualizado com sucesso")]
-    [Trait("Api", "Apps")]
+    [Trait("Api", "")]
     public async Task Update_Sucesso_DeveRetornar200()
     {
         var request = Builder<UpdateAppRequest>.CreateNew()
@@ -279,7 +279,7 @@ public class AppEndpointTests : IClassFixture<AppEndpointTests.AppWebApplication
     }
 
     [Fact(DisplayName = "PUT /v1/apps/{id} - Deve retornar 410 quando app não existe")]
-    [Trait("Api", "Apps")]
+    [Trait("Api", "")]
     public async Task Update_NaoEncontrado_DeveRetornar410()
     {
         var request = Builder<UpdateAppRequest>.CreateNew()
@@ -303,7 +303,7 @@ public class AppEndpointTests : IClassFixture<AppEndpointTests.AppWebApplication
     }
 
     [Fact(DisplayName = "PUT /v1/apps/{id} - Deve retornar 409 quando nome já está em uso")]
-    [Trait("Api", "Apps")]
+    [Trait("Api", "")]
     public async Task Update_Duplicado_DeveRetornar409()
     {
         var request = Builder<UpdateAppRequest>.CreateNew()
@@ -327,7 +327,7 @@ public class AppEndpointTests : IClassFixture<AppEndpointTests.AppWebApplication
     }
 
     [Fact(DisplayName = "PUT /v1/apps/{id} - Deve retornar 500 quando serviço lança exceção")]
-    [Trait("Api", "Apps")]
+    [Trait("Api", "")]
     public async Task Update_Erro_DeveRetornar500()
     {
         var request = Builder<UpdateAppRequest>.CreateNew()
@@ -349,7 +349,7 @@ public class AppEndpointTests : IClassFixture<AppEndpointTests.AppWebApplication
     #region Activate
 
     [Fact(DisplayName = "PATCH /v1/apps/{id}/activate - Deve retornar 200 quando ativado com sucesso")]
-    [Trait("Api", "Apps")]
+    [Trait("Api", "")]
     public async Task Activate_Sucesso_DeveRetornar200()
     {
         _factory.AppAppServiceMock
@@ -362,7 +362,7 @@ public class AppEndpointTests : IClassFixture<AppEndpointTests.AppWebApplication
     }
 
     [Fact(DisplayName = "PATCH /v1/apps/{id}/activate - Deve retornar 410 quando app não existe")]
-    [Trait("Api", "Apps")]
+    [Trait("Api", "")]
     public async Task Activate_NaoEncontrado_DeveRetornar410()
     {
         _factory.AppAppServiceMock
@@ -381,7 +381,7 @@ public class AppEndpointTests : IClassFixture<AppEndpointTests.AppWebApplication
     }
 
     [Fact(DisplayName = "PATCH /v1/apps/{id}/activate - Deve retornar 500 quando serviço lança exceção")]
-    [Trait("Api", "Apps")]
+    [Trait("Api", "")]
     public async Task Activate_Erro_DeveRetornar500()
     {
         _factory.AppAppServiceMock
@@ -398,7 +398,7 @@ public class AppEndpointTests : IClassFixture<AppEndpointTests.AppWebApplication
     #region Deactivate
 
     [Fact(DisplayName = "PATCH /v1/apps/{id}/deactivate - Deve retornar 200 quando desativado com sucesso")]
-    [Trait("Api", "Apps")]
+    [Trait("Api", "")]
     public async Task Deactivate_Sucesso_DeveRetornar200()
     {
         _factory.AppAppServiceMock
@@ -411,7 +411,7 @@ public class AppEndpointTests : IClassFixture<AppEndpointTests.AppWebApplication
     }
 
     [Fact(DisplayName = "PATCH /v1/apps/{id}/deactivate - Deve retornar 410 quando app não existe")]
-    [Trait("Api", "Apps")]
+    [Trait("Api", "")]
     public async Task Deactivate_NaoEncontrado_DeveRetornar410()
     {
         _factory.AppAppServiceMock
@@ -430,7 +430,7 @@ public class AppEndpointTests : IClassFixture<AppEndpointTests.AppWebApplication
     }
 
     [Fact(DisplayName = "PATCH /v1/apps/{id}/deactivate - Deve retornar 500 quando serviço lança exceção")]
-    [Trait("Api", "Apps")]
+    [Trait("Api", "")]
     public async Task Deactivate_Erro_DeveRetornar500()
     {
         _factory.AppAppServiceMock
@@ -447,7 +447,7 @@ public class AppEndpointTests : IClassFixture<AppEndpointTests.AppWebApplication
     #region Delete
 
     [Fact(DisplayName = "DELETE /v1/apps/{id} - Deve retornar 200 quando excluído com sucesso")]
-    [Trait("Api", "Apps")]
+    [Trait("Api", "")]
     public async Task Delete_Sucesso_DeveRetornar200()
     {
         _factory.AppAppServiceMock
@@ -460,7 +460,7 @@ public class AppEndpointTests : IClassFixture<AppEndpointTests.AppWebApplication
     }
 
     [Fact(DisplayName = "DELETE /v1/apps/{id} - Deve retornar 410 quando app não existe")]
-    [Trait("Api", "Apps")]
+    [Trait("Api", "")]
     public async Task Delete_NaoEncontrado_DeveRetornar410()
     {
         _factory.AppAppServiceMock
@@ -479,7 +479,7 @@ public class AppEndpointTests : IClassFixture<AppEndpointTests.AppWebApplication
     }
 
     [Fact(DisplayName = "DELETE /v1/apps/{id} - Deve retornar 500 quando serviço lança exceção")]
-    [Trait("Api", "Apps")]
+    [Trait("Api", "")]
     public async Task Delete_Erro_DeveRetornar500()
     {
         _factory.AppAppServiceMock
@@ -496,7 +496,7 @@ public class AppEndpointTests : IClassFixture<AppEndpointTests.AppWebApplication
     #region BulkUpload
 
     [Fact(DisplayName = "POST /v1/apps/bulk-upload - Deve retornar 200 quando upload realizado com sucesso")]
-    [Trait("Api", "Apps")]
+    [Trait("Api", "")]
     public async Task BulkUpload_Sucesso_DeveRetornar200()
     {
         _factory.AppAppServiceMock
@@ -514,7 +514,7 @@ public class AppEndpointTests : IClassFixture<AppEndpointTests.AppWebApplication
     }
 
     [Fact(DisplayName = "POST /v1/apps/bulk-upload - Deve retornar 400 quando nenhum arquivo enviado")]
-    [Trait("Api", "Apps")]
+    [Trait("Api", "")]
     public async Task BulkUpload_SemArquivo_DeveRetornar400()
     {
         _factory.NotifyMock
@@ -532,7 +532,7 @@ public class AppEndpointTests : IClassFixture<AppEndpointTests.AppWebApplication
     }
 
     [Fact(DisplayName = "POST /v1/apps/bulk-upload - Deve retornar 500 quando serviço lança exceção")]
-    [Trait("Api", "Apps")]
+    [Trait("Api", "")]
     public async Task BulkUpload_Erro_DeveRetornar500()
     {
         _factory.AppAppServiceMock

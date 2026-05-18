@@ -35,7 +35,7 @@ public class FileValidationServiceTests
     #region ValidateFile - Arquivo nulo ou vazio
 
     [Fact(DisplayName = "ValidateFile - Deve retornar false e notificar quando arquivo é nulo")]
-    [Trait("Application", "FileValidationService")]
+    [Trait("Application", "")]
     public void ValidateFile_ArquivoNulo_DeveRetornarFalseENotificar()
     {
         var sut = CreateSut();
@@ -46,7 +46,7 @@ public class FileValidationServiceTests
     }
 
     [Fact(DisplayName = "ValidateFile - Deve retornar false e notificar quando arquivo está vazio")]
-    [Trait("Application", "FileValidationService")]
+    [Trait("Application", "")]
     public void ValidateFile_ArquivoVazio_DeveRetornarFalseENotificar()
     {
         var fileMock = BuildFileMock(Array.Empty<byte>());
@@ -63,7 +63,7 @@ public class FileValidationServiceTests
     #region ValidateFile - Tamanho do arquivo
 
     [Fact(DisplayName = "ValidateFile - Deve retornar false e notificar quando arquivo excede tamanho máximo")]
-    [Trait("Application", "FileValidationService")]
+    [Trait("Application", "")]
     public void ValidateFile_TamanhoExcedido_DeveRetornarFalseENotificar()
     {
         // Simula arquivo maior que o limite (10 MB = 10.485.760 bytes)
@@ -82,7 +82,7 @@ public class FileValidationServiceTests
     #region ValidateFile - Nome do arquivo
 
     [Fact(DisplayName = "ValidateFile - Deve retornar false e notificar quando nome do arquivo contém path traversal")]
-    [Trait("Application", "FileValidationService")]
+    [Trait("Application", "")]
     public void ValidateFile_NomeComPathTraversal_DeveRetornarFalseENotificar()
     {
         var content = BuildUtf8CsvContent();
@@ -96,7 +96,7 @@ public class FileValidationServiceTests
     }
 
     [Fact(DisplayName = "ValidateFile - Deve retornar false e notificar quando nome do arquivo contém caracteres inválidos")]
-    [Trait("Application", "FileValidationService")]
+    [Trait("Application", "")]
     public void ValidateFile_NomeComCaracteresInvalidos_DeveRetornarFalseENotificar()
     {
         var content = BuildUtf8CsvContent();
@@ -114,7 +114,7 @@ public class FileValidationServiceTests
     #region ValidateFile - Extensão do arquivo
 
     [Fact(DisplayName = "ValidateFile - Deve retornar false e notificar quando extensão não é CSV")]
-    [Trait("Application", "FileValidationService")]
+    [Trait("Application", "")]
     public void ValidateFile_ExtensaoInvalida_DeveRetornarFalseENotificar()
     {
         var content = BuildUtf8CsvContent();
@@ -128,7 +128,7 @@ public class FileValidationServiceTests
     }
 
     [Fact(DisplayName = "ValidateFile - Deve retornar false e notificar quando extensão é txt")]
-    [Trait("Application", "FileValidationService")]
+    [Trait("Application", "")]
     public void ValidateFile_ExtensaoTxt_DeveRetornarFalseENotificar()
     {
         var content = BuildUtf8CsvContent();
@@ -146,7 +146,7 @@ public class FileValidationServiceTests
     #region ValidateFile - Encoding
 
     [Fact(DisplayName = "ValidateFile - Deve retornar false e notificar quando encoding não é UTF-8")]
-    [Trait("Application", "FileValidationService")]
+    [Trait("Application", "")]
     public void ValidateFile_EncodingInvalido_DeveRetornarFalseENotificar()
     {
         // Conteúdo em Latin-1 (ISO-8859-1) com caractere inválido no UTF-8
@@ -165,7 +165,7 @@ public class FileValidationServiceTests
     #region ValidateFile - Sucesso
 
     [Fact(DisplayName = "ValidateFile - Deve retornar true quando arquivo CSV válido")]
-    [Trait("Application", "FileValidationService")]
+    [Trait("Application", "")]
     public void ValidateFile_ArquivoValido_DeveRetornarTrue()
     {
         var content = BuildUtf8CsvContent("Nome;Descricao\r\nTeste;Descricao valida\r\n");
@@ -179,7 +179,7 @@ public class FileValidationServiceTests
     }
 
     [Fact(DisplayName = "ValidateFile - Deve retornar true quando arquivo CSV com extensão maiúscula")]
-    [Trait("Application", "FileValidationService")]
+    [Trait("Application", "")]
     public void ValidateFile_ExtensaoMaiuscula_DeveRetornarTrue()
     {
         var content = BuildUtf8CsvContent("Nome;Descricao\r\nTeste;Desc\r\n");

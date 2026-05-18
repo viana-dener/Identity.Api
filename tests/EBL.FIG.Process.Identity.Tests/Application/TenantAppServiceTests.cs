@@ -56,7 +56,7 @@ public class TenantAppServiceTests
     #region GetAllAsync
 
     [Fact(DisplayName = "GetAllAsync - Deve retornar lista de tenants mapeados")]
-    [Trait("Application", "TenantAppService")]
+    [Trait("Application", "")]
     public async Task GetAllAsync_Sucesso_DeveRetornarLista()
     {
         var entities = new List<TenantEntity> { BuildTenant(1), BuildTenant(2) };
@@ -72,7 +72,7 @@ public class TenantAppServiceTests
     }
 
     [Fact(DisplayName = "GetAllAsync - Deve retornar lista vazia quando não há tenants")]
-    [Trait("Application", "TenantAppService")]
+    [Trait("Application", "")]
     public async Task GetAllAsync_ListaVazia_DeveRetornarVazio()
     {
         _repoMock.Setup(x => x.GetAllAsync(default)).ReturnsAsync([]);
@@ -90,7 +90,7 @@ public class TenantAppServiceTests
     #region GetByIdAsync
 
     [Fact(DisplayName = "GetByIdAsync - Deve retornar tenant quando encontrado")]
-    [Trait("Application", "TenantAppService")]
+    [Trait("Application", "")]
     public async Task GetByIdAsync_Sucesso_DeveRetornarTenant()
     {
         var entity = BuildTenant(1);
@@ -106,7 +106,7 @@ public class TenantAppServiceTests
     }
 
     [Fact(DisplayName = "GetByIdAsync - Deve retornar null e notificar quando tenant não encontrado")]
-    [Trait("Application", "TenantAppService")]
+    [Trait("Application", "")]
     public async Task GetByIdAsync_NaoEncontrado_DeveRetornarNullENotificar()
     {
         _repoMock.Setup(x => x.GetByIdAsync(99, default)).ReturnsAsync((TenantEntity)null);
@@ -123,7 +123,7 @@ public class TenantAppServiceTests
     #region GetPagedAsync
 
     [Fact(DisplayName = "GetPagedAsync - Deve retornar página de tenants")]
-    [Trait("Application", "TenantAppService")]
+    [Trait("Application", "")]
     public async Task GetPagedAsync_Sucesso_DeveRetornarPaginado()
     {
         var entities = new List<TenantEntity> { BuildTenant(1) };
@@ -142,7 +142,7 @@ public class TenantAppServiceTests
     }
 
     [Fact(DisplayName = "GetPagedAsync - Deve retornar página vazia quando não há registros")]
-    [Trait("Application", "TenantAppService")]
+    [Trait("Application", "")]
     public async Task GetPagedAsync_ListaVazia_DeveRetornarPaginadoVazio()
     {
         var listPage = new ListPage<TenantEntity> { Items = [], TotalItems = 0, TotalPages = 0, PageNumber = 1, PageSize = 10 };
@@ -164,7 +164,7 @@ public class TenantAppServiceTests
     #region CreateAsync
 
     [Fact(DisplayName = "CreateAsync - Deve criar tenant com sucesso")]
-    [Trait("Application", "TenantAppService")]
+    [Trait("Application", "")]
     public async Task CreateAsync_Sucesso_DeveRetornarTrue()
     {
         var request = new CreateTenantRequest { Name = "Novo Tenant", Description = "Desc", Alias = "alias" };
@@ -179,7 +179,7 @@ public class TenantAppServiceTests
     }
 
     [Fact(DisplayName = "CreateAsync - Deve retornar false e notificar quando nome já existe")]
-    [Trait("Application", "TenantAppService")]
+    [Trait("Application", "")]
     public async Task CreateAsync_NomeJaExiste_DeveRetornarFalseENotificar()
     {
         var request = new CreateTenantRequest { Name = "Tenant Existente" };
@@ -194,7 +194,7 @@ public class TenantAppServiceTests
     }
 
     [Fact(DisplayName = "CreateAsync - Deve retornar false quando domínio falha")]
-    [Trait("Application", "TenantAppService")]
+    [Trait("Application", "")]
     public async Task CreateAsync_DominioFalha_DeveRetornarFalse()
     {
         var request = new CreateTenantRequest { Name = "Novo Tenant", Description = "Desc", Alias = "alias" };
@@ -212,7 +212,7 @@ public class TenantAppServiceTests
     #region UpdateAsync
 
     [Fact(DisplayName = "UpdateAsync - Deve atualizar tenant com sucesso")]
-    [Trait("Application", "TenantAppService")]
+    [Trait("Application", "")]
     public async Task UpdateAsync_Sucesso_DeveRetornarTrue()
     {
         var entity = BuildTenant(1);
@@ -228,7 +228,7 @@ public class TenantAppServiceTests
     }
 
     [Fact(DisplayName = "UpdateAsync - Deve retornar false e notificar quando tenant não encontrado")]
-    [Trait("Application", "TenantAppService")]
+    [Trait("Application", "")]
     public async Task UpdateAsync_NaoEncontrado_DeveRetornarFalseENotificar()
     {
         _repoMock.Setup(x => x.GetByIdAsync(99, default)).ReturnsAsync((TenantEntity)null);
@@ -247,7 +247,7 @@ public class TenantAppServiceTests
     #region ActivateAsync
 
     [Fact(DisplayName = "ActivateAsync - Deve ativar tenant com sucesso")]
-    [Trait("Application", "TenantAppService")]
+    [Trait("Application", "")]
     public async Task ActivateAsync_Sucesso_DeveRetornarTrue()
     {
         var entity = BuildTenant(1, active: false);
@@ -262,7 +262,7 @@ public class TenantAppServiceTests
     }
 
     [Fact(DisplayName = "ActivateAsync - Deve retornar false e notificar quando tenant não encontrado")]
-    [Trait("Application", "TenantAppService")]
+    [Trait("Application", "")]
     public async Task ActivateAsync_NaoEncontrado_DeveRetornarFalseENotificar()
     {
         _repoMock.Setup(x => x.GetByIdAsync(99, default)).ReturnsAsync((TenantEntity)null);
@@ -280,7 +280,7 @@ public class TenantAppServiceTests
     #region DeactivateAsync
 
     [Fact(DisplayName = "DeactivateAsync - Deve desativar tenant com sucesso")]
-    [Trait("Application", "TenantAppService")]
+    [Trait("Application", "")]
     public async Task DeactivateAsync_Sucesso_DeveRetornarTrue()
     {
         var entity = BuildTenant(1);
@@ -295,7 +295,7 @@ public class TenantAppServiceTests
     }
 
     [Fact(DisplayName = "DeactivateAsync - Deve retornar false e notificar quando tenant não encontrado")]
-    [Trait("Application", "TenantAppService")]
+    [Trait("Application", "")]
     public async Task DeactivateAsync_NaoEncontrado_DeveRetornarFalseENotificar()
     {
         _repoMock.Setup(x => x.GetByIdAsync(99, default)).ReturnsAsync((TenantEntity)null);
@@ -313,7 +313,7 @@ public class TenantAppServiceTests
     #region DeleteAsync
 
     [Fact(DisplayName = "DeleteAsync - Deve excluir tenant com sucesso")]
-    [Trait("Application", "TenantAppService")]
+    [Trait("Application", "")]
     public async Task DeleteAsync_Sucesso_DeveRetornarTrue()
     {
         var entity = BuildTenant(1);
@@ -328,7 +328,7 @@ public class TenantAppServiceTests
     }
 
     [Fact(DisplayName = "DeleteAsync - Deve retornar false e notificar quando tenant não encontrado")]
-    [Trait("Application", "TenantAppService")]
+    [Trait("Application", "")]
     public async Task DeleteAsync_NaoEncontrado_DeveRetornarFalseENotificar()
     {
         _repoMock.Setup(x => x.GetByIdAsync(99, default)).ReturnsAsync((TenantEntity)null);
@@ -346,7 +346,7 @@ public class TenantAppServiceTests
     #region BulkUploadAsync
 
     [Fact(DisplayName = "BulkUploadAsync - Deve retornar false quando arquivo é inválido")]
-    [Trait("Application", "TenantAppService")]
+    [Trait("Application", "")]
     public async Task BulkUploadAsync_ArquivoInvalido_DeveRetornarFalse()
     {
         var fileMock = new Mock<IFormFile>();
@@ -360,7 +360,7 @@ public class TenantAppServiceTests
     }
 
     [Fact(DisplayName = "BulkUploadAsync - Deve retornar false e notificar quando CSV está vazio")]
-    [Trait("Application", "TenantAppService")]
+    [Trait("Application", "")]
     public async Task BulkUploadAsync_CsvVazio_DeveRetornarFalseENotificar()
     {
         var csvContent = "Name;Description;Alias;UrlImage;Settings;Remarks\r\n";
@@ -375,7 +375,7 @@ public class TenantAppServiceTests
     }
 
     [Fact(DisplayName = "BulkUploadAsync - Deve retornar false quando item sem nome")]
-    [Trait("Application", "TenantAppService")]
+    [Trait("Application", "")]
     public async Task BulkUploadAsync_ItemSemNome_DeveRetornarFalse()
     {
         var csvContent = "Name;Description;Alias;UrlImage;Settings;Remarks\r\n;;alias;;;\r\n";
@@ -390,7 +390,7 @@ public class TenantAppServiceTests
     }
 
     [Fact(DisplayName = "BulkUploadAsync - Deve retornar false quando tenant já existe")]
-    [Trait("Application", "TenantAppService")]
+    [Trait("Application", "")]
     public async Task BulkUploadAsync_TenantJaExiste_DeveRetornarFalse()
     {
         var csvContent = "Name;Description;Alias;UrlImage;Settings;Remarks\r\nTenant Existente;Desc;alias;;;\r\n";
@@ -407,7 +407,7 @@ public class TenantAppServiceTests
     }
 
     [Fact(DisplayName = "BulkUploadAsync - Deve processar CSV com sucesso")]
-    [Trait("Application", "TenantAppService")]
+    [Trait("Application", "")]
     public async Task BulkUploadAsync_Sucesso_DeveRetornarTrue()
     {
         var csvContent = "Name;Description;Alias;UrlImage;Settings;Remarks\r\nNovo Tenant;Descrição;alias;;;\r\n";
@@ -424,7 +424,7 @@ public class TenantAppServiceTests
     }
 
     [Fact(DisplayName = "BulkUploadAsync - Deve retornar false quando domínio falha ao criar tenant")]
-    [Trait("Application", "TenantAppService")]
+    [Trait("Application", "")]
     public async Task BulkUploadAsync_DominioFalha_DeveRetornarFalse()
     {
         var csvContent = "Name;Description;Alias;UrlImage;Settings;Remarks\r\nNovo Tenant;Descrição;alias;;;\r\n";

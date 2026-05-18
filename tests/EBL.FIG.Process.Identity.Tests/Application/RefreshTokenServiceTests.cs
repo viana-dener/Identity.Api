@@ -50,7 +50,7 @@ public class RefreshTokenServiceTests
     #region IssueAsync
 
     [Fact(DisplayName = "IssueAsync - Deve emitir refresh token com sucesso")]
-    [Trait("Application", "RefreshTokenService")]
+    [Trait("Application", "")]
     public async Task IssueAsync_Sucesso_DeveRetornarResult()
     {
         _refreshRepoMock.Setup(x => x.CreateAsync(It.IsAny<RefreshTokenEntity>(), default)).ReturnsAsync(true);
@@ -66,7 +66,7 @@ public class RefreshTokenServiceTests
     }
 
     [Fact(DisplayName = "IssueAsync - Deve respeitar expiração configurada")]
-    [Trait("Application", "RefreshTokenService")]
+    [Trait("Application", "")]
     public async Task IssueAsync_DeveRespeitarExpiracaoConfigurada()
     {
         var settings = new JwtSettings { RefreshTokenExpirationDays = 30 };
@@ -84,7 +84,7 @@ public class RefreshTokenServiceTests
     #region RotateAsync
 
     [Fact(DisplayName = "RotateAsync - Deve rotacionar token ativo com sucesso")]
-    [Trait("Application", "RefreshTokenService")]
+    [Trait("Application", "")]
     public async Task RotateAsync_TokenAtivo_DeveRetornarNovoToken()
     {
         var existing = BuildRefreshToken(active: true);
@@ -104,7 +104,7 @@ public class RefreshTokenServiceTests
     }
 
     [Fact(DisplayName = "RotateAsync - Deve retornar null e notificar quando token não encontrado")]
-    [Trait("Application", "RefreshTokenService")]
+    [Trait("Application", "")]
     public async Task RotateAsync_TokenNaoEncontrado_DeveRetornarNullENotificar()
     {
         _refreshRepoMock.Setup(x => x.GetByTokenHashAsync(It.IsAny<byte[]>(), TenantId, default))
@@ -120,7 +120,7 @@ public class RefreshTokenServiceTests
     }
 
     [Fact(DisplayName = "RotateAsync - Deve retornar null e notificar quando token está expirado")]
-    [Trait("Application", "RefreshTokenService")]
+    [Trait("Application", "")]
     public async Task RotateAsync_TokenExpirado_DeveRetornarNullENotificar()
     {
         var expiredToken = BuildRefreshToken(active: false);
@@ -135,7 +135,7 @@ public class RefreshTokenServiceTests
     }
 
     [Fact(DisplayName = "RotateAsync - Deve retornar null e notificar quando token foi revogado")]
-    [Trait("Application", "RefreshTokenService")]
+    [Trait("Application", "")]
     public async Task RotateAsync_TokenRevogado_DeveRetornarNullENotificar()
     {
         var revokedToken = BuildRefreshToken(active: true);
@@ -155,7 +155,7 @@ public class RefreshTokenServiceTests
     #region RevokeAllAsync
 
     [Fact(DisplayName = "RevokeAllAsync - Deve revogar todos os tokens do usuário com sucesso")]
-    [Trait("Application", "RefreshTokenService")]
+    [Trait("Application", "")]
     public async Task RevokeAllAsync_Sucesso_DeveRetornarQuantidadeRevogada()
     {
         _refreshRepoMock.Setup(x => x.RevokeAllByUserAsync(UserId, TenantId, UserId, default)).ReturnsAsync(3);
@@ -168,7 +168,7 @@ public class RefreshTokenServiceTests
     }
 
     [Fact(DisplayName = "RevokeAllAsync - Deve retornar zero quando não há tokens para revogar")]
-    [Trait("Application", "RefreshTokenService")]
+    [Trait("Application", "")]
     public async Task RevokeAllAsync_SemTokens_DeveRetornarZero()
     {
         _refreshRepoMock.Setup(x => x.RevokeAllByUserAsync(UserId, TenantId, UserId, default)).ReturnsAsync(0);

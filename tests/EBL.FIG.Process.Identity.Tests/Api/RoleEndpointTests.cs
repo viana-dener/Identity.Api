@@ -40,7 +40,7 @@ public class RoleEndpointTests : IClassFixture<RoleEndpointTests.RoleWebApplicat
     #region GetAll
 
     [Fact(DisplayName = "GET /v1/roles - Deve retornar 200 com lista de roles")]
-    [Trait("Api", "Roles")]
+    [Trait("Api", "")]
     public async Task GetAll_Sucesso_DeveRetornar200()
     {
         var roles = Builder<RoleResponse>.CreateListOfSize(3)
@@ -59,7 +59,7 @@ public class RoleEndpointTests : IClassFixture<RoleEndpointTests.RoleWebApplicat
     }
 
     [Fact(DisplayName = "GET /v1/roles - Deve retornar 200 com lista vazia")]
-    [Trait("Api", "Roles")]
+    [Trait("Api", "")]
     public async Task GetAll_ListaVazia_DeveRetornar200()
     {
         _factory.RoleAppServiceMock
@@ -72,7 +72,7 @@ public class RoleEndpointTests : IClassFixture<RoleEndpointTests.RoleWebApplicat
     }
 
     [Fact(DisplayName = "GET /v1/roles - Deve retornar 500 quando serviço lança exceção")]
-    [Trait("Api", "Roles")]
+    [Trait("Api", "")]
     public async Task GetAll_Erro_DeveRetornar500()
     {
         _factory.RoleAppServiceMock
@@ -89,7 +89,7 @@ public class RoleEndpointTests : IClassFixture<RoleEndpointTests.RoleWebApplicat
     #region GetById
 
     [Fact(DisplayName = "GET /v1/roles/{id} - Deve retornar 200 quando role existe")]
-    [Trait("Api", "Roles")]
+    [Trait("Api", "")]
     public async Task GetById_Sucesso_DeveRetornar200()
     {
         var role = Builder<RoleResponse>.CreateNew()
@@ -107,7 +107,7 @@ public class RoleEndpointTests : IClassFixture<RoleEndpointTests.RoleWebApplicat
     }
 
     [Fact(DisplayName = "GET /v1/roles/{id} - Deve retornar 410 quando role não existe")]
-    [Trait("Api", "Roles")]
+    [Trait("Api", "")]
     public async Task GetById_NaoEncontrado_DeveRetornar410()
     {
         _factory.RoleAppServiceMock
@@ -126,7 +126,7 @@ public class RoleEndpointTests : IClassFixture<RoleEndpointTests.RoleWebApplicat
     }
 
     [Fact(DisplayName = "GET /v1/roles/{id} - Deve retornar 500 quando serviço lança exceção")]
-    [Trait("Api", "Roles")]
+    [Trait("Api", "")]
     public async Task GetById_Erro_DeveRetornar500()
     {
         _factory.RoleAppServiceMock
@@ -143,7 +143,7 @@ public class RoleEndpointTests : IClassFixture<RoleEndpointTests.RoleWebApplicat
     #region GetPaged
 
     [Fact(DisplayName = "GET /v1/roles/paged - Deve retornar 200 com lista paginada")]
-    [Trait("Api", "Roles")]
+    [Trait("Api", "")]
     public async Task GetPaged_Sucesso_DeveRetornar200()
     {
         var items = Builder<RoleResponse>.CreateListOfSize(2)
@@ -164,7 +164,7 @@ public class RoleEndpointTests : IClassFixture<RoleEndpointTests.RoleWebApplicat
     }
 
     [Fact(DisplayName = "GET /v1/roles/paged - Deve retornar 200 com lista vazia")]
-    [Trait("Api", "Roles")]
+    [Trait("Api", "")]
     public async Task GetPaged_ListaVazia_DeveRetornar200()
     {
         var paged = new ListPageResponse<RoleResponse>([], 1, 10, 0, 0);
@@ -179,7 +179,7 @@ public class RoleEndpointTests : IClassFixture<RoleEndpointTests.RoleWebApplicat
     }
 
     [Fact(DisplayName = "GET /v1/roles/paged - Deve retornar 500 quando serviço lança exceção")]
-    [Trait("Api", "Roles")]
+    [Trait("Api", "")]
     public async Task GetPaged_Erro_DeveRetornar500()
     {
         _factory.RoleAppServiceMock
@@ -196,7 +196,7 @@ public class RoleEndpointTests : IClassFixture<RoleEndpointTests.RoleWebApplicat
     #region Create
 
     [Fact(DisplayName = "POST /v1/roles - Deve retornar 201 quando role criada com sucesso")]
-    [Trait("Api", "Roles")]
+    [Trait("Api", "")]
     public async Task Create_Sucesso_DeveRetornar201()
     {
         var request = Builder<CreateRoleRequest>.CreateNew()
@@ -214,7 +214,7 @@ public class RoleEndpointTests : IClassFixture<RoleEndpointTests.RoleWebApplicat
     }
 
     [Fact(DisplayName = "POST /v1/roles - Deve retornar 400 quando serviço retorna falso com notificação")]
-    [Trait("Api", "Roles")]
+    [Trait("Api", "")]
     public async Task Create_DadosInvalidos_DeveRetornar400()
     {
         var request = Builder<CreateRoleRequest>.CreateNew()
@@ -238,7 +238,7 @@ public class RoleEndpointTests : IClassFixture<RoleEndpointTests.RoleWebApplicat
     }
 
     [Fact(DisplayName = "POST /v1/roles - Deve retornar 500 quando serviço lança exceção")]
-    [Trait("Api", "Roles")]
+    [Trait("Api", "")]
     public async Task Create_Erro_DeveRetornar500()
     {
         var request = Builder<CreateRoleRequest>.CreateNew()
@@ -260,7 +260,7 @@ public class RoleEndpointTests : IClassFixture<RoleEndpointTests.RoleWebApplicat
     #region Update
 
     [Fact(DisplayName = "PUT /v1/roles/{id} - Deve retornar 200 quando atualizado com sucesso")]
-    [Trait("Api", "Roles")]
+    [Trait("Api", "")]
     public async Task Update_Sucesso_DeveRetornar200()
     {
         var request = Builder<UpdateRoleRequest>.CreateNew()
@@ -278,7 +278,7 @@ public class RoleEndpointTests : IClassFixture<RoleEndpointTests.RoleWebApplicat
     }
 
     [Fact(DisplayName = "PUT /v1/roles/{id} - Deve retornar 410 quando role não existe")]
-    [Trait("Api", "Roles")]
+    [Trait("Api", "")]
     public async Task Update_NaoEncontrado_DeveRetornar410()
     {
         var request = Builder<UpdateRoleRequest>.CreateNew()
@@ -302,7 +302,7 @@ public class RoleEndpointTests : IClassFixture<RoleEndpointTests.RoleWebApplicat
     }
 
     [Fact(DisplayName = "PUT /v1/roles/{id} - Deve retornar 409 quando nome já está em uso")]
-    [Trait("Api", "Roles")]
+    [Trait("Api", "")]
     public async Task Update_Duplicado_DeveRetornar409()
     {
         var request = Builder<UpdateRoleRequest>.CreateNew()
@@ -326,7 +326,7 @@ public class RoleEndpointTests : IClassFixture<RoleEndpointTests.RoleWebApplicat
     }
 
     [Fact(DisplayName = "PUT /v1/roles/{id} - Deve retornar 500 quando serviço lança exceção")]
-    [Trait("Api", "Roles")]
+    [Trait("Api", "")]
     public async Task Update_Erro_DeveRetornar500()
     {
         var request = Builder<UpdateRoleRequest>.CreateNew()
@@ -348,7 +348,7 @@ public class RoleEndpointTests : IClassFixture<RoleEndpointTests.RoleWebApplicat
     #region Activate
 
     [Fact(DisplayName = "PATCH /v1/roles/{id}/activate - Deve retornar 200 quando ativado com sucesso")]
-    [Trait("Api", "Roles")]
+    [Trait("Api", "")]
     public async Task Activate_Sucesso_DeveRetornar200()
     {
         _factory.RoleAppServiceMock
@@ -361,7 +361,7 @@ public class RoleEndpointTests : IClassFixture<RoleEndpointTests.RoleWebApplicat
     }
 
     [Fact(DisplayName = "PATCH /v1/roles/{id}/activate - Deve retornar 410 quando role não existe")]
-    [Trait("Api", "Roles")]
+    [Trait("Api", "")]
     public async Task Activate_NaoEncontrado_DeveRetornar410()
     {
         _factory.RoleAppServiceMock
@@ -380,7 +380,7 @@ public class RoleEndpointTests : IClassFixture<RoleEndpointTests.RoleWebApplicat
     }
 
     [Fact(DisplayName = "PATCH /v1/roles/{id}/activate - Deve retornar 500 quando serviço lança exceção")]
-    [Trait("Api", "Roles")]
+    [Trait("Api", "")]
     public async Task Activate_Erro_DeveRetornar500()
     {
         _factory.RoleAppServiceMock
@@ -397,7 +397,7 @@ public class RoleEndpointTests : IClassFixture<RoleEndpointTests.RoleWebApplicat
     #region Deactivate
 
     [Fact(DisplayName = "PATCH /v1/roles/{id}/deactivate - Deve retornar 200 quando desativado com sucesso")]
-    [Trait("Api", "Roles")]
+    [Trait("Api", "")]
     public async Task Deactivate_Sucesso_DeveRetornar200()
     {
         _factory.RoleAppServiceMock
@@ -410,7 +410,7 @@ public class RoleEndpointTests : IClassFixture<RoleEndpointTests.RoleWebApplicat
     }
 
     [Fact(DisplayName = "PATCH /v1/roles/{id}/deactivate - Deve retornar 410 quando role não existe")]
-    [Trait("Api", "Roles")]
+    [Trait("Api", "")]
     public async Task Deactivate_NaoEncontrado_DeveRetornar410()
     {
         _factory.RoleAppServiceMock
@@ -429,7 +429,7 @@ public class RoleEndpointTests : IClassFixture<RoleEndpointTests.RoleWebApplicat
     }
 
     [Fact(DisplayName = "PATCH /v1/roles/{id}/deactivate - Deve retornar 500 quando serviço lança exceção")]
-    [Trait("Api", "Roles")]
+    [Trait("Api", "")]
     public async Task Deactivate_Erro_DeveRetornar500()
     {
         _factory.RoleAppServiceMock
@@ -446,7 +446,7 @@ public class RoleEndpointTests : IClassFixture<RoleEndpointTests.RoleWebApplicat
     #region Delete
 
     [Fact(DisplayName = "DELETE /v1/roles/{id} - Deve retornar 200 quando excluído com sucesso")]
-    [Trait("Api", "Roles")]
+    [Trait("Api", "")]
     public async Task Delete_Sucesso_DeveRetornar200()
     {
         _factory.RoleAppServiceMock
@@ -459,7 +459,7 @@ public class RoleEndpointTests : IClassFixture<RoleEndpointTests.RoleWebApplicat
     }
 
     [Fact(DisplayName = "DELETE /v1/roles/{id} - Deve retornar 410 quando role não existe")]
-    [Trait("Api", "Roles")]
+    [Trait("Api", "")]
     public async Task Delete_NaoEncontrado_DeveRetornar410()
     {
         _factory.RoleAppServiceMock
@@ -478,7 +478,7 @@ public class RoleEndpointTests : IClassFixture<RoleEndpointTests.RoleWebApplicat
     }
 
     [Fact(DisplayName = "DELETE /v1/roles/{id} - Deve retornar 500 quando serviço lança exceção")]
-    [Trait("Api", "Roles")]
+    [Trait("Api", "")]
     public async Task Delete_Erro_DeveRetornar500()
     {
         _factory.RoleAppServiceMock
@@ -495,7 +495,7 @@ public class RoleEndpointTests : IClassFixture<RoleEndpointTests.RoleWebApplicat
     #region BulkUpload
 
     [Fact(DisplayName = "POST /v1/roles/bulk-upload - Deve retornar 200 quando upload realizado com sucesso")]
-    [Trait("Api", "Roles")]
+    [Trait("Api", "")]
     public async Task BulkUpload_Sucesso_DeveRetornar200()
     {
         _factory.RoleAppServiceMock
@@ -513,7 +513,7 @@ public class RoleEndpointTests : IClassFixture<RoleEndpointTests.RoleWebApplicat
     }
 
     [Fact(DisplayName = "POST /v1/roles/bulk-upload - Deve retornar 400 quando nenhum arquivo enviado")]
-    [Trait("Api", "Roles")]
+    [Trait("Api", "")]
     public async Task BulkUpload_SemArquivo_DeveRetornar400()
     {
         _factory.NotifyMock
@@ -531,7 +531,7 @@ public class RoleEndpointTests : IClassFixture<RoleEndpointTests.RoleWebApplicat
     }
 
     [Fact(DisplayName = "POST /v1/roles/bulk-upload - Deve retornar 500 quando serviço lança exceção")]
-    [Trait("Api", "Roles")]
+    [Trait("Api", "")]
     public async Task BulkUpload_Erro_DeveRetornar500()
     {
         _factory.RoleAppServiceMock

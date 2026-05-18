@@ -40,7 +40,7 @@ public class RolePermissionEndpointTests : IClassFixture<RolePermissionEndpointT
     #region GetAll
 
     [Fact(DisplayName = "GET /v1/role-permissions - Deve retornar 200 com lista de role permissions")]
-    [Trait("Api", "RolePermissions")]
+    [Trait("Api", "")]
     public async Task GetAll_Sucesso_DeveRetornar200()
     {
         var permissions = Builder<RolePermissionResponse>.CreateListOfSize(3)
@@ -61,7 +61,7 @@ public class RolePermissionEndpointTests : IClassFixture<RolePermissionEndpointT
     }
 
     [Fact(DisplayName = "GET /v1/role-permissions - Deve retornar 200 com lista vazia")]
-    [Trait("Api", "RolePermissions")]
+    [Trait("Api", "")]
     public async Task GetAll_ListaVazia_DeveRetornar200()
     {
         _factory.RolePermissionAppServiceMock
@@ -74,7 +74,7 @@ public class RolePermissionEndpointTests : IClassFixture<RolePermissionEndpointT
     }
 
     [Fact(DisplayName = "GET /v1/role-permissions - Deve retornar 500 quando serviço lança exceção")]
-    [Trait("Api", "RolePermissions")]
+    [Trait("Api", "")]
     public async Task GetAll_Erro_DeveRetornar500()
     {
         _factory.RolePermissionAppServiceMock
@@ -91,7 +91,7 @@ public class RolePermissionEndpointTests : IClassFixture<RolePermissionEndpointT
     #region GetById
 
     [Fact(DisplayName = "GET /v1/role-permissions/{id} - Deve retornar 200 quando role permission existe")]
-    [Trait("Api", "RolePermissions")]
+    [Trait("Api", "")]
     public async Task GetById_Sucesso_DeveRetornar200()
     {
         var permission = Builder<RolePermissionDetailResponse>.CreateNew()
@@ -111,7 +111,7 @@ public class RolePermissionEndpointTests : IClassFixture<RolePermissionEndpointT
     }
 
     [Fact(DisplayName = "GET /v1/role-permissions/{id} - Deve retornar 410 quando role permission não existe")]
-    [Trait("Api", "RolePermissions")]
+    [Trait("Api", "")]
     public async Task GetById_NaoEncontrado_DeveRetornar410()
     {
         _factory.RolePermissionAppServiceMock
@@ -130,7 +130,7 @@ public class RolePermissionEndpointTests : IClassFixture<RolePermissionEndpointT
     }
 
     [Fact(DisplayName = "GET /v1/role-permissions/{id} - Deve retornar 500 quando serviço lança exceção")]
-    [Trait("Api", "RolePermissions")]
+    [Trait("Api", "")]
     public async Task GetById_Erro_DeveRetornar500()
     {
         _factory.RolePermissionAppServiceMock
@@ -147,7 +147,7 @@ public class RolePermissionEndpointTests : IClassFixture<RolePermissionEndpointT
     #region Create
 
     [Fact(DisplayName = "POST /v1/role-permissions - Deve retornar 201 quando role permission criada com sucesso")]
-    [Trait("Api", "RolePermissions")]
+    [Trait("Api", "")]
     public async Task Create_Sucesso_DeveRetornar201()
     {
         var request = Builder<CreateRolePermissionRequest>.CreateNew()
@@ -170,7 +170,7 @@ public class RolePermissionEndpointTests : IClassFixture<RolePermissionEndpointT
     }
 
     [Fact(DisplayName = "POST /v1/role-permissions - Deve retornar 400 quando serviço retorna falso com notificação")]
-    [Trait("Api", "RolePermissions")]
+    [Trait("Api", "")]
     public async Task Create_DadosInvalidos_DeveRetornar400()
     {
         var request = Builder<CreateRolePermissionRequest>.CreateNew()
@@ -195,7 +195,7 @@ public class RolePermissionEndpointTests : IClassFixture<RolePermissionEndpointT
     }
 
     [Fact(DisplayName = "POST /v1/role-permissions - Deve retornar 500 quando serviço lança exceção")]
-    [Trait("Api", "RolePermissions")]
+    [Trait("Api", "")]
     public async Task Create_Erro_DeveRetornar500()
     {
         var request = Builder<CreateRolePermissionRequest>.CreateNew()
@@ -218,7 +218,7 @@ public class RolePermissionEndpointTests : IClassFixture<RolePermissionEndpointT
     #region Delete
 
     [Fact(DisplayName = "DELETE /v1/role-permissions/{id} - Deve retornar 200 quando excluído com sucesso")]
-    [Trait("Api", "RolePermissions")]
+    [Trait("Api", "")]
     public async Task Delete_Sucesso_DeveRetornar200()
     {
         _factory.RolePermissionAppServiceMock
@@ -230,7 +230,7 @@ public class RolePermissionEndpointTests : IClassFixture<RolePermissionEndpointT
     }
 
     [Fact(DisplayName = "DELETE /v1/role-permissions/{id} - Deve retornar 410 quando role permission não existe")]
-    [Trait("Api", "RolePermissions")]
+    [Trait("Api", "")]
     public async Task Delete_NaoEncontrado_DeveRetornar410()
     {
         _factory.RolePermissionAppServiceMock
@@ -248,7 +248,7 @@ public class RolePermissionEndpointTests : IClassFixture<RolePermissionEndpointT
     }
 
     [Fact(DisplayName = "DELETE /v1/role-permissions/{id} - Deve retornar 500 quando serviço lança exceção")]
-    [Trait("Api", "RolePermissions")]
+    [Trait("Api", "")]
     public async Task Delete_Erro_DeveRetornar500()
     {
         _factory.RolePermissionAppServiceMock
@@ -265,7 +265,7 @@ public class RolePermissionEndpointTests : IClassFixture<RolePermissionEndpointT
     #region BulkUpload
 
     [Fact(DisplayName = "POST /v1/role-permissions/bulk-upload - Deve retornar 200 quando upload realizado com sucesso")]
-    [Trait("Api", "RolePermissions")]
+    [Trait("Api", "")]
     public async Task BulkUpload_Sucesso_DeveRetornar200()
     {
         _factory.RolePermissionAppServiceMock
@@ -283,7 +283,7 @@ public class RolePermissionEndpointTests : IClassFixture<RolePermissionEndpointT
     }
 
     [Fact(DisplayName = "POST /v1/role-permissions/bulk-upload - Deve retornar 400 quando nenhum arquivo enviado")]
-    [Trait("Api", "RolePermissions")]
+    [Trait("Api", "")]
     public async Task BulkUpload_SemArquivo_DeveRetornar400()
     {
         _factory.NotifyMock
@@ -301,7 +301,7 @@ public class RolePermissionEndpointTests : IClassFixture<RolePermissionEndpointT
     }
 
     [Fact(DisplayName = "POST /v1/role-permissions/bulk-upload - Deve retornar 500 quando serviço lança exceção")]
-    [Trait("Api", "RolePermissions")]
+    [Trait("Api", "")]
     public async Task BulkUpload_Erro_DeveRetornar500()
     {
         _factory.RolePermissionAppServiceMock

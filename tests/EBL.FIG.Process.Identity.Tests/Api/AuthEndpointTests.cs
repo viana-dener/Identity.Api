@@ -40,7 +40,7 @@ public class AuthEndpointTests : IClassFixture<AuthEndpointTests.AuthWebApplicat
     #region Register
 
     [Fact(DisplayName = "POST /v1/auth/register - Deve retornar 200 quando registro realizado com sucesso")]
-    [Trait("Api", "Auth")]
+    [Trait("Api", "")]
     public async Task Register_Sucesso_DeveRetornar200()
     {
         var request = Builder<RegisterRequest>.CreateNew()
@@ -62,7 +62,7 @@ public class AuthEndpointTests : IClassFixture<AuthEndpointTests.AuthWebApplicat
     }
 
     [Fact(DisplayName = "POST /v1/auth/register - Deve retornar 400 quando dados inválidos")]
-    [Trait("Api", "Auth")]
+    [Trait("Api", "")]
     public async Task Register_DadosInvalidos_DeveRetornar400()
     {
         var request = Builder<RegisterRequest>.CreateNew()
@@ -87,7 +87,7 @@ public class AuthEndpointTests : IClassFixture<AuthEndpointTests.AuthWebApplicat
     }
 
     [Fact(DisplayName = "POST /v1/auth/register - Deve retornar 409 quando usuário já existe")]
-    [Trait("Api", "Auth")]
+    [Trait("Api", "")]
     public async Task Register_UsuarioDuplicado_DeveRetornar409()
     {
         var request = Builder<RegisterRequest>.CreateNew()
@@ -112,7 +112,7 @@ public class AuthEndpointTests : IClassFixture<AuthEndpointTests.AuthWebApplicat
     }
 
     [Fact(DisplayName = "POST /v1/auth/register - Deve retornar 500 quando serviço lança exceção")]
-    [Trait("Api", "Auth")]
+    [Trait("Api", "")]
     public async Task Register_Erro_DeveRetornar500()
     {
         var request = Builder<RegisterRequest>.CreateNew()
@@ -135,7 +135,7 @@ public class AuthEndpointTests : IClassFixture<AuthEndpointTests.AuthWebApplicat
     #region Login
 
     [Fact(DisplayName = "POST /v1/auth/login - Deve retornar 200 quando login realizado com sucesso")]
-    [Trait("Api", "Auth")]
+    [Trait("Api", "")]
     public async Task Login_Sucesso_DeveRetornar200()
     {
         var request = Builder<LoginRequest>.CreateNew()
@@ -155,7 +155,7 @@ public class AuthEndpointTests : IClassFixture<AuthEndpointTests.AuthWebApplicat
     }
 
     [Fact(DisplayName = "POST /v1/auth/login - Deve retornar 400 quando dados inválidos")]
-    [Trait("Api", "Auth")]
+    [Trait("Api", "")]
     public async Task Login_DadosInvalidos_DeveRetornar400()
     {
         var request = Builder<LoginRequest>.CreateNew()
@@ -179,7 +179,7 @@ public class AuthEndpointTests : IClassFixture<AuthEndpointTests.AuthWebApplicat
     }
 
     [Fact(DisplayName = "POST /v1/auth/login - Deve retornar 401 quando credenciais inválidas")]
-    [Trait("Api", "Auth")]
+    [Trait("Api", "")]
     public async Task Login_CredenciaisInvalidas_DeveRetornar401()
     {
         var request = Builder<LoginRequest>.CreateNew()
@@ -203,7 +203,7 @@ public class AuthEndpointTests : IClassFixture<AuthEndpointTests.AuthWebApplicat
     }
 
     [Fact(DisplayName = "POST /v1/auth/login - Deve retornar 500 quando serviço lança exceção")]
-    [Trait("Api", "Auth")]
+    [Trait("Api", "")]
     public async Task Login_Erro_DeveRetornar500()
     {
         var request = Builder<LoginRequest>.CreateNew()
@@ -225,7 +225,7 @@ public class AuthEndpointTests : IClassFixture<AuthEndpointTests.AuthWebApplicat
     #region Refresh
 
     [Fact(DisplayName = "POST /v1/auth/refresh - Deve retornar 200 quando token renovado com sucesso")]
-    [Trait("Api", "Auth")]
+    [Trait("Api", "")]
     public async Task Refresh_Sucesso_DeveRetornar200()
     {
         var request = Builder<RefreshRequest>.CreateNew()
@@ -245,7 +245,7 @@ public class AuthEndpointTests : IClassFixture<AuthEndpointTests.AuthWebApplicat
     }
 
     [Fact(DisplayName = "POST /v1/auth/refresh - Deve retornar 400 quando dados inválidos")]
-    [Trait("Api", "Auth")]
+    [Trait("Api", "")]
     public async Task Refresh_DadosInvalidos_DeveRetornar400()
     {
         var request = Builder<RefreshRequest>.CreateNew()
@@ -269,7 +269,7 @@ public class AuthEndpointTests : IClassFixture<AuthEndpointTests.AuthWebApplicat
     }
 
     [Fact(DisplayName = "POST /v1/auth/refresh - Deve retornar 401 quando token inválido ou expirado")]
-    [Trait("Api", "Auth")]
+    [Trait("Api", "")]
     public async Task Refresh_TokenInvalido_DeveRetornar401()
     {
         var request = Builder<RefreshRequest>.CreateNew()
@@ -293,7 +293,7 @@ public class AuthEndpointTests : IClassFixture<AuthEndpointTests.AuthWebApplicat
     }
 
     [Fact(DisplayName = "POST /v1/auth/refresh - Deve retornar 500 quando serviço lança exceção")]
-    [Trait("Api", "Auth")]
+    [Trait("Api", "")]
     public async Task Refresh_Erro_DeveRetornar500()
     {
         var request = Builder<RefreshRequest>.CreateNew()
@@ -315,7 +315,7 @@ public class AuthEndpointTests : IClassFixture<AuthEndpointTests.AuthWebApplicat
     #region Logout
 
     [Fact(DisplayName = "POST /v1/auth/logout - Deve retornar 200 quando logout realizado com sucesso")]
-    [Trait("Api", "Auth")]
+    [Trait("Api", "")]
     public async Task Logout_Sucesso_DeveRetornar200()
     {
         var request = Builder<RevokeRequest>.CreateNew()
@@ -332,7 +332,7 @@ public class AuthEndpointTests : IClassFixture<AuthEndpointTests.AuthWebApplicat
     }
 
     [Fact(DisplayName = "POST /v1/auth/logout - Deve retornar 401 quando não autenticado")]
-    [Trait("Api", "Auth")]
+    [Trait("Api", "")]
     public async Task Logout_NaoAutenticado_DeveRetornar401()
     {
         var clientSemAuth = _factory.CreateClient(new WebApplicationFactoryClientOptions { AllowAutoRedirect = false });
@@ -354,7 +354,7 @@ public class AuthEndpointTests : IClassFixture<AuthEndpointTests.AuthWebApplicat
     }
 
     [Fact(DisplayName = "POST /v1/auth/logout - Deve retornar 500 quando serviço lança exceção")]
-    [Trait("Api", "Auth")]
+    [Trait("Api", "")]
     public async Task Logout_Erro_DeveRetornar500()
     {
         var request = Builder<RevokeRequest>.CreateNew()
@@ -375,7 +375,7 @@ public class AuthEndpointTests : IClassFixture<AuthEndpointTests.AuthWebApplicat
     #region ForgotPassword
 
     [Fact(DisplayName = "POST /v1/auth/forgot-password - Deve retornar 200 quando solicitação enviada com sucesso")]
-    [Trait("Api", "Auth")]
+    [Trait("Api", "")]
     public async Task ForgotPassword_Sucesso_DeveRetornar200()
     {
         var request = Builder<ForgotPasswordRequest>.CreateNew()
@@ -394,7 +394,7 @@ public class AuthEndpointTests : IClassFixture<AuthEndpointTests.AuthWebApplicat
     }
 
     [Fact(DisplayName = "POST /v1/auth/forgot-password - Deve retornar 400 quando dados inválidos")]
-    [Trait("Api", "Auth")]
+    [Trait("Api", "")]
     public async Task ForgotPassword_DadosInvalidos_DeveRetornar400()
     {
         var request = Builder<ForgotPasswordRequest>.CreateNew()
@@ -417,7 +417,7 @@ public class AuthEndpointTests : IClassFixture<AuthEndpointTests.AuthWebApplicat
     }
 
     [Fact(DisplayName = "POST /v1/auth/forgot-password - Deve retornar 500 quando serviço lança exceção")]
-    [Trait("Api", "Auth")]
+    [Trait("Api", "")]
     public async Task ForgotPassword_Erro_DeveRetornar500()
     {
         var request = Builder<ForgotPasswordRequest>.CreateNew()
@@ -438,7 +438,7 @@ public class AuthEndpointTests : IClassFixture<AuthEndpointTests.AuthWebApplicat
     #region ValidateResetToken
 
     [Fact(DisplayName = "GET /v1/auth/reset-password/validate - Deve retornar 200 quando token válido")]
-    [Trait("Api", "Auth")]
+    [Trait("Api", "")]
     public async Task ValidateResetToken_Sucesso_DeveRetornar200()
     {
         var response = Builder<ValidateResetTokenResponse>.CreateNew().Build();
@@ -453,7 +453,7 @@ public class AuthEndpointTests : IClassFixture<AuthEndpointTests.AuthWebApplicat
     }
 
     [Fact(DisplayName = "GET /v1/auth/reset-password/validate - Deve retornar 400 quando token inválido")]
-    [Trait("Api", "Auth")]
+    [Trait("Api", "")]
     public async Task ValidateResetToken_TokenInvalido_DeveRetornar400()
     {
         _factory.ForgotPasswordAppServiceMock
@@ -472,7 +472,7 @@ public class AuthEndpointTests : IClassFixture<AuthEndpointTests.AuthWebApplicat
     }
 
     [Fact(DisplayName = "GET /v1/auth/reset-password/validate - Deve retornar 500 quando serviço lança exceção")]
-    [Trait("Api", "Auth")]
+    [Trait("Api", "")]
     public async Task ValidateResetToken_Erro_DeveRetornar500()
     {
         _factory.ForgotPasswordAppServiceMock
@@ -489,7 +489,7 @@ public class AuthEndpointTests : IClassFixture<AuthEndpointTests.AuthWebApplicat
     #region ResetPassword
 
     [Fact(DisplayName = "POST /v1/auth/reset-password - Deve retornar 200 quando senha redefinida com sucesso")]
-    [Trait("Api", "Auth")]
+    [Trait("Api", "")]
     public async Task ResetPassword_Sucesso_DeveRetornar200()
     {
         var request = Builder<ResetPasswordRequest>.CreateNew()
@@ -510,7 +510,7 @@ public class AuthEndpointTests : IClassFixture<AuthEndpointTests.AuthWebApplicat
     }
 
     [Fact(DisplayName = "POST /v1/auth/reset-password - Deve retornar 400 quando dados inválidos")]
-    [Trait("Api", "Auth")]
+    [Trait("Api", "")]
     public async Task ResetPassword_DadosInvalidos_DeveRetornar400()
     {
         var request = Builder<ResetPasswordRequest>.CreateNew()
@@ -535,7 +535,7 @@ public class AuthEndpointTests : IClassFixture<AuthEndpointTests.AuthWebApplicat
     }
 
     [Fact(DisplayName = "POST /v1/auth/reset-password - Deve retornar 409 quando nova senha igual à anterior")]
-    [Trait("Api", "Auth")]
+    [Trait("Api", "")]
     public async Task ResetPassword_SenhaIgualAnterior_DeveRetornar409()
     {
         var request = Builder<ResetPasswordRequest>.CreateNew()
@@ -560,7 +560,7 @@ public class AuthEndpointTests : IClassFixture<AuthEndpointTests.AuthWebApplicat
     }
 
     [Fact(DisplayName = "POST /v1/auth/reset-password - Deve retornar 410 quando token expirado")]
-    [Trait("Api", "Auth")]
+    [Trait("Api", "")]
     public async Task ResetPassword_TokenExpirado_DeveRetornar410()
     {
         var request = Builder<ResetPasswordRequest>.CreateNew()
@@ -585,7 +585,7 @@ public class AuthEndpointTests : IClassFixture<AuthEndpointTests.AuthWebApplicat
     }
 
     [Fact(DisplayName = "POST /v1/auth/reset-password - Deve retornar 500 quando serviço lança exceção")]
-    [Trait("Api", "Auth")]
+    [Trait("Api", "")]
     public async Task ResetPassword_Erro_DeveRetornar500()
     {
         var request = Builder<ResetPasswordRequest>.CreateNew()

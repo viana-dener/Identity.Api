@@ -60,7 +60,7 @@ public class UserAppServiceTests
     #region GetAllAsync
 
     [Fact(DisplayName = "GetAllAsync - Deve retornar lista de usuários mapeados")]
-    [Trait("Application", "UserAppService")]
+    [Trait("Application", "")]
     public async Task GetAllAsync_Sucesso_DeveRetornarLista()
     {
         var entities = new List<UserEntity> { BuildUser(1), BuildUser(2) };
@@ -76,7 +76,7 @@ public class UserAppServiceTests
     }
 
     [Fact(DisplayName = "GetAllAsync - Deve retornar lista vazia quando não há usuários")]
-    [Trait("Application", "UserAppService")]
+    [Trait("Application", "")]
     public async Task GetAllAsync_ListaVazia_DeveRetornarVazio()
     {
         _repoMock.Setup(x => x.GetAllAsync(TenantId, default)).ReturnsAsync([]);
@@ -94,7 +94,7 @@ public class UserAppServiceTests
     #region GetByIdAsync
 
     [Fact(DisplayName = "GetByIdAsync - Deve retornar usuário quando encontrado")]
-    [Trait("Application", "UserAppService")]
+    [Trait("Application", "")]
     public async Task GetByIdAsync_Sucesso_DeveRetornarUsuario()
     {
         var entity = BuildUser(1);
@@ -110,7 +110,7 @@ public class UserAppServiceTests
     }
 
     [Fact(DisplayName = "GetByIdAsync - Deve retornar null e notificar quando usuário não encontrado")]
-    [Trait("Application", "UserAppService")]
+    [Trait("Application", "")]
     public async Task GetByIdAsync_NaoEncontrado_DeveRetornarNullENotificar()
     {
         _repoMock.Setup(x => x.GetByIdAsync(TenantId, 99, default)).ReturnsAsync((UserEntity)null);
@@ -127,7 +127,7 @@ public class UserAppServiceTests
     #region GetPagedAsync
 
     [Fact(DisplayName = "GetPagedAsync - Deve retornar página de usuários")]
-    [Trait("Application", "UserAppService")]
+    [Trait("Application", "")]
     public async Task GetPagedAsync_Sucesso_DeveRetornarPaginado()
     {
         var entities = new List<UserEntity> { BuildUser(1) };
@@ -146,7 +146,7 @@ public class UserAppServiceTests
     }
 
     [Fact(DisplayName = "GetPagedAsync - Deve retornar página vazia quando não há registros")]
-    [Trait("Application", "UserAppService")]
+    [Trait("Application", "")]
     public async Task GetPagedAsync_ListaVazia_DeveRetornarPaginadoVazio()
     {
         var listPage = new ListPage<UserEntity> { Items = [], TotalItems = 0, TotalPages = 0, PageNumber = 1, PageSize = 10 };
@@ -168,7 +168,7 @@ public class UserAppServiceTests
     #region CreateAsync
 
     [Fact(DisplayName = "CreateAsync - Deve criar usuário com sucesso")]
-    [Trait("Application", "UserAppService")]
+    [Trait("Application", "")]
     public async Task CreateAsync_Sucesso_DeveRetornarTrue()
     {
         var request = new CreateUserRequest { Name = "Novo Usuario", Secret = "Senha@123" };
@@ -183,7 +183,7 @@ public class UserAppServiceTests
     }
 
     [Fact(DisplayName = "CreateAsync - Deve retornar false e notificar quando nome já existe")]
-    [Trait("Application", "UserAppService")]
+    [Trait("Application", "")]
     public async Task CreateAsync_NomeJaExiste_DeveRetornarFalseENotificar()
     {
         var request = new CreateUserRequest { Name = "Usuario Existente", Secret = "Senha@123" };
@@ -198,7 +198,7 @@ public class UserAppServiceTests
     }
 
     [Fact(DisplayName = "CreateAsync - Deve retornar false quando domínio falha")]
-    [Trait("Application", "UserAppService")]
+    [Trait("Application", "")]
     public async Task CreateAsync_DominioFalha_DeveRetornarFalse()
     {
         var request = new CreateUserRequest { Name = "Novo Usuario", Secret = "Senha@123" };
@@ -216,7 +216,7 @@ public class UserAppServiceTests
     #region UpdateAsync
 
     [Fact(DisplayName = "UpdateAsync - Deve atualizar usuário com sucesso")]
-    [Trait("Application", "UserAppService")]
+    [Trait("Application", "")]
     public async Task UpdateAsync_Sucesso_DeveRetornarTrue()
     {
         var entity = BuildUser(1);
@@ -232,7 +232,7 @@ public class UserAppServiceTests
     }
 
     [Fact(DisplayName = "UpdateAsync - Deve retornar false e notificar quando usuário não encontrado")]
-    [Trait("Application", "UserAppService")]
+    [Trait("Application", "")]
     public async Task UpdateAsync_NaoEncontrado_DeveRetornarFalseENotificar()
     {
         _repoMock.Setup(x => x.GetByIdAsync(TenantId, 99, default)).ReturnsAsync((UserEntity)null);
@@ -251,7 +251,7 @@ public class UserAppServiceTests
     #region UpdatePasswordAsync
 
     [Fact(DisplayName = "UpdatePasswordAsync - Deve atualizar senha com sucesso")]
-    [Trait("Application", "UserAppService")]
+    [Trait("Application", "")]
     public async Task UpdatePasswordAsync_Sucesso_DeveRetornarTrue()
     {
         const string currentSecret = "Senha@123";
@@ -268,7 +268,7 @@ public class UserAppServiceTests
     }
 
     [Fact(DisplayName = "UpdatePasswordAsync - Deve retornar false e notificar quando usuário não encontrado")]
-    [Trait("Application", "UserAppService")]
+    [Trait("Application", "")]
     public async Task UpdatePasswordAsync_NaoEncontrado_DeveRetornarFalseENotificar()
     {
         _repoMock.Setup(x => x.GetByIdAsync(TenantId, 99, default)).ReturnsAsync((UserEntity)null);
@@ -283,7 +283,7 @@ public class UserAppServiceTests
     }
 
     [Fact(DisplayName = "UpdatePasswordAsync - Deve retornar false e notificar quando senha atual incorreta")]
-    [Trait("Application", "UserAppService")]
+    [Trait("Application", "")]
     public async Task UpdatePasswordAsync_SenhaAtualIncorreta_DeveRetornarFalseENotificar()
     {
         var entity = BuildUser(1);
@@ -303,7 +303,7 @@ public class UserAppServiceTests
     #region ActivateAsync
 
     [Fact(DisplayName = "ActivateAsync - Deve ativar usuário com sucesso")]
-    [Trait("Application", "UserAppService")]
+    [Trait("Application", "")]
     public async Task ActivateAsync_Sucesso_DeveRetornarTrue()
     {
         var entity = BuildUser(1, active: false);
@@ -318,7 +318,7 @@ public class UserAppServiceTests
     }
 
     [Fact(DisplayName = "ActivateAsync - Deve retornar false e notificar quando usuário não encontrado")]
-    [Trait("Application", "UserAppService")]
+    [Trait("Application", "")]
     public async Task ActivateAsync_NaoEncontrado_DeveRetornarFalseENotificar()
     {
         _repoMock.Setup(x => x.GetByIdAsync(TenantId, 99, default)).ReturnsAsync((UserEntity)null);
@@ -336,7 +336,7 @@ public class UserAppServiceTests
     #region DeactivateAsync
 
     [Fact(DisplayName = "DeactivateAsync - Deve desativar usuário com sucesso")]
-    [Trait("Application", "UserAppService")]
+    [Trait("Application", "")]
     public async Task DeactivateAsync_Sucesso_DeveRetornarTrue()
     {
         var entity = BuildUser(1);
@@ -351,7 +351,7 @@ public class UserAppServiceTests
     }
 
     [Fact(DisplayName = "DeactivateAsync - Deve retornar false e notificar quando usuário não encontrado")]
-    [Trait("Application", "UserAppService")]
+    [Trait("Application", "")]
     public async Task DeactivateAsync_NaoEncontrado_DeveRetornarFalseENotificar()
     {
         _repoMock.Setup(x => x.GetByIdAsync(TenantId, 99, default)).ReturnsAsync((UserEntity)null);
@@ -369,7 +369,7 @@ public class UserAppServiceTests
     #region DeleteAsync
 
     [Fact(DisplayName = "DeleteAsync - Deve excluir usuário com sucesso")]
-    [Trait("Application", "UserAppService")]
+    [Trait("Application", "")]
     public async Task DeleteAsync_Sucesso_DeveRetornarTrue()
     {
         var entity = BuildUser(1);
@@ -384,7 +384,7 @@ public class UserAppServiceTests
     }
 
     [Fact(DisplayName = "DeleteAsync - Deve retornar false e notificar quando usuário não encontrado")]
-    [Trait("Application", "UserAppService")]
+    [Trait("Application", "")]
     public async Task DeleteAsync_NaoEncontrado_DeveRetornarFalseENotificar()
     {
         _repoMock.Setup(x => x.GetByIdAsync(TenantId, 99, default)).ReturnsAsync((UserEntity)null);
@@ -402,7 +402,7 @@ public class UserAppServiceTests
     #region BulkUploadAsync
 
     [Fact(DisplayName = "BulkUploadAsync - Deve retornar false quando arquivo é inválido")]
-    [Trait("Application", "UserAppService")]
+    [Trait("Application", "")]
     public async Task BulkUploadAsync_ArquivoInvalido_DeveRetornarFalse()
     {
         var fileMock = new Mock<IFormFile>();
@@ -416,7 +416,7 @@ public class UserAppServiceTests
     }
 
     [Fact(DisplayName = "BulkUploadAsync - Deve retornar false e notificar quando CSV está vazio")]
-    [Trait("Application", "UserAppService")]
+    [Trait("Application", "")]
     public async Task BulkUploadAsync_CsvVazio_DeveRetornarFalseENotificar()
     {
         var csvContent = "Name;Secret;UrlImage\r\n";
@@ -431,7 +431,7 @@ public class UserAppServiceTests
     }
 
     [Fact(DisplayName = "BulkUploadAsync - Deve retornar false quando item sem nome")]
-    [Trait("Application", "UserAppService")]
+    [Trait("Application", "")]
     public async Task BulkUploadAsync_ItemSemNome_DeveRetornarFalse()
     {
         var csvContent = "Name;Secret;UrlImage\r\n;Senha@123;\r\n";
@@ -446,7 +446,7 @@ public class UserAppServiceTests
     }
 
     [Fact(DisplayName = "BulkUploadAsync - Deve retornar false quando item sem secret")]
-    [Trait("Application", "UserAppService")]
+    [Trait("Application", "")]
     public async Task BulkUploadAsync_ItemSemSecret_DeveRetornarFalse()
     {
         var csvContent = "Name;Secret;UrlImage\r\nNovo Usuario;;\r\n";
@@ -461,7 +461,7 @@ public class UserAppServiceTests
     }
 
     [Fact(DisplayName = "BulkUploadAsync - Deve retornar false quando usuário já existe")]
-    [Trait("Application", "UserAppService")]
+    [Trait("Application", "")]
     public async Task BulkUploadAsync_UsuarioJaExiste_DeveRetornarFalse()
     {
         var csvContent = "Name;Secret;UrlImage\r\nUsuario Existente;Senha@123;\r\n";
@@ -478,7 +478,7 @@ public class UserAppServiceTests
     }
 
     [Fact(DisplayName = "BulkUploadAsync - Deve processar CSV com sucesso")]
-    [Trait("Application", "UserAppService")]
+    [Trait("Application", "")]
     public async Task BulkUploadAsync_Sucesso_DeveRetornarTrue()
     {
         var csvContent = "Name;Secret;UrlImage\r\nNovo Usuario;Senha@123;\r\n";
@@ -495,7 +495,7 @@ public class UserAppServiceTests
     }
 
     [Fact(DisplayName = "BulkUploadAsync - Deve retornar false quando domínio falha ao criar usuário")]
-    [Trait("Application", "UserAppService")]
+    [Trait("Application", "")]
     public async Task BulkUploadAsync_DominioFalha_DeveRetornarFalse()
     {
         var csvContent = "Name;Secret;UrlImage\r\nNovo Usuario;Senha@123;\r\n";

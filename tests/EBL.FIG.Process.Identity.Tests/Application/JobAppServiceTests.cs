@@ -65,7 +65,7 @@ public class JobAppServiceTests
     #region GetAllAsync
 
     [Fact(DisplayName = "GetAllAsync - Deve retornar lista de jobs mapeados")]
-    [Trait("Application", "JobAppService")]
+    [Trait("Application", "")]
     public async Task GetAllAsync_Sucesso_DeveRetornarLista()
     {
         var entities = new List<JobDefinitionEntity> { BuildJob(1), BuildJob(2) };
@@ -81,7 +81,7 @@ public class JobAppServiceTests
     }
 
     [Fact(DisplayName = "GetAllAsync - Deve retornar lista vazia quando não há jobs")]
-    [Trait("Application", "JobAppService")]
+    [Trait("Application", "")]
     public async Task GetAllAsync_ListaVazia_DeveRetornarVazio()
     {
         _repoMock.Setup(x => x.GetAllAsync(default)).ReturnsAsync([]);
@@ -99,7 +99,7 @@ public class JobAppServiceTests
     #region GetByIdAsync
 
     [Fact(DisplayName = "GetByIdAsync - Deve retornar job quando encontrado")]
-    [Trait("Application", "JobAppService")]
+    [Trait("Application", "")]
     public async Task GetByIdAsync_Sucesso_DeveRetornarJob()
     {
         var entity = BuildJob(1);
@@ -115,7 +115,7 @@ public class JobAppServiceTests
     }
 
     [Fact(DisplayName = "GetByIdAsync - Deve retornar null e notificar quando job não encontrado")]
-    [Trait("Application", "JobAppService")]
+    [Trait("Application", "")]
     public async Task GetByIdAsync_NaoEncontrado_DeveRetornarNullENotificar()
     {
         _repoMock.Setup(x => x.GetByIdAsync(99, default)).ReturnsAsync((JobDefinitionEntity)null);
@@ -132,7 +132,7 @@ public class JobAppServiceTests
     #region GetPagedAsync
 
     [Fact(DisplayName = "GetPagedAsync - Deve retornar página de jobs")]
-    [Trait("Application", "JobAppService")]
+    [Trait("Application", "")]
     public async Task GetPagedAsync_Sucesso_DeveRetornarPaginado()
     {
         var entities = new List<JobDefinitionEntity> { BuildJob(1) };
@@ -151,7 +151,7 @@ public class JobAppServiceTests
     }
 
     [Fact(DisplayName = "GetPagedAsync - Deve retornar página vazia quando não há registros")]
-    [Trait("Application", "JobAppService")]
+    [Trait("Application", "")]
     public async Task GetPagedAsync_ListaVazia_DeveRetornarPaginadoVazio()
     {
         var listPage = new ListPage<JobDefinitionEntity> { Items = [], TotalItems = 0, TotalPages = 0, PageNumber = 1, PageSize = 10 };
@@ -173,7 +173,7 @@ public class JobAppServiceTests
     #region CreateAsync
 
     [Fact(DisplayName = "CreateAsync - Deve criar job com sucesso")]
-    [Trait("Application", "JobAppService")]
+    [Trait("Application", "")]
     public async Task CreateAsync_Sucesso_DeveRetornarTrue()
     {
         var request = new CreateJobRequest { JobCategory = "Cat", JobName = "NovoJob", JobType = "Type" };
@@ -189,7 +189,7 @@ public class JobAppServiceTests
     }
 
     [Fact(DisplayName = "CreateAsync - Deve retornar false e notificar quando nome já existe")]
-    [Trait("Application", "JobAppService")]
+    [Trait("Application", "")]
     public async Task CreateAsync_NomeJaExiste_DeveRetornarFalseENotificar()
     {
         var request = new CreateJobRequest { JobCategory = "Cat", JobName = "JobExistente", JobType = "Type" };
@@ -204,7 +204,7 @@ public class JobAppServiceTests
     }
 
     [Fact(DisplayName = "CreateAsync - Deve retornar false quando validação de domínio falha")]
-    [Trait("Application", "JobAppService")]
+    [Trait("Application", "")]
     public async Task CreateAsync_ValidacaoDominioFalha_DeveRetornarFalseENotificar()
     {
         var request = new CreateJobRequest { JobCategory = "Cat", JobName = "NovoJob", JobType = "Type" };
@@ -220,7 +220,7 @@ public class JobAppServiceTests
     }
 
     [Fact(DisplayName = "CreateAsync - Deve retornar false quando repositório falha")]
-    [Trait("Application", "JobAppService")]
+    [Trait("Application", "")]
     public async Task CreateAsync_RepositorioFalha_DeveRetornarFalse()
     {
         var request = new CreateJobRequest { JobCategory = "Cat", JobName = "NovoJob", JobType = "Type" };
@@ -239,7 +239,7 @@ public class JobAppServiceTests
     #region UpdateAsync
 
     [Fact(DisplayName = "UpdateAsync - Deve atualizar job com sucesso (job ativo e recorrente)")]
-    [Trait("Application", "JobAppService")]
+    [Trait("Application", "")]
     public async Task UpdateAsync_Sucesso_DeveRetornarTrue()
     {
         var entity = BuildJob(1);
@@ -257,7 +257,7 @@ public class JobAppServiceTests
     }
 
     [Fact(DisplayName = "UpdateAsync - Deve remover do Hangfire quando job é desativado")]
-    [Trait("Application", "JobAppService")]
+    [Trait("Application", "")]
     public async Task UpdateAsync_DesativarJob_DeveRemoverDoHangfire()
     {
         var entity = BuildJob(1, hangfireId: "job-1");
@@ -275,7 +275,7 @@ public class JobAppServiceTests
     }
 
     [Fact(DisplayName = "UpdateAsync - Deve retornar false e notificar quando job não encontrado")]
-    [Trait("Application", "JobAppService")]
+    [Trait("Application", "")]
     public async Task UpdateAsync_NaoEncontrado_DeveRetornarFalseENotificar()
     {
         _repoMock.Setup(x => x.GetByIdAsync(99, default)).ReturnsAsync((JobDefinitionEntity)null);
@@ -290,7 +290,7 @@ public class JobAppServiceTests
     }
 
     [Fact(DisplayName = "UpdateAsync - Deve retornar false quando validação de domínio falha")]
-    [Trait("Application", "JobAppService")]
+    [Trait("Application", "")]
     public async Task UpdateAsync_ValidacaoDominioFalha_DeveRetornarFalseENotificar()
     {
         var entity = BuildJob(1);
@@ -311,7 +311,7 @@ public class JobAppServiceTests
     #region ActivateAsync
 
     [Fact(DisplayName = "ActivateAsync - Deve ativar job recorrente e registrar no Hangfire")]
-    [Trait("Application", "JobAppService")]
+    [Trait("Application", "")]
     public async Task ActivateAsync_Sucesso_DeveRetornarTrue()
     {
         var entity = BuildJob(1, active: false);
@@ -328,7 +328,7 @@ public class JobAppServiceTests
     }
 
     [Fact(DisplayName = "ActivateAsync - Deve retornar false e notificar quando job não encontrado")]
-    [Trait("Application", "JobAppService")]
+    [Trait("Application", "")]
     public async Task ActivateAsync_NaoEncontrado_DeveRetornarFalseENotificar()
     {
         _repoMock.Setup(x => x.GetByIdAsync(99, default)).ReturnsAsync((JobDefinitionEntity)null);
@@ -342,7 +342,7 @@ public class JobAppServiceTests
     }
 
     [Fact(DisplayName = "ActivateAsync - Deve retornar false quando validação de domínio falha")]
-    [Trait("Application", "JobAppService")]
+    [Trait("Application", "")]
     public async Task ActivateAsync_ValidacaoDominioFalha_DeveRetornarFalseENotificar()
     {
         var entity = BuildJob(1, active: false);
@@ -362,7 +362,7 @@ public class JobAppServiceTests
     #region DeactivateAsync
 
     [Fact(DisplayName = "DeactivateAsync - Deve desativar job e remover do Hangfire")]
-    [Trait("Application", "JobAppService")]
+    [Trait("Application", "")]
     public async Task DeactivateAsync_Sucesso_DeveRetornarTrue()
     {
         var entity = BuildJob(1, hangfireId: "job-1");
@@ -380,7 +380,7 @@ public class JobAppServiceTests
     }
 
     [Fact(DisplayName = "DeactivateAsync - Deve retornar false e notificar quando job não encontrado")]
-    [Trait("Application", "JobAppService")]
+    [Trait("Application", "")]
     public async Task DeactivateAsync_NaoEncontrado_DeveRetornarFalseENotificar()
     {
         _repoMock.Setup(x => x.GetByIdAsync(99, default)).ReturnsAsync((JobDefinitionEntity)null);
@@ -394,7 +394,7 @@ public class JobAppServiceTests
     }
 
     [Fact(DisplayName = "DeactivateAsync - Deve retornar false quando validação de domínio falha")]
-    [Trait("Application", "JobAppService")]
+    [Trait("Application", "")]
     public async Task DeactivateAsync_ValidacaoDominioFalha_DeveRetornarFalseENotificar()
     {
         var entity = BuildJob(1, hangfireId: "job-1");
@@ -414,7 +414,7 @@ public class JobAppServiceTests
     #region DeleteAsync
 
     [Fact(DisplayName = "DeleteAsync - Deve excluir job e remover do Hangfire")]
-    [Trait("Application", "JobAppService")]
+    [Trait("Application", "")]
     public async Task DeleteAsync_Sucesso_DeveRetornarTrue()
     {
         var entity = BuildJob(1, hangfireId: "job-1");
@@ -432,7 +432,7 @@ public class JobAppServiceTests
     }
 
     [Fact(DisplayName = "DeleteAsync - Deve retornar false e notificar quando job não encontrado")]
-    [Trait("Application", "JobAppService")]
+    [Trait("Application", "")]
     public async Task DeleteAsync_NaoEncontrado_DeveRetornarFalseENotificar()
     {
         _repoMock.Setup(x => x.GetByIdAsync(99, default)).ReturnsAsync((JobDefinitionEntity)null);
@@ -446,7 +446,7 @@ public class JobAppServiceTests
     }
 
     [Fact(DisplayName = "DeleteAsync - Deve retornar false quando validação de domínio falha")]
-    [Trait("Application", "JobAppService")]
+    [Trait("Application", "")]
     public async Task DeleteAsync_ValidacaoDominioFalha_DeveRetornarFalseENotificar()
     {
         var entity = BuildJob(1);
@@ -466,7 +466,7 @@ public class JobAppServiceTests
     #region ExecuteAsync
 
     [Fact(DisplayName = "ExecuteAsync - Deve enfileirar job com sucesso")]
-    [Trait("Application", "JobAppService")]
+    [Trait("Application", "")]
     public async Task ExecuteAsync_Sucesso_DeveRetornarTrue()
     {
         var entity = BuildJob(1);
@@ -481,7 +481,7 @@ public class JobAppServiceTests
     }
 
     [Fact(DisplayName = "ExecuteAsync - Deve retornar false e notificar quando job não encontrado")]
-    [Trait("Application", "JobAppService")]
+    [Trait("Application", "")]
     public async Task ExecuteAsync_NaoEncontrado_DeveRetornarFalseENotificar()
     {
         _repoMock.Setup(x => x.GetByIdAsync(99, default)).ReturnsAsync((JobDefinitionEntity)null);
@@ -495,7 +495,7 @@ public class JobAppServiceTests
     }
 
     [Fact(DisplayName = "ExecuteAsync - Deve retornar false e notificar quando job está inativo")]
-    [Trait("Application", "JobAppService")]
+    [Trait("Application", "")]
     public async Task ExecuteAsync_JobInativo_DeveRetornarFalseENotificar()
     {
         var entity = BuildJob(1, active: false);
@@ -510,7 +510,7 @@ public class JobAppServiceTests
     }
 
     [Fact(DisplayName = "ExecuteAsync - Deve retornar false e notificar quando scheduler falha ao enfileirar")]
-    [Trait("Application", "JobAppService")]
+    [Trait("Application", "")]
     public async Task ExecuteAsync_SchedulerFalha_DeveRetornarFalseENotificar()
     {
         var entity = BuildJob(1);

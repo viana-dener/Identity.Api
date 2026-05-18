@@ -95,7 +95,7 @@ public class JwtTokenServiceTests
     #region GenerateAccessTokenAsync - Sucesso
 
     [Fact(DisplayName = "GenerateAccessTokenAsync - Deve gerar token com sucesso sem roles e permissões")]
-    [Trait("Application", "JwtTokenService")]
+    [Trait("Application", "")]
     public async Task GenerateAccessTokenAsync_SemRoles_DeveGerarToken()
     {
         var user = BuildUser();
@@ -114,7 +114,7 @@ public class JwtTokenServiceTests
     }
 
     [Fact(DisplayName = "GenerateAccessTokenAsync - Deve gerar token com roles e permissões no payload")]
-    [Trait("Application", "JwtTokenService")]
+    [Trait("Application", "")]
     public async Task GenerateAccessTokenAsync_ComRolesEPermissoes_DeveGerarToken()
     {
         var user = BuildUser();
@@ -143,7 +143,7 @@ public class JwtTokenServiceTests
     }
 
     [Fact(DisplayName = "GenerateAccessTokenAsync - Deve respeitar o tempo de expiração configurado")]
-    [Trait("Application", "JwtTokenService")]
+    [Trait("Application", "")]
     public async Task GenerateAccessTokenAsync_DeveRespeitarExpiracao()
     {
         var user = BuildUser();
@@ -168,7 +168,7 @@ public class JwtTokenServiceTests
     #region GenerateAccessTokenAsync - Insucesso
 
     [Fact(DisplayName = "GenerateAccessTokenAsync - Deve retornar null e notificar quando não há chave JWT ativa")]
-    [Trait("Application", "JwtTokenService")]
+    [Trait("Application", "")]
     public async Task GenerateAccessTokenAsync_SemChaveAtiva_DeveRetornarNullENotificar()
     {
         var user = BuildUser();
@@ -185,7 +185,7 @@ public class JwtTokenServiceTests
     }
 
     [Fact(DisplayName = "GenerateAccessTokenAsync - Deve retornar null e notificar quando master key está ausente")]
-    [Trait("Application", "JwtTokenService")]
+    [Trait("Application", "")]
     public async Task GenerateAccessTokenAsync_MasterKeyAusente_DeveRetornarNullENotificar()
     {
         var user = BuildUser();
@@ -204,7 +204,7 @@ public class JwtTokenServiceTests
     }
 
     [Fact(DisplayName = "GenerateAccessTokenAsync - Deve retornar null e notificar quando chave privada é inválida")]
-    [Trait("Application", "JwtTokenService")]
+    [Trait("Application", "")]
     public async Task GenerateAccessTokenAsync_ChavePrivadaInvalida_DeveRetornarNullENotificar()
     {
         var user = BuildUser();
@@ -223,7 +223,7 @@ public class JwtTokenServiceTests
     }
 
     [Fact(DisplayName = "GenerateAccessTokenAsync - Deve retornar null e notificar quando master key é null")]
-    [Trait("Application", "JwtTokenService")]
+    [Trait("Application", "")]
     public async Task GenerateAccessTokenAsync_MasterKeyNull_DeveRetornarNullENotificar()
     {
         var user = BuildUser();
@@ -242,7 +242,7 @@ public class JwtTokenServiceTests
     }
 
     [Fact(DisplayName = "GenerateAccessTokenAsync - Deve continuar geração quando falha ao buscar roles (graceful degradation)")]
-    [Trait("Application", "JwtTokenService")]
+    [Trait("Application", "")]
     public async Task GenerateAccessTokenAsync_FalhaAoBuscarRoles_DeveGerarTokenSemRoles()
     {
         var user = BuildUser();

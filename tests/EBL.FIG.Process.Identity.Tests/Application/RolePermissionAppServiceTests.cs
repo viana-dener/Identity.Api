@@ -58,7 +58,7 @@ public class RolePermissionAppServiceTests
     #region GetAllAsync
 
     [Fact(DisplayName = "GetAllAsync - Deve retornar lista de permissões mapeadas")]
-    [Trait("Application", "RolePermissionAppService")]
+    [Trait("Application", "")]
     public async Task GetAllAsync_Sucesso_DeveRetornarLista()
     {
         var entities = new List<RolePermissionEntity> { BuildEntity(1), BuildEntity(2) };
@@ -74,7 +74,7 @@ public class RolePermissionAppServiceTests
     }
 
     [Fact(DisplayName = "GetAllAsync - Deve retornar lista vazia quando não há permissões")]
-    [Trait("Application", "RolePermissionAppService")]
+    [Trait("Application", "")]
     public async Task GetAllAsync_ListaVazia_DeveRetornarVazio()
     {
         _repoMock.Setup(x => x.GetAllAsync(TenantId, AppId, default)).ReturnsAsync([]);
@@ -92,7 +92,7 @@ public class RolePermissionAppServiceTests
     #region GetByIdAsync
 
     [Fact(DisplayName = "GetByIdAsync - Deve retornar permissão quando encontrada")]
-    [Trait("Application", "RolePermissionAppService")]
+    [Trait("Application", "")]
     public async Task GetByIdAsync_Sucesso_DeveRetornarPermissao()
     {
         var entity = BuildEntity(1);
@@ -108,7 +108,7 @@ public class RolePermissionAppServiceTests
     }
 
     [Fact(DisplayName = "GetByIdAsync - Deve retornar null e notificar quando permissão não encontrada")]
-    [Trait("Application", "RolePermissionAppService")]
+    [Trait("Application", "")]
     public async Task GetByIdAsync_NaoEncontrada_DeveRetornarNullENotificar()
     {
         _repoMock.Setup(x => x.GetByIdAsync(99, default)).ReturnsAsync((RolePermissionEntity)null);
@@ -125,7 +125,7 @@ public class RolePermissionAppServiceTests
     #region GetPagedAsync
 
     [Fact(DisplayName = "GetPagedAsync - Deve retornar página de permissões")]
-    [Trait("Application", "RolePermissionAppService")]
+    [Trait("Application", "")]
     public async Task GetPagedAsync_Sucesso_DeveRetornarPaginado()
     {
         var entities = new List<RolePermissionEntity> { BuildEntity(1) };
@@ -143,7 +143,7 @@ public class RolePermissionAppServiceTests
     }
 
     [Fact(DisplayName = "GetPagedAsync - Deve retornar página vazia quando não há registros")]
-    [Trait("Application", "RolePermissionAppService")]
+    [Trait("Application", "")]
     public async Task GetPagedAsync_ListaVazia_DeveRetornarPaginadoVazio()
     {
         var listPage = new ListPage<RolePermissionEntity> { Items = [], TotalItems = 0, TotalPages = 0, PageNumber = 1, PageSize = 10 };
@@ -164,7 +164,7 @@ public class RolePermissionAppServiceTests
     #region CreateAsync
 
     [Fact(DisplayName = "CreateAsync - Deve criar permissão com sucesso")]
-    [Trait("Application", "RolePermissionAppService")]
+    [Trait("Application", "")]
     public async Task CreateAsync_Sucesso_DeveRetornarResponse()
     {
         var request = new CreateRolePermissionRequest { RoleId = 1, ResourceId = 2, ActionId = 3 };
@@ -182,7 +182,7 @@ public class RolePermissionAppServiceTests
     }
 
     [Fact(DisplayName = "CreateAsync - Deve retornar null e notificar quando permissão já existe")]
-    [Trait("Application", "RolePermissionAppService")]
+    [Trait("Application", "")]
     public async Task CreateAsync_PermissaoJaExiste_DeveRetornarNullENotificar()
     {
         var request = new CreateRolePermissionRequest { RoleId = 1, ResourceId = 2, ActionId = 3 };
@@ -201,7 +201,7 @@ public class RolePermissionAppServiceTests
     #region DeleteAsync
 
     [Fact(DisplayName = "DeleteAsync - Deve excluir permissão com sucesso")]
-    [Trait("Application", "RolePermissionAppService")]
+    [Trait("Application", "")]
     public async Task DeleteAsync_Sucesso_DeveExcluir()
     {
         var entity = BuildEntity(1);
@@ -215,7 +215,7 @@ public class RolePermissionAppServiceTests
     }
 
     [Fact(DisplayName = "DeleteAsync - Deve notificar quando permissão não encontrada")]
-    [Trait("Application", "RolePermissionAppService")]
+    [Trait("Application", "")]
     public async Task DeleteAsync_NaoEncontrada_DeveNotificar()
     {
         _repoMock.Setup(x => x.GetByIdAsync(99, default)).ReturnsAsync((RolePermissionEntity)null);
@@ -232,7 +232,7 @@ public class RolePermissionAppServiceTests
     #region BulkUploadAsync
 
     [Fact(DisplayName = "BulkUploadAsync - Deve retornar false quando arquivo é inválido")]
-    [Trait("Application", "RolePermissionAppService")]
+    [Trait("Application", "")]
     public async Task BulkUploadAsync_ArquivoInvalido_DeveRetornarFalse()
     {
         var fileMock = new Mock<IFormFile>();
@@ -246,7 +246,7 @@ public class RolePermissionAppServiceTests
     }
 
     [Fact(DisplayName = "BulkUploadAsync - Deve retornar false e notificar quando CSV está vazio")]
-    [Trait("Application", "RolePermissionAppService")]
+    [Trait("Application", "")]
     public async Task BulkUploadAsync_CsvVazio_DeveRetornarFalseENotificar()
     {
         var csvContent = "AppId;RoleId;ResourceId;ActionId\r\n";
@@ -261,7 +261,7 @@ public class RolePermissionAppServiceTests
     }
 
     [Fact(DisplayName = "BulkUploadAsync - Deve retornar false quando item com AppId inválido")]
-    [Trait("Application", "RolePermissionAppService")]
+    [Trait("Application", "")]
     public async Task BulkUploadAsync_AppIdInvalido_DeveRetornarFalse()
     {
         var csvContent = "AppId;RoleId;ResourceId;ActionId\r\n0;1;1;1\r\n";
@@ -276,7 +276,7 @@ public class RolePermissionAppServiceTests
     }
 
     [Fact(DisplayName = "BulkUploadAsync - Deve retornar false quando permissão já existe")]
-    [Trait("Application", "RolePermissionAppService")]
+    [Trait("Application", "")]
     public async Task BulkUploadAsync_PermissaoJaExiste_DeveRetornarFalse()
     {
         var csvContent = "AppId;RoleId;ResourceId;ActionId\r\n2;1;1;1\r\n";
@@ -293,7 +293,7 @@ public class RolePermissionAppServiceTests
     }
 
     [Fact(DisplayName = "BulkUploadAsync - Deve processar CSV com sucesso")]
-    [Trait("Application", "RolePermissionAppService")]
+    [Trait("Application", "")]
     public async Task BulkUploadAsync_Sucesso_DeveRetornarTrue()
     {
         var csvContent = "AppId;RoleId;ResourceId;ActionId\r\n2;1;1;1\r\n";
@@ -310,7 +310,7 @@ public class RolePermissionAppServiceTests
     }
 
     [Fact(DisplayName = "BulkUploadAsync - Deve retornar false quando domínio falha ao criar item")]
-    [Trait("Application", "RolePermissionAppService")]
+    [Trait("Application", "")]
     public async Task BulkUploadAsync_DominioFalha_DeveRetornarFalse()
     {
         var csvContent = "AppId;RoleId;ResourceId;ActionId\r\n2;1;1;1\r\n";

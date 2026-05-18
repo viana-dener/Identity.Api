@@ -58,8 +58,8 @@ public class ForgotPasswordAppServiceTests
         return user;
     }
 
-    [Fact]
-    [Trait("Application", "ForgotPasswordAppService")]
+    [Fact(DisplayName = "ForgotPassword - Deve retornar mensagem genérica quando tenant não encontrado")]
+    [Trait("Application", "")]
     public async Task ForgotPassword_TenantNaoEncontrado_DeveRetornarMensagemGenerica()
     {
         _tenantRepoMock.Setup(x => x.GetByLoginIdentifierAsync(It.IsAny<string>(), default))
@@ -74,8 +74,8 @@ public class ForgotPasswordAppServiceTests
         _emailSenderMock.Verify(x => x.SendPasswordResetAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), default), Times.Never);
     }
 
-    [Fact]
-    [Trait("Application", "ForgotPasswordAppService")]
+    [Fact(DisplayName = "ForgotPassword - Deve retornar mensagem genérica quando usuário não encontrado")]
+    [Trait("Application", "")]
     public async Task ForgotPassword_UsuarioNaoEncontrado_DeveRetornarMensagemGenerica()
     {
         _tenantRepoMock.Setup(x => x.GetByLoginIdentifierAsync(It.IsAny<string>(), default))
@@ -92,8 +92,8 @@ public class ForgotPasswordAppServiceTests
         _emailSenderMock.Verify(x => x.SendPasswordResetAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), default), Times.Never);
     }
 
-    [Fact]
-    [Trait("Application", "ForgotPasswordAppService")]
+    [Fact(DisplayName = "ForgotPassword - Deve retornar mensagem genérica sem criar token quando rate limit atingido")]
+    [Trait("Application", "")]
     public async Task ForgotPassword_RateLimitAtingido_DeveRetornarMensagemGenericaSemCriarToken()
     {
         var user = BuildActiveUser();
@@ -111,8 +111,8 @@ public class ForgotPasswordAppServiceTests
         _resetTokenRepoMock.Verify(x => x.CreateAsync(It.IsAny<PasswordResetTokenEntity>(), default), Times.Never);
     }
 
-    [Fact]
-    [Trait("Application", "ForgotPasswordAppService")]
+    [Fact(DisplayName = "ForgotPassword - Deve criar token e enviar email quando login identifier válido")]
+    [Trait("Application", "")]
     public async Task ForgotPassword_LoginIdentifierValido_DeveCriarTokenEEnviarEmail()
     {
         var user = BuildActiveUser();
@@ -135,8 +135,8 @@ public class ForgotPasswordAppServiceTests
         _emailSenderMock.Verify(x => x.SendPasswordResetAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), default), Times.Once);
     }
 
-    [Fact]
-    [Trait("Application", "ForgotPasswordAppService")]
+    [Fact(DisplayName = "ValidateResetToken - Deve retornar IsValid false quando token inválido")]
+    [Trait("Application", "")]
     public async Task ValidateResetToken_TokenInvalido_DeveRetornarIsValidFalse()
     {
         _resetTokenRepoMock.Setup(x => x.GetByTokenHashAsync(It.IsAny<byte[]>(), default))
@@ -149,8 +149,8 @@ public class ForgotPasswordAppServiceTests
         _notifyMock.Verify(x => x.Add(It.IsAny<string>(), 400), Times.Once);
     }
 
-    [Fact]
-    [Trait("Application", "ForgotPasswordAppService")]
+    [Fact(DisplayName = "ValidateResetToken - Deve retornar IsValid true quando token válido")]
+    [Trait("Application", "")]
     public async Task ValidateResetToken_TokenValido_DeveRetornarIsValidTrue()
     {
         var user = BuildActiveUser();
@@ -168,8 +168,8 @@ public class ForgotPasswordAppServiceTests
         Assert.True(result.IsValid);
     }
 
-    [Fact]
-    [Trait("Application", "ForgotPasswordAppService")]
+    [Fact(DisplayName = "ValidateResetToken - Deve retornar IsValid false e notificar quando token expirado")]
+    [Trait("Application", "")]
     public async Task ValidateResetToken_TokenExpirado_DeveRetornarIsValidFalseENotificar()
     {
         var hash = System.Security.Cryptography.SHA256.HashData(System.Text.Encoding.UTF8.GetBytes("token-expirado"));
@@ -187,8 +187,8 @@ public class ForgotPasswordAppServiceTests
         _notifyMock.Verify(x => x.Add(It.IsAny<string>(), 400), Times.Once);
     }
 
-    [Fact]
-    [Trait("Application", "ForgotPasswordAppService")]
+    [Fact(DisplayName = "ValidateResetToken - Deve retornar IsValid false e notificar quando usuário inativo")]
+    [Trait("Application", "")]
     public async Task ValidateResetToken_UsuarioInativo_DeveRetornarIsValidFalseENotificar()
     {
         var hash = System.Security.Cryptography.SHA256.HashData(System.Text.Encoding.UTF8.GetBytes("token-ativo"));
@@ -214,8 +214,8 @@ public class ForgotPasswordAppServiceTests
 
     #region ResetPasswordAsync
 
-    [Fact]
-    [Trait("Application", "ForgotPasswordAppService")]
+    [Fact(DisplayName = "ResetPassword - Deve notificar 409 e retornar vazio quando token não encontrado")]
+    [Trait("Application", "")]
     public async Task ResetPassword_TokenNaoEncontrado_DeveNotificar409ERetornarVazio()
     {
         _resetTokenRepoMock.Setup(x => x.GetByTokenHashAsync(It.IsAny<byte[]>(), default))
@@ -229,8 +229,8 @@ public class ForgotPasswordAppServiceTests
         _userRepoMock.Verify(x => x.UpdateAsync(It.IsAny<UserEntity>(), default), Times.Never);
     }
 
-    [Fact]
-    [Trait("Application", "ForgotPasswordAppService")]
+    [Fact(DisplayName = "ResetPassword - Deve notificar 410 e retornar vazio quando token já utilizado")]
+    [Trait("Application", "")]
     public async Task ResetPassword_TokenJaUtilizado_DeveNotificar410ERetornarVazio()
     {
         var hash = System.Security.Cryptography.SHA256.HashData(System.Text.Encoding.UTF8.GetBytes("token-usado"));
@@ -248,8 +248,8 @@ public class ForgotPasswordAppServiceTests
         _userRepoMock.Verify(x => x.UpdateAsync(It.IsAny<UserEntity>(), default), Times.Never);
     }
 
-    [Fact]
-    [Trait("Application", "ForgotPasswordAppService")]
+    [Fact(DisplayName = "ResetPassword - Deve notificar 409 e retornar vazio quando usuário não encontrado")]
+    [Trait("Application", "")]
     public async Task ResetPassword_UsuarioNaoEncontrado_DeveNotificar409ERetornarVazio()
     {
         var hash = System.Security.Cryptography.SHA256.HashData(System.Text.Encoding.UTF8.GetBytes("token-valido"));
@@ -268,8 +268,8 @@ public class ForgotPasswordAppServiceTests
         _userRepoMock.Verify(x => x.UpdateAsync(It.IsAny<UserEntity>(), default), Times.Never);
     }
 
-    [Fact]
-    [Trait("Application", "ForgotPasswordAppService")]
+    [Fact(DisplayName = "ResetPassword - Deve notificar 500 e retornar vazio quando falha ao atualizar senha")]
+    [Trait("Application", "")]
     public async Task ResetPassword_FalhaAoAtualizarSenha_DeveNotificar500ERetornarVazio()
     {
         var user = BuildActiveUser();
@@ -291,8 +291,8 @@ public class ForgotPasswordAppServiceTests
         _resetTokenRepoMock.Verify(x => x.UpdateAsync(It.IsAny<PasswordResetTokenEntity>(), default), Times.Never);
     }
 
-    [Fact]
-    [Trait("Application", "ForgotPasswordAppService")]
+    [Fact(DisplayName = "ResetPassword - Deve atualizar senha, revogar tokens e enviar email com sucesso")]
+    [Trait("Application", "")]
     public async Task ResetPassword_Sucesso_DeveAtualizarSenhaRevogarTokensEEnviarEmail()
     {
         var user = BuildActiveUser();
@@ -323,8 +323,8 @@ public class ForgotPasswordAppServiceTests
         _emailSenderMock.Verify(x => x.SendPasswordResetConfirmationAsync(It.IsAny<string>(), It.IsAny<string>(), default), Times.Once);
     }
 
-    [Fact]
-    [Trait("Application", "ForgotPasswordAppService")]
+    [Fact(DisplayName = "ResetPassword - Deve retornar sucesso mesmo quando falha no envio do email")]
+    [Trait("Application", "")]
     public async Task ResetPassword_FalhaNoEmail_DeveRetornarSucessoMesmoAsim()
     {
         var user = BuildActiveUser();
@@ -351,8 +351,8 @@ public class ForgotPasswordAppServiceTests
         Assert.NotEmpty(result.Message);
     }
 
-    [Fact]
-    [Trait("Application", "ForgotPasswordAppService")]
+    [Fact(DisplayName = "ForgotPassword - Deve retornar mensagem genérica quando falha ao persistir token")]
+    [Trait("Application", "")]
     public async Task ForgotPassword_FalhaAoPersistirToken_DeveRetornarMensagemGenerica()
     {
         var user = BuildActiveUser();
@@ -372,8 +372,8 @@ public class ForgotPasswordAppServiceTests
         _emailSenderMock.Verify(x => x.SendPasswordResetAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), default), Times.Never);
     }
 
-    [Fact]
-    [Trait("Application", "ForgotPasswordAppService")]
+    [Fact(DisplayName = "ForgotPassword - Deve retornar mensagem genérica quando falha no envio do email")]
+    [Trait("Application", "")]
     public async Task ForgotPassword_FalhaNoEmail_DeveRetornarMensagemGenerica()
     {
         var user = BuildActiveUser();

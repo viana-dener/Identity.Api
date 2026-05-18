@@ -50,7 +50,7 @@ public class JwtKeyAppServiceTests
     #region GetByTenantAsync
 
     [Fact(DisplayName = "GetByTenantAsync - Deve retornar lista de chaves do tenant")]
-    [Trait("Application", "JwtKeyAppService")]
+    [Trait("Application", "")]
     public async Task GetByTenantAsync_Sucesso_DeveRetornarLista()
     {
         var entities = new List<JwtKeyEntity> { BuildKey(1), BuildKey(2) };
@@ -66,7 +66,7 @@ public class JwtKeyAppServiceTests
     }
 
     [Fact(DisplayName = "GetByTenantAsync - Deve retornar lista vazia quando não há chaves")]
-    [Trait("Application", "JwtKeyAppService")]
+    [Trait("Application", "")]
     public async Task GetByTenantAsync_ListaVazia_DeveRetornarVazio()
     {
         _repoMock.Setup(x => x.GetByTenantAsync(TenantId, default)).ReturnsAsync([]);
@@ -84,7 +84,7 @@ public class JwtKeyAppServiceTests
     #region GetActiveKeyAsync
 
     [Fact(DisplayName = "GetActiveKeyAsync - Deve retornar chave ativa mapeada")]
-    [Trait("Application", "JwtKeyAppService")]
+    [Trait("Application", "")]
     public async Task GetActiveKeyAsync_Sucesso_DeveRetornarChaveAtiva()
     {
         var entity = BuildKey(1);
@@ -100,7 +100,7 @@ public class JwtKeyAppServiceTests
     }
 
     [Fact(DisplayName = "GetActiveKeyAsync - Deve retornar null quando não há chave ativa")]
-    [Trait("Application", "JwtKeyAppService")]
+    [Trait("Application", "")]
     public async Task GetActiveKeyAsync_SemChaveAtiva_DeveRetornarNull()
     {
         _repoMock.Setup(x => x.GetActiveKeyAsync(TenantId, default)).ReturnsAsync((JwtKeyEntity)null);
@@ -116,7 +116,7 @@ public class JwtKeyAppServiceTests
     #region CreateInitialIfNotExistsAsync
 
     [Fact(DisplayName = "CreateInitialIfNotExistsAsync - Deve retornar true quando chave ativa já existe")]
-    [Trait("Application", "JwtKeyAppService")]
+    [Trait("Application", "")]
     public async Task CreateInitialIfNotExistsAsync_ChaveJaExiste_DeveRetornarTrue()
     {
         _repoMock.Setup(x => x.HasActiveKeyAsync(TenantId, default)).ReturnsAsync(true);
@@ -129,7 +129,7 @@ public class JwtKeyAppServiceTests
     }
 
     [Fact(DisplayName = "CreateInitialIfNotExistsAsync - Deve criar chave inicial quando não existe")]
-    [Trait("Application", "JwtKeyAppService")]
+    [Trait("Application", "")]
     public async Task CreateInitialIfNotExistsAsync_SemChave_DeveCriarERetornarTrue()
     {
         var entity = BuildKey(1);
@@ -144,7 +144,7 @@ public class JwtKeyAppServiceTests
     }
 
     [Fact(DisplayName = "CreateInitialIfNotExistsAsync - Deve retornar false quando domínio retorna null")]
-    [Trait("Application", "JwtKeyAppService")]
+    [Trait("Application", "")]
     public async Task CreateInitialIfNotExistsAsync_DominioRetornaNull_DeveRetornarFalse()
     {
         _repoMock.Setup(x => x.HasActiveKeyAsync(TenantId, default)).ReturnsAsync(false);
@@ -161,7 +161,7 @@ public class JwtKeyAppServiceTests
     #region RevokeAsync
 
     [Fact(DisplayName = "RevokeAsync - Deve revogar chave com sucesso")]
-    [Trait("Application", "JwtKeyAppService")]
+    [Trait("Application", "")]
     public async Task RevokeAsync_Sucesso_DeveRetornarTrue()
     {
         var entity = BuildKey(1);
@@ -176,7 +176,7 @@ public class JwtKeyAppServiceTests
     }
 
     [Fact(DisplayName = "RevokeAsync - Deve retornar false e notificar quando chave não encontrada")]
-    [Trait("Application", "JwtKeyAppService")]
+    [Trait("Application", "")]
     public async Task RevokeAsync_NaoEncontrada_DeveRetornarFalseENotificar()
     {
         _repoMock.Setup(x => x.GetByIdAsync(99, default)).ReturnsAsync((JwtKeyEntity)null);
@@ -190,7 +190,7 @@ public class JwtKeyAppServiceTests
     }
 
     [Fact(DisplayName = "RevokeAsync - Deve retornar false e notificar quando chave já está revogada")]
-    [Trait("Application", "JwtKeyAppService")]
+    [Trait("Application", "")]
     public async Task RevokeAsync_JaRevogada_DeveRetornarFalseENotificar()
     {
         var entity = BuildKey(1, revoked: true);
@@ -205,7 +205,7 @@ public class JwtKeyAppServiceTests
     }
 
     [Fact(DisplayName = "RevokeAsync - Deve retornar false e notificar quando motivo está vazio")]
-    [Trait("Application", "JwtKeyAppService")]
+    [Trait("Application", "")]
     public async Task RevokeAsync_MotivoVazio_DeveRetornarFalseENotificar()
     {
         var entity = BuildKey(1);
@@ -220,7 +220,7 @@ public class JwtKeyAppServiceTests
     }
 
     [Fact(DisplayName = "RevokeAsync - Deve retornar false quando domínio falha")]
-    [Trait("Application", "JwtKeyAppService")]
+    [Trait("Application", "")]
     public async Task RevokeAsync_DominioFalha_DeveRetornarFalse()
     {
         var entity = BuildKey(1);

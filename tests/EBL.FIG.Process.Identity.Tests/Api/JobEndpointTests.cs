@@ -41,7 +41,7 @@ public class JobEndpointTests : IClassFixture<JobEndpointTests.JobWebApplication
     #region GetAll
 
     [Fact(DisplayName = "GET /v1/job-definitions - Deve retornar 200 com lista de jobs")]
-    [Trait("Api", "JobDefinitions")]
+    [Trait("Api", "")]
     public async Task GetAll_Sucesso_DeveRetornar200()
     {
         var jobs = Builder<JobResponse>.CreateListOfSize(3)
@@ -60,7 +60,7 @@ public class JobEndpointTests : IClassFixture<JobEndpointTests.JobWebApplication
     }
 
     [Fact(DisplayName = "GET /v1/job-definitions - Deve retornar 200 com lista vazia")]
-    [Trait("Api", "JobDefinitions")]
+    [Trait("Api", "")]
     public async Task GetAll_ListaVazia_DeveRetornar200()
     {
         _factory.JobAppServiceMock
@@ -73,7 +73,7 @@ public class JobEndpointTests : IClassFixture<JobEndpointTests.JobWebApplication
     }
 
     [Fact(DisplayName = "GET /v1/job-definitions - Deve retornar 500 quando serviço lança exceção")]
-    [Trait("Api", "JobDefinitions")]
+    [Trait("Api", "")]
     public async Task GetAll_Erro_DeveRetornar500()
     {
         _factory.JobAppServiceMock
@@ -90,7 +90,7 @@ public class JobEndpointTests : IClassFixture<JobEndpointTests.JobWebApplication
     #region GetById
 
     [Fact(DisplayName = "GET /v1/job-definitions/{id} - Deve retornar 200 quando job existe")]
-    [Trait("Api", "JobDefinitions")]
+    [Trait("Api", "")]
     public async Task GetById_Sucesso_DeveRetornar200()
     {
         var job = Builder<JobDetailResponse>.CreateNew()
@@ -108,7 +108,7 @@ public class JobEndpointTests : IClassFixture<JobEndpointTests.JobWebApplication
     }
 
     [Fact(DisplayName = "GET /v1/job-definitions/{id} - Deve retornar 410 quando job não existe")]
-    [Trait("Api", "JobDefinitions")]
+    [Trait("Api", "")]
     public async Task GetById_NaoEncontrado_DeveRetornar410()
     {
         _factory.JobAppServiceMock
@@ -127,7 +127,7 @@ public class JobEndpointTests : IClassFixture<JobEndpointTests.JobWebApplication
     }
 
     [Fact(DisplayName = "GET /v1/job-definitions/{id} - Deve retornar 500 quando serviço lança exceção")]
-    [Trait("Api", "JobDefinitions")]
+    [Trait("Api", "")]
     public async Task GetById_Erro_DeveRetornar500()
     {
         _factory.JobAppServiceMock
@@ -144,7 +144,7 @@ public class JobEndpointTests : IClassFixture<JobEndpointTests.JobWebApplication
     #region GetPaged
 
     [Fact(DisplayName = "GET /v1/job-definitions/paged - Deve retornar 200 com lista paginada")]
-    [Trait("Api", "JobDefinitions")]
+    [Trait("Api", "")]
     public async Task GetPaged_Sucesso_DeveRetornar200()
     {
         var items = Builder<JobResponse>.CreateListOfSize(2)
@@ -165,7 +165,7 @@ public class JobEndpointTests : IClassFixture<JobEndpointTests.JobWebApplication
     }
 
     [Fact(DisplayName = "GET /v1/job-definitions/paged - Deve retornar 200 com lista vazia")]
-    [Trait("Api", "JobDefinitions")]
+    [Trait("Api", "")]
     public async Task GetPaged_ListaVazia_DeveRetornar200()
     {
         var paged = new ListPageResponse<JobResponse>([], 1, 10, 0, 0);
@@ -180,7 +180,7 @@ public class JobEndpointTests : IClassFixture<JobEndpointTests.JobWebApplication
     }
 
     [Fact(DisplayName = "GET /v1/job-definitions/paged - Deve retornar 500 quando serviço lança exceção")]
-    [Trait("Api", "JobDefinitions")]
+    [Trait("Api", "")]
     public async Task GetPaged_Erro_DeveRetornar500()
     {
         _factory.JobAppServiceMock
@@ -197,7 +197,7 @@ public class JobEndpointTests : IClassFixture<JobEndpointTests.JobWebApplication
     #region Create
 
     [Fact(DisplayName = "POST /v1/job-definitions - Deve retornar 201 quando job criado com sucesso")]
-    [Trait("Api", "JobDefinitions")]
+    [Trait("Api", "")]
     public async Task Create_Sucesso_DeveRetornar201()
     {
         var request = Builder<CreateJobRequest>.CreateNew()
@@ -219,7 +219,7 @@ public class JobEndpointTests : IClassFixture<JobEndpointTests.JobWebApplication
     }
 
     [Fact(DisplayName = "POST /v1/job-definitions - Deve retornar 400 quando serviço retorna falso com notificação")]
-    [Trait("Api", "JobDefinitions")]
+    [Trait("Api", "")]
     public async Task Create_DadosInvalidos_DeveRetornar400()
     {
         var request = Builder<CreateJobRequest>.CreateNew()
@@ -243,7 +243,7 @@ public class JobEndpointTests : IClassFixture<JobEndpointTests.JobWebApplication
     }
 
     [Fact(DisplayName = "POST /v1/job-definitions - Deve retornar 500 quando serviço lança exceção")]
-    [Trait("Api", "JobDefinitions")]
+    [Trait("Api", "")]
     public async Task Create_Erro_DeveRetornar500()
     {
         var request = Builder<CreateJobRequest>.CreateNew()
@@ -269,7 +269,7 @@ public class JobEndpointTests : IClassFixture<JobEndpointTests.JobWebApplication
     #region Execute
 
     [Fact(DisplayName = "POST /v1/job-definitions/{id}/execute - Deve retornar 200 quando job executado com sucesso")]
-    [Trait("Api", "JobDefinitions")]
+    [Trait("Api", "")]
     public async Task Execute_Sucesso_DeveRetornar200()
     {
         _factory.JobAppServiceMock
@@ -282,7 +282,7 @@ public class JobEndpointTests : IClassFixture<JobEndpointTests.JobWebApplication
     }
 
     [Fact(DisplayName = "POST /v1/job-definitions/{id}/execute - Deve retornar 410 quando job não existe")]
-    [Trait("Api", "JobDefinitions")]
+    [Trait("Api", "")]
     public async Task Execute_NaoEncontrado_DeveRetornar410()
     {
         _factory.JobAppServiceMock
@@ -301,7 +301,7 @@ public class JobEndpointTests : IClassFixture<JobEndpointTests.JobWebApplication
     }
 
     [Fact(DisplayName = "POST /v1/job-definitions/{id}/execute - Deve retornar 400 quando job não pode ser executado")]
-    [Trait("Api", "JobDefinitions")]
+    [Trait("Api", "")]
     public async Task Execute_JobInativo_DeveRetornar400()
     {
         _factory.JobAppServiceMock
@@ -320,7 +320,7 @@ public class JobEndpointTests : IClassFixture<JobEndpointTests.JobWebApplication
     }
 
     [Fact(DisplayName = "POST /v1/job-definitions/{id}/execute - Deve retornar 500 quando serviço lança exceção")]
-    [Trait("Api", "JobDefinitions")]
+    [Trait("Api", "")]
     public async Task Execute_Erro_DeveRetornar500()
     {
         _factory.JobAppServiceMock
@@ -337,7 +337,7 @@ public class JobEndpointTests : IClassFixture<JobEndpointTests.JobWebApplication
     #region Update
 
     [Fact(DisplayName = "PUT /v1/job-definitions/{id} - Deve retornar 200 quando atualizado com sucesso")]
-    [Trait("Api", "JobDefinitions")]
+    [Trait("Api", "")]
     public async Task Update_Sucesso_DeveRetornar200()
     {
         var request = Builder<UpdateJobRequest>.CreateNew()
@@ -356,7 +356,7 @@ public class JobEndpointTests : IClassFixture<JobEndpointTests.JobWebApplication
     }
 
     [Fact(DisplayName = "PUT /v1/job-definitions/{id} - Deve retornar 410 quando job não existe")]
-    [Trait("Api", "JobDefinitions")]
+    [Trait("Api", "")]
     public async Task Update_NaoEncontrado_DeveRetornar410()
     {
         var request = Builder<UpdateJobRequest>.CreateNew()
@@ -379,7 +379,7 @@ public class JobEndpointTests : IClassFixture<JobEndpointTests.JobWebApplication
     }
 
     [Fact(DisplayName = "PUT /v1/job-definitions/{id} - Deve retornar 500 quando serviço lança exceção")]
-    [Trait("Api", "JobDefinitions")]
+    [Trait("Api", "")]
     public async Task Update_Erro_DeveRetornar500()
     {
         var request = Builder<UpdateJobRequest>.CreateNew()
@@ -400,7 +400,7 @@ public class JobEndpointTests : IClassFixture<JobEndpointTests.JobWebApplication
     #region Activate
 
     [Fact(DisplayName = "PATCH /v1/job-definitions/{id}/activate - Deve retornar 200 quando ativado com sucesso")]
-    [Trait("Api", "JobDefinitions")]
+    [Trait("Api", "")]
     public async Task Activate_Sucesso_DeveRetornar200()
     {
         _factory.JobAppServiceMock
@@ -413,7 +413,7 @@ public class JobEndpointTests : IClassFixture<JobEndpointTests.JobWebApplication
     }
 
     [Fact(DisplayName = "PATCH /v1/job-definitions/{id}/activate - Deve retornar 410 quando job não existe")]
-    [Trait("Api", "JobDefinitions")]
+    [Trait("Api", "")]
     public async Task Activate_NaoEncontrado_DeveRetornar410()
     {
         _factory.JobAppServiceMock
@@ -432,7 +432,7 @@ public class JobEndpointTests : IClassFixture<JobEndpointTests.JobWebApplication
     }
 
     [Fact(DisplayName = "PATCH /v1/job-definitions/{id}/activate - Deve retornar 500 quando serviço lança exceção")]
-    [Trait("Api", "JobDefinitions")]
+    [Trait("Api", "")]
     public async Task Activate_Erro_DeveRetornar500()
     {
         _factory.JobAppServiceMock
@@ -449,7 +449,7 @@ public class JobEndpointTests : IClassFixture<JobEndpointTests.JobWebApplication
     #region Deactivate
 
     [Fact(DisplayName = "PATCH /v1/job-definitions/{id}/deactivate - Deve retornar 200 quando desativado com sucesso")]
-    [Trait("Api", "JobDefinitions")]
+    [Trait("Api", "")]
     public async Task Deactivate_Sucesso_DeveRetornar200()
     {
         _factory.JobAppServiceMock
@@ -462,7 +462,7 @@ public class JobEndpointTests : IClassFixture<JobEndpointTests.JobWebApplication
     }
 
     [Fact(DisplayName = "PATCH /v1/job-definitions/{id}/deactivate - Deve retornar 410 quando job não existe")]
-    [Trait("Api", "JobDefinitions")]
+    [Trait("Api", "")]
     public async Task Deactivate_NaoEncontrado_DeveRetornar410()
     {
         _factory.JobAppServiceMock
@@ -481,7 +481,7 @@ public class JobEndpointTests : IClassFixture<JobEndpointTests.JobWebApplication
     }
 
     [Fact(DisplayName = "PATCH /v1/job-definitions/{id}/deactivate - Deve retornar 500 quando serviço lança exceção")]
-    [Trait("Api", "JobDefinitions")]
+    [Trait("Api", "")]
     public async Task Deactivate_Erro_DeveRetornar500()
     {
         _factory.JobAppServiceMock
@@ -498,7 +498,7 @@ public class JobEndpointTests : IClassFixture<JobEndpointTests.JobWebApplication
     #region Delete
 
     [Fact(DisplayName = "DELETE /v1/job-definitions/{id} - Deve retornar 200 quando excluído com sucesso")]
-    [Trait("Api", "JobDefinitions")]
+    [Trait("Api", "")]
     public async Task Delete_Sucesso_DeveRetornar200()
     {
         _factory.JobAppServiceMock
@@ -511,7 +511,7 @@ public class JobEndpointTests : IClassFixture<JobEndpointTests.JobWebApplication
     }
 
     [Fact(DisplayName = "DELETE /v1/job-definitions/{id} - Deve retornar 410 quando job não existe")]
-    [Trait("Api", "JobDefinitions")]
+    [Trait("Api", "")]
     public async Task Delete_NaoEncontrado_DeveRetornar410()
     {
         _factory.JobAppServiceMock
@@ -530,7 +530,7 @@ public class JobEndpointTests : IClassFixture<JobEndpointTests.JobWebApplication
     }
 
     [Fact(DisplayName = "DELETE /v1/job-definitions/{id} - Deve retornar 500 quando serviço lança exceção")]
-    [Trait("Api", "JobDefinitions")]
+    [Trait("Api", "")]
     public async Task Delete_Erro_DeveRetornar500()
     {
         _factory.JobAppServiceMock
