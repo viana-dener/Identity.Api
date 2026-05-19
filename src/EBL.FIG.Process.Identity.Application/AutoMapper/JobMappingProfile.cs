@@ -37,7 +37,13 @@ public class JobMappingProfile : Profile
             .ForMember(dest => dest.IsSystemJob, opt => opt.MapFrom(src => src.IsSystemJob))
             .ForMember(dest => dest.HangfireJobId, opt => opt.MapFrom(src => src.HangfireJobId))
             .ForMember(dest => dest.LastRegisteredAt, opt => opt.MapFrom(src => src.LastRegisteredAt))
-            .ForMember(dest => dest.IsActive, opt => opt.MapFrom(src => src.IsActive));
+            .ForMember(dest => dest.IsActive, opt => opt.MapFrom(src => src.IsActive))
+            .ForMember(dest => dest.TenantId, opt => opt.Ignore())
+            .ForMember(dest => dest.Tenant, opt => opt.Ignore())
+            .ForMember(dest => dest.NextExecution, opt => opt.Ignore())
+            .ForMember(dest => dest.LastExecution, opt => opt.Ignore())
+            .ForMember(dest => dest.LastExecutionStatus, opt => opt.Ignore())
+            .ForMember(dest => dest.Status, opt => opt.Ignore());
 
         CreateMap<ListPage<JobDefinitionEntity>, ListPageResponse<JobResponse>>();
     }

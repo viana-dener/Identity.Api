@@ -13,12 +13,12 @@ public class UserMappingProfile : Profile
 {
     public UserMappingProfile()
     {
-        // Mapeia UserEntity -> UserResponse
         CreateMap<UserEntity, UserResponse>()
-            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
-            .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
-            .ForMember(dest => dest.LastAccessAt, opt => opt.MapFrom(src => src.LastAccessAt))
-            .ForMember(dest => dest.IsActive, opt => opt.MapFrom(src => src.IsActive));
+             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
+             .ForMember(dest => dest.LastAccessAt, opt => opt.MapFrom(src => src.LastAccessAt))
+             .ForMember(dest => dest.IsActive, opt => opt.MapFrom(src => src.IsActive))
+             .ForMember(dest => dest.PhoneNumber, opt => opt.Ignore());
 
         CreateMap<UserEntity, UserDetailResponse>()
              .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))

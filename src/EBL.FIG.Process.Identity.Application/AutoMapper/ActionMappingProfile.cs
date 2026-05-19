@@ -29,6 +29,7 @@ public class ActionMappingProfile : Profile
         CreateMap<ListPage<ActionEntity>, ListPageResponse<ActionResponse>>();
 
         CreateMap<JwtKeyEntity, JwtKeyResponse>();
-        CreateMap<JwtKeyEntity, JwtKeyDetailResponse>();
+        CreateMap<JwtKeyEntity, JwtKeyDetailResponse>()
+            .ForMember(dest => dest.Tenant, opt => opt.Ignore());
     }
 }

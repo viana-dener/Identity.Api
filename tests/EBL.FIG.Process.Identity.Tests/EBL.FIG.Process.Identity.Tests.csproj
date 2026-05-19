@@ -28,7 +28,7 @@
     <Using Include="Xunit" />
   </ItemGroup>
 
-  <ItemGroup> <Folder Include="Infra\" /> <Folder Include="Infra\\Caching\" /> <Folder Include="Infra\\Data\" /> <Folder Include="Infra\\Integration\" /> <Folder Include="Infra\\Messaging\" /> </ItemGroup> 
+  <ItemGroup> <Folder Include="Infra\\Caching\" /> <Folder Include="Infra\\Integration\" /> <Folder Include="Infra\\Messaging\" /> </ItemGroup> 
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\EBL.FIG.Process.Identity.Api\EBL.FIG.Process.Identity.Api.csproj" />
