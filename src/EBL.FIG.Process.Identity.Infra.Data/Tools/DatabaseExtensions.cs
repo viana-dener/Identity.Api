@@ -1,5 +1,4 @@
 ﻿using EBL.FIG.Process.Identity.Infra.Data.Context;
-using EBL.FIG.Process.Identity.Infra.Data.Seeders;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -318,29 +317,6 @@ public static class DatabaseExtensions
     }
 
     /// <summary>
-    /// Executa o seeding de dados iniciais
-    /// </summary>
-    public static async Task SeedDatabaseAsync(this IHost host)
-    {
-        using var scope = host.Services.CreateScope();
-        var services = scope.ServiceProvider;
-        var logger = services.GetRequiredService<ILogger<DatabaseSeeder>>();
-
-        try
-        {
-            var context = services.GetRequiredService<IdentityDbContext>();
-            var seeder = new DatabaseSeeder(context, logger);
-
-            await seeder.SeedAsync();
-        }
-        catch (Exception ex)
-        {
-            logger.LogError(ex, "? Erro ao executar seeding do banco");
-            throw;
-        }
-    }
-
-    /// <summary>
     /// Inicializa o banco de dados (migrations + seeding)
     /// </summary>
     public static async Task InitializeDatabaseAsync(this IHost host, bool applyMigrations = false)
@@ -361,8 +337,6 @@ public static class DatabaseExtensions
             {
                 logger.LogInformation("??  Migrations automáticas desabilitadas, pulando...");
             }
-
-            await host.SeedDatabaseAsync();
 
             logger.LogInformation("? Banco de dados inicializado com sucesso");
         }

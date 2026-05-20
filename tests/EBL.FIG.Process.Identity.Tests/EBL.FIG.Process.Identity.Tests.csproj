@@ -28,7 +28,7 @@
     <Using Include="Xunit" />
   </ItemGroup>
 
-  <ItemGroup> <Folder Include="Infra\\Caching\" /> <Folder Include="Infra\\Integration\" /> <Folder Include="Infra\\Messaging\" /> </ItemGroup> 
+  <ItemGroup> <Folder Include="Infra\Data\Security\" /> <Folder Include="Infra\\Caching\" /> <Folder Include="Infra\\Integration\" /> <Folder Include="Infra\\Messaging\" /> </ItemGroup> 
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\EBL.FIG.Process.Identity.Api\EBL.FIG.Process.Identity.Api.csproj" />
@@ -37,6 +37,7 @@
     <ProjectReference Include="..\..\src\EBL.FIG.Process.Identity.Infra.Data\EBL.FIG.Process.Identity.Infra.Data.csproj" />
     <ProjectReference Include="..\..\src\EBL.FIG.Process.Identity.Infra.Integration\EBL.FIG.Process.Identity.Infra.Integration.csproj" />
     <ProjectReference Include="..\..\src\EBL.FIG.Process.Identity.Infra.IoC\EBL.FIG.Process.Identity.Infra.IoC.csproj" />
+    <ProjectReference Include="..\..\src\EBL.FIG.Process.Identity.Infra.Job\EBL.FIG.Process.Identity.Infra.Job.csproj" />
   </ItemGroup>
 
 </Project>

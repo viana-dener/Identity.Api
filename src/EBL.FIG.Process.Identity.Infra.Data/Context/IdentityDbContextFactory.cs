@@ -1,9 +1,8 @@
-using EBL.FIG.Process.Identity.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 
-namespace EBL.FIG.Process.Identity.Infra.Data;
+namespace EBL.FIG.Process.Identity.Infra.Data.Context;
 
 /// <summary>
 /// Factory usada exclusivamente pelo dotnet-ef CLI para criar o IdentityDbContext em tempo de design (migrations).
