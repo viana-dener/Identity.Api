@@ -1,7 +1,7 @@
-using AutoMapper;
-using EBL.FIG.Process.Identity.Application.AutoMapper;
+﻿using AutoMapper;
+using VianaHub.Global.Identity.Application.AutoMapper;
 
-namespace EBL.FIG.Process.Identity.Test;
+namespace VianaHub.Global.Identity.Test;
 
 public class TestAutoMapperSetup
 {
